@@ -21,6 +21,26 @@ public class Menu {
 
         if (checkPersistance()) {
             ui.showMenu(MenuOptions.START_PROGRAM);
+            while(true) {
+                ui.showMenu(MenuOptions.MAIN_MENU);
+                int option = ui.askForInt("Choose a Digital Shopping Experience: ", 1, 6);
+
+                switch(option) {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        ui.showMenu(MenuOptions.EXIT_PROGRAM);
+                        return; //We close the infinite loop and close the program and the execution.
+                }
+            }
         } else {
             ui.showMenu(MenuOptions.EXIT_PROGRAM);
         }
