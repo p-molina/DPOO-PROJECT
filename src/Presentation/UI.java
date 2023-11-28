@@ -1,11 +1,16 @@
 package Presentation;
 
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import static Presentation.MenuOptions.MENU_PRINCIPAL;
 
 public class UI {
-    public UI() {}
+    private static Scanner scanner;
+    public UI() {
+        scanner = new Scanner(System.in);
+    }
 
     public static void showMenu(MenuOptions seleccionMenu) {
         switch(seleccionMenu) {
@@ -51,23 +56,28 @@ public class UI {
     }
 
     public static int askForInt(String message, int min, int max) {
-        int selection;
-        Scanner scanner = new Scanner(System.in);
-
-        while(true) {
-            System.out.print(message);
+        while (true) {
             try {
-                selection = scanner.nextInt();
-                if (selection >= min && selection <= max) {break;} //If the selection is in the range it breaks the infinite loop.
-                else {
-                    //We show the user that he is not in the range
-                    System.out.println("\nERROR: The input is out of the range.\n Enter an option between" + min + " and " + max + ".\n Try again...\n");
+                System.out.print(message);
+                int selection = scanner.nextInt();
+                scanner.nextLine(); // Limpiar el buffer después de leer el entero
+
+                if (selection >= min && selection <= max) {
+                    return selection;
+                } else {
+                    // Mostrar el mensaje de error para la selección fuera de rango
+                    System.out.println("\nERROR: The input is out of the range.\nEnter an option between " + min + " and " + max + ".\nTry again...\n");
                 }
-            } catch (Exception e) { //To avoid any other exception from the .nextInt() [InputMismatchException, NoSuchElementException or IllegalStateException]
+            } catch (InputMismatchException e) {
+                System.out.println("\nERROR: Input is not an integer. \nTry again...\n");
+                scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
+
+            } catch (NoSuchElementException | IllegalStateException e) {
                 System.out.println("\nERROR: Problem with the input. \nTry again...\n");
+                scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
             }
         }
-
-        return selection;
     }
+
+
 }
