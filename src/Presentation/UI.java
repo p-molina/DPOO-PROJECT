@@ -54,9 +54,9 @@ public class UI {
             case SELECT_CATEGORY:
                 System.out.println("\nThe system supports the following product categories:\n" +
                         "\n" +
-                        "\tA) General\n" +
-                        "\tB) Reduced Taxes\n" +
-                        "\tC) Superreduced Taxes");
+                        "\t1) General\n" +
+                        "\t2) Reduced Taxes\n" +
+                        "\t3) Superreduced Taxes");
                 break;
         }
     }

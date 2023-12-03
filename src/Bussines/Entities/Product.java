@@ -15,4 +15,24 @@ public class Product {
         this.reviews = null;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public double getMrp() {
+        return mrp;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Review[] getReviews() {
+        return reviews;
+    }
+
 }
