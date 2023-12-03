@@ -5,5 +5,6 @@ public enum MenuOptions {
     CHECKING_FILES,
      EXIT_PROGRAM,
     START_PROGRAM,
-    MAIN_MENU
+    MAIN_MENU,
+    SELECT_CATEGORY, MENU_PRODUCTO
 }

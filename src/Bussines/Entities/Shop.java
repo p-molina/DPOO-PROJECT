@@ -1,4 +1,7 @@
-package Bussines;
+package Bussines.Entities;
+
+import Bussines.Entities.BusinessModel;
+import Bussines.Entities.CatalogProduct;
 
 import java.util.List;
 

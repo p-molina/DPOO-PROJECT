@@ -4,8 +4,6 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import static Presentation.MenuOptions.MENU_PRINCIPAL;
-
 public class UI {
     private static Scanner scanner;
     public UI() {
@@ -48,6 +46,18 @@ public class UI {
                                     "\n\t6) Exit\n"
                                     );
                 break;
+            case MENU_PRODUCTO:
+                System.out.println( "\n\t1) Create a Product\n" +
+                                    "\t2) Remove a Product\n" +
+                                    "\n\t3) Back\n");
+                break;
+            case SELECT_CATEGORY:
+                System.out.println("\nThe system supports the following product categories:\n" +
+                        "\n" +
+                        "\tA) General\n" +
+                        "\tB) Reduced Taxes\n" +
+                        "\tC) Superreduced Taxes");
+                break;
         }
     }
 
@@ -78,6 +88,42 @@ public class UI {
             }
         }
     }
+    public static String askForString(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = scanner.nextLine();
 
+                if (!input.trim().isEmpty()) {
+                    return input;
+                } else {
+                    System.out.println("\nERROR: The input cannot be empty. \nTry again...\n");
+                }
+            } catch (NoSuchElementException | IllegalStateException e) {
+                System.out.println("\nERROR: Problem with the input. \nTry again...\n");
+                scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
+            }
+        }
+    }
+    public static float askForFloat(String message, float min, float max) {
+        while (true) {
+            try {
+                System.out.print(message);
+                float selection = scanner.nextFloat();
+                scanner.nextLine(); // Limpiar el buffer después de leer el float
 
+                if (selection >= min && selection <= max) {
+                    return selection;
+                } else {
+                    System.out.println("\nERROR: The input is out of the range.\nEnter a number between " + min + " and " + max + ".\nTry again...\n");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("\nERROR: Input is not a valid number. \nTry again...\n");
+                scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
+            } catch (NoSuchElementException | IllegalStateException e) {
+                System.out.println("\nERROR: Problem with the input. \nTry again...\n");
+                scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
+            }
+        }
+    }
 }

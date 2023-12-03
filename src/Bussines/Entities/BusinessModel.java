@@ -1,4 +1,4 @@
-package Bussines;
+package Bussines.Entities;
 
 public class BusinessModel {
     private String businessModel;

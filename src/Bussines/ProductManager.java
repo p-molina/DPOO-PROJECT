@@ -1,5 +1,7 @@
 package Bussines;
 
+import Bussines.Entities.Category;
+import Bussines.Entities.Product;
 import Persistance.ProductDAO;
 
 import java.io.FileNotFoundException;
@@ -13,5 +15,11 @@ public class ProductManager {
 
     public void checkProductFile() throws FileNotFoundException {
         productDAO.checkFile();
+    }
+
+    public void createProduct(String name, String brand, double mrp, Category category) {
+        Product product = new Product(name, brand, mrp, category);
+
+        productDAO.addProductToFile(product);
     }
 }
