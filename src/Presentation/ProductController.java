@@ -41,11 +41,11 @@ public class ProductController {
         int categorySelection = ui.askForInt("\nPlease pick the product’s category: ", 1, 3);
 
         if (categorySelection == 1) {
-            productManager.createProduct(name, brand, mrp, new Category("GENERAL"));
+            productManager.createProduct(name, brand, mrp, "GENERAL");
         } else if (categorySelection == 2) {
-            productManager.createProduct(name, brand, mrp, new Category("REDUCED"));
+            productManager.createProduct(name, brand, mrp, "REDUCED");
         } else if (categorySelection == 3)  {
-            productManager.createProduct(name, brand, mrp, new Category("SUPER_REDUCED"));
+            productManager.createProduct(name, brand, mrp, "SUPER_REDUCED");
         }
 
         ui.showMessage("The product \"" + name + "\" by \"" + brand + "\" was added to the system. \n");

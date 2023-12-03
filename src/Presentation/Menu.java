@@ -27,7 +27,7 @@ public class Menu {
 
                 switch(option) {
                     case 1:
-                        createProduct();
+                        menuProduct();
                         break;
                     case 2:
                         break;
@@ -58,7 +58,7 @@ public class Menu {
 
         return check;
     }
-    private void createProduct() {
+    private void menuProduct() {
         productController.runProductMenu();
     }
 }

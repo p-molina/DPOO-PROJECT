@@ -17,8 +17,8 @@ public class ProductManager {
         productDAO.checkFile();
     }
 
-    public void createProduct(String name, String brand, double mrp, Category category) {
-        Product product = new Product(name, brand, mrp, category);
+    public void createProduct(String name, String brand, double mrp, String category) {
+        Product product = new Product(name, brand, mrp, new Category(category));
 
         productDAO.addProductToFile(product);
     }

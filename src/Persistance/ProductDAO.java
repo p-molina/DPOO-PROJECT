@@ -1,7 +1,6 @@
 package Persistance;
 
 import Bussines.Entities.Product;
-import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -11,7 +10,6 @@ import java.nio.file.Path;
 
 public class ProductDAO {
     private final static Path path = Path.of("files/products.json");
-    private Gson gson = new Gson();
     public ProductDAO() {}
 
     public void checkFile() throws FileNotFoundException {
