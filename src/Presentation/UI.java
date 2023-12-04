@@ -58,6 +58,19 @@ public class UI {
                         "\t2) Reduced Taxes\n" +
                         "\t3) Superreduced Taxes");
                 break;
+            case MANAGE_SHOPS:
+                System.out.println( "\n\t1) Create a Shop\n" +
+                        "\t2) Expand a Shop's Catalogue\n" +
+                        "\t3) Reduce a Shop's Catalogue\n" +
+                        "\n\t4) Back\n");
+                break;
+            case SELECT_MODEL:
+                System.out.println("\nThe system supports the following business models:\n" +
+                        "\n" +
+                        "\t1) Maximum Benefits\n" +
+                        "\t2) Loyalty\n" +
+                        "\t3) Sponsored");
+                break;
         }
     }
 
@@ -65,7 +78,7 @@ public class UI {
         System.out.println(message);
     }
 
-    public static int askForInt(String message, int min, int max) {
+    public static int askForOption(String message, int min, int max) {
         while (true) {
             try {
                 System.out.print(message);
@@ -85,6 +98,18 @@ public class UI {
             } catch (NoSuchElementException | IllegalStateException e) {
                 System.out.println("\nERROR: Problem with the input. \nTry again...\n");
                 scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
+            }
+        }
+    }
+    public static int askForInt(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("This isn't an integer!");
+            } finally {
+                scanner.nextLine();
             }
         }
     }

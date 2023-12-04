@@ -3,6 +3,7 @@ package Bussines.Entities;
 import Bussines.Entities.BusinessModel;
 import Bussines.Entities.CatalogProduct;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Shop {
@@ -13,13 +14,13 @@ public class Shop {
     private BusinessModel businessModel;
     private List<CatalogProduct> catalogProductList;
 
-    public Shop(String name, String description, int since, double earnings, BusinessModel businessModel, List<CatalogProduct> catalogProductList) {
+    public Shop(String name, String description, int since, double earnings, BusinessModel businessModel) {
         this.name = name;
         this.description = description;
         this.since = since;
         this.earnings = earnings;
         this.businessModel = businessModel;
-        this.catalogProductList = catalogProductList;
+        this.catalogProductList = new ArrayList<CatalogProduct>();
     }
 
     public String getName() {
@@ -42,18 +43,7 @@ public class Shop {
         this.earnings = earnings;
     }
 
-    public void setBusinessModel(String businessModel)
-    {
-        this.businessModel = new BusinessModel(businessModel);
-    }
+    //public void addCatalogProduct(String nameProduct, String nameShop, int price)
 
-    public void addCatalogProduct(String nameProduct, String nameShop, int price)
-    {
-        catalogProductList.add(new CatalogProduct(nameProduct,nameShop, price));
-    }
-
-    public void deleteCatalogProduct(String nameProduct)
-    {
-        //eliminar catalogProduct;
-    }
+    //public void deleteCatalogProduct(String nameProduct)
 }

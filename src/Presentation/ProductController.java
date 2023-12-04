@@ -20,7 +20,7 @@ public class ProductController {
     public void runProductMenu() {
 
         ui.showMenu(MenuOptions.MENU_PRODUCTO);
-        int selection = ui.askForInt("Choose an option: ",1, 3);
+        int selection = ui.askForOption("Choose an option: ",1, 3);
         switch (selection) {
             case 1:
                 createPorduct();
@@ -38,7 +38,7 @@ public class ProductController {
         float mrp = ui.askForFloat("Please enter the product’s maximum retail price [Please! use ',']: ", 0 , 10000);
 
         ui.showMenu(MenuOptions.SELECT_CATEGORY);
-        int categorySelection = ui.askForInt("\nPlease pick the product’s category: ", 1, 3);
+        int categorySelection = ui.askForOption("\nPlease pick the product’s category: ", 1, 3);
 
         if (categorySelection == 1) {
             productManager.createProduct(name, brand, mrp, "GENERAL");

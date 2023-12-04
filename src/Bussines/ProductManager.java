@@ -6,7 +6,7 @@ import Persistance.ProductDAO;
 
 import java.io.FileNotFoundException;
 
-public class ProductManager {
+public class  ProductManager {
     private ProductDAO productDAO;
 
     public ProductManager(ProductDAO productDAO) {

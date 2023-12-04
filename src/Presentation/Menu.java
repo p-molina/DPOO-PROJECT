@@ -23,13 +23,14 @@ public class Menu {
             ui.showMenu(MenuOptions.START_PROGRAM);
             while(true) {
                 ui.showMenu(MenuOptions.MAIN_MENU);
-                int option = ui.askForInt("Choose a Digital Shopping Experience: ", 1, 6);
+                int option = ui.askForOption("Choose a Digital Shopping Experience: ", 1, 6);
 
                 switch(option) {
                     case 1:
                         menuProduct();
                         break;
                     case 2:
+                        manageShop();
                         break;
                     case 3:
                         break;
@@ -60,5 +61,9 @@ public class Menu {
     }
     private void menuProduct() {
         productController.runProductMenu();
+    }
+    private void manageShop()
+    {
+        shopController.runShopMenu();
     }
 }
