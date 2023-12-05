@@ -31,6 +31,11 @@ public class ShopController {
     {
         String name = UI.askForString("\nPlease enter the shop’s name: ");
         //COMPROVAR NOM UNIC
+        if(shopManager.isShopUnique(name))
+        {
+            UI.showMessage("ERROR SHOP ALREADY EXISTS");
+            return false;
+        }
         String description = UI.askForString("Please enter the shops’s description: ");
         int year = UI.askForInt("Please enter the shop founding year: ");
         //COMPROVAR ANY POSITIU

@@ -76,6 +76,18 @@ public class ShopDAO {
         }
         return null;
     }
+    public static boolean deleteShop(String name) {
+        Shop shopToRemove = findByName(name);
+
+        if (shopToRemove != null) {
+            List<Shop> existingShops = loadAllShops();
+            existingShops.remove(shopToRemove);
+            saveAllShops(existingShops);
+        } else {
+            return false;
+        }
+        return true;
+    }
 
 
 }
