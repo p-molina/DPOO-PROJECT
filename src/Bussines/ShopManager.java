@@ -17,6 +17,6 @@ public class ShopManager {
 
         Shop shop = new Shop(name, description, since, 0, new BusinessModel(nameModel));
 
-        shopDAO.addShopToFile(shop);
+        //shopDAO.addShopToFile(shop);
     }
 }

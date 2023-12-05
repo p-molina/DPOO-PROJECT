@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 
 public class ProductController {
     private ProductManager productManager;
-    private UI ui;
 
     public ProductController(ProductManager productManager) {
             this.productManager = productManager;
@@ -19,8 +18,8 @@ public class ProductController {
 
     public void runProductMenu() {
 
-        ui.showMenu(MenuOptions.MENU_PRODUCTO);
-        int selection = ui.askForOption("Choose an option: ",1, 3);
+        UI.showMenu(MenuOptions.MENU_PRODUCTO);
+        int selection = UI.askForOption("Choose an option: ",1, 3);
         switch (selection) {
             case 1:
                 createPorduct();
@@ -33,12 +32,12 @@ public class ProductController {
     }
 
     private void createPorduct() {
-        String name = ui.askForString("\nPlease enter the product’s name: ");
-        String brand = ui.askForString("Please enter the product’s brand: ");
-        float mrp = ui.askForFloat("Please enter the product’s maximum retail price [Please! use ',']: ", 0 , 10000);
+        String name = UI.askForString("\nPlease enter the product’s name: ");
+        String brand = UI.askForString("Please enter the product’s brand: ");
+        float mrp = UI.askForFloat("Please enter the product’s maximum retail price [Please! use ',']: ", 0 , 10000);
 
-        ui.showMenu(MenuOptions.SELECT_CATEGORY);
-        int categorySelection = ui.askForOption("\nPlease pick the product’s category: ", 1, 3);
+        UI.showMenu(MenuOptions.SELECT_CATEGORY);
+        int categorySelection = UI.askForOption("\nPlease pick the product’s category: ", 1, 3);
 
         if (categorySelection == 1) {
             productManager.createProduct(name, brand, mrp, "GENERAL");
@@ -48,6 +47,10 @@ public class ProductController {
             productManager.createProduct(name, brand, mrp, "SUPER_REDUCED");
         }
 
-        ui.showMessage("The product \"" + name + "\" by \"" + brand + "\" was added to the system. \n");
+        UI.showMessage("\nThe product \"" + name + "\" by \"" + brand + "\" was added to the system.");
+    }
+
+    private void deleteProduct() {
+
     }
 }

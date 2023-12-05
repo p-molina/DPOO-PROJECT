@@ -5,70 +5,54 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-
 import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShopDAO {
 
-    private final static Path path = Path.of("files/shops.json");
-    public ShopDAO(){}
-    public static void checkFile() throws FileNotFoundException {
-        File file = path.toFile();
+    private static final Path path = Path.of("files/shops.json");
+    private Gson gson;
 
-        if (!file.exists()) {
-            try {
-                file.createNewFile(); // Crear el archivo si NO existe
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public ShopDAO() {
+        this.gson = new GsonBuilder().setPrettyPrinting().create();
+    }
+
+    public static void checkFile() throws IOException {
+        if (!Files.exists(path)) {
+            Files.createFile(path);
         }
     }
 
-    public static void saveAllShops(List<Shop> shops) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-        try (FileWriter fileWriter = new FileWriter("files/shops.json")) {
+    public void saveAllShops(List<Shop> shops) throws IOException {
+        try (FileWriter fileWriter = new FileWriter(path.toFile())) {
             gson.toJson(shops, fileWriter);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
-    public static void addShop(Shop shop) {
-        try {
-            checkFile(); // Comprobar si el archivo existe
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+
+    public void addShop(Shop shop) throws IOException {
+        checkFile(); // Comprobar si el archivo existe
         List<Shop> existingShops = loadAllShops();
         existingShops.add(shop);
         saveAllShops(existingShops);
     }
-    private static List<Shop> loadAllShops() {
-        List<Shop> shops = new ArrayList<>();
 
-        try {
-            File file = path.toFile();
-            if (file.exists()) {
-                Gson gson = new Gson();
-                Type shopListType = new TypeToken<ArrayList<Shop>>() {}.getType();
-
-                shops = gson.fromJson(new FileReader(file), shopListType);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+    private List<Shop> loadAllShops() throws IOException {
+        if (!Files.exists(path) || Files.size(path) == 0) {
+            return new ArrayList<>();
         }
 
-        return shops;
+        try (Reader reader = Files.newBufferedReader(path)) {
+            Type shopListType = new TypeToken<ArrayList<Shop>>() {}.getType();
+            return gson.fromJson(reader, shopListType);
+        }
     }
-    public static Shop findByName(String name) {
-        List<Shop> shops = loadAllShops();
 
+    public Shop findByName(String name) throws IOException {
+        List<Shop> shops = loadAllShops();
         for (Shop shop : shops) {
             if (shop.getName().equals(name)) {
                 return shop;
@@ -76,6 +60,4 @@ public class ShopDAO {
         }
         return null;
     }
-
-
 }

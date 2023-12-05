@@ -5,10 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class UI {
-    private static Scanner scanner;
-    public UI() {
-        scanner = new Scanner(System.in);
-    }
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void showMenu(MenuOptions seleccionMenu) {
         switch(seleccionMenu) {
@@ -79,28 +76,28 @@ public class UI {
     }
 
     public static int askForOption(String message, int min, int max) {
+        int selection = 0;
         while (true) {
+            System.out.print(message);
             try {
-                System.out.print(message);
-                int selection = scanner.nextInt();
-                scanner.nextLine(); // Limpiar el buffer después de leer el entero
-
+                selection = scanner.nextInt();
                 if (selection >= min && selection <= max) {
                     return selection;
                 } else {
-                    // Mostrar el mensaje de error para la selección fuera de rango
                     System.out.println("\nERROR: The input is out of the range.\nEnter an option between " + min + " and " + max + ".\nTry again...\n");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("\nERROR: Input is not an integer. \nTry again...\n");
                 scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
-
-            } catch (NoSuchElementException | IllegalStateException e) {
-                System.out.println("\nERROR: Problem with the input. \nTry again...\n");
-                scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
             }
         }
     }
+
+    public static String askForString(String message) {
+        System.out.print(message);
+        return scanner.nextLine();
+    }
+
     public static int askForInt(String message) {
         while (true) {
             try {
@@ -108,35 +105,16 @@ public class UI {
                 return scanner.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("This isn't an integer!");
-            } finally {
                 scanner.nextLine();
             }
         }
     }
-    public static String askForString(String message) {
-        while (true) {
-            try {
-                System.out.print(message);
-                String input = scanner.nextLine();
 
-                if (!input.trim().isEmpty()) {
-                    return input;
-                } else {
-                    System.out.println("\nERROR: The input cannot be empty. \nTry again...\n");
-                }
-            } catch (NoSuchElementException | IllegalStateException e) {
-                System.out.println("\nERROR: Problem with the input. \nTry again...\n");
-                scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
-            }
-        }
-    }
     public static float askForFloat(String message, float min, float max) {
         while (true) {
             try {
                 System.out.print(message);
                 float selection = scanner.nextFloat();
-                scanner.nextLine(); // Limpiar el buffer después de leer el float
-
                 if (selection >= min && selection <= max) {
                     return selection;
                 } else {
@@ -144,10 +122,7 @@ public class UI {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("\nERROR: Input is not a valid number. \nTry again...\n");
-                scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
-            } catch (NoSuchElementException | IllegalStateException e) {
-                System.out.println("\nERROR: Problem with the input. \nTry again...\n");
-                scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
+                scanner.nextLine();
             }
         }
     }
