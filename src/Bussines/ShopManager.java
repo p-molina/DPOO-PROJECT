@@ -17,6 +17,11 @@ public class ShopManager {
 
         Shop shop = new Shop(name, description, since, 0, new BusinessModel(nameModel));
 
-        //shopDAO.addShopToFile(shop);
+        ShopDAO.addShop(shop);
+    }
+    public boolean isShopUnique(String name)
+    {
+        Shop isUnique = ShopDAO.findByName(name);
+        return isUnique == null;
     }
 }

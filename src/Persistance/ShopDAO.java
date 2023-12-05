@@ -5,10 +5,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,4 +62,18 @@ public class ShopDAO {
         }
         return null;
     }
+    public static boolean deleteShop(String name) {
+        Shop shopToRemove = findByName(name);
+
+        if (shopToRemove != null) {
+            List<Shop> existingShops = loadAllShops();
+            existingShops.remove(shopToRemove);
+            saveAllShops(existingShops);
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+
 }
