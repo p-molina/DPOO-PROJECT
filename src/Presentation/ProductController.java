@@ -43,9 +43,8 @@ public class ProductController {
             UI.showMessage("ERROR: Problem with the file!. Going back...");
             return;
         }
-        String brand = UI.askForString("Please enter the product’s brand: ");
-        float mrp = UI.askForFloat("Please enter the product’s maximum retail price [Please! use ',']: ", 0);
-        mrp = Math.round(mrp * 100.0f) / 100.0f; // Se redondea los dos decimales
+        String brand = productManager.toTitleCase(UI.askForString("Please enter the product’s brand: "));
+        double mrp = UI.askForDouble("Please enter the product’s maximum retail price [Please! use ',']: ", 0);
 
         UI.showMenu(MenuOptions.SELECT_CATEGORY);
         int categorySelection = UI.askForOption("\nPlease pick the product’s category: ", 1, 3);

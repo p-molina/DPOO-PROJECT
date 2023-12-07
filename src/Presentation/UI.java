@@ -3,6 +3,8 @@ package Presentation;
 import Bussines.Entities.Product;
 import Bussines.Entities.Review;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -147,11 +149,11 @@ public class UI {
         }
     }
 
-    public static float askForFloat(String message, float min) {
+    public static double askForDouble(String message, float min) {
         while (true) {
             try {
                 System.out.print(message);
-                float selection = scanner.nextFloat();
+                double selection = scanner.nextDouble();
                 if (selection >= min) {
                     scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
                     return selection;
@@ -160,7 +162,7 @@ public class UI {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("\nERROR: Input is not a valid number. \nTry again...\n");
-                scanner.nextLine();
+                scanner.nextLine(); // Limpiar el buffer
             }
         }
     }
