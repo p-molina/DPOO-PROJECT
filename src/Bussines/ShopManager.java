@@ -1,7 +1,9 @@
 package Bussines;
 
 import Bussines.Entities.BusinessModel;
+import Bussines.Entities.Product;
 import Bussines.Entities.Shop;
+import Persistance.ProductDAO;
 import Persistance.ShopDAO;
 
 import java.io.IOException;
@@ -9,12 +11,14 @@ import java.io.IOException;
 public class ShopManager {
 
     private ShopDAO shopDAO;
+    private ProductDAO productDAO;
 
-    public ShopManager(ShopDAO shopDAO) {
+    public ShopManager(ShopDAO shopDAO, ProductDAO productDAO) {
+
         this.shopDAO = shopDAO;
+        this.productDAO = productDAO;
     }
     public void createShop(String name, String description , int since, String nameModel) throws IOException {
-
         Shop shop = new Shop(name, description, since, 0, new BusinessModel(nameModel));
 
         shopDAO.addShop(shop);
@@ -22,5 +26,17 @@ public class ShopManager {
     public boolean isShopUnique(String name) throws IOException {
         Shop isUnique = shopDAO.findByName(name);
         return isUnique == null;
+    }
+
+    public double getMRPfromProduct(String name) throws IOException {
+        double mrp = 0;
+
+        for (Product product : productDAO.getAll()) {
+            if (product.getName().equals(name)) {
+                mrp = product.getMrp();
+            }
+        }
+
+        return mrp;
     }
 }

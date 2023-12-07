@@ -4,15 +4,15 @@ public class Product {
     private String name;
     private String brand;
     private double mrp;
-    private Category category;
+    private String category;
     private Review[] reviews;
 
-    public Product(String name, String brand, double mrp, Category category) {
+    public Product(String name, String brand, double mrp, String category) {
         this.name = name;
         this.mrp = mrp;
         this.brand = brand;
         this.category = category;
-        this.reviews = null;
+        this.reviews = new Review[0];
     }
 
     public String getName() {
@@ -27,7 +27,7 @@ public class Product {
         return mrp;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 

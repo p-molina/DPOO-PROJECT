@@ -1,5 +1,6 @@
 package Persistance;
 
+import Bussines.Entities.Product;
 import Bussines.Entities.Shop;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -46,14 +47,26 @@ public class ShopDAO {
             return new ArrayList<>();
         }
 
-        try (Reader reader = Files.newBufferedReader(path)) {
-            Type shopListType = new TypeToken<ArrayList<Shop>>() {}.getType();
-            return gson.fromJson(reader, shopListType);
+        Reader reader = Files.newBufferedReader(path);
+        Type shopListType = new TypeToken<ArrayList<Shop>>() {}.getType();
+
+        return gson.fromJson(reader, shopListType);
+    }
+
+    public List<Shop> getAll() throws IOException {
+        if (!Files.exists(path) || path.toFile().length() == 0) {
+            return new ArrayList<>();
         }
+
+        Reader reader = new FileReader(path.toFile());
+        Type shopListType = new TypeToken<ArrayList<Shop>>(){}.getType();
+        reader.close();
+        return gson.fromJson(reader, shopListType);
     }
 
     public Shop findByName(String name) throws IOException {
         List<Shop> shops = loadAllShops();
+
         for (Shop shop : shops) {
             if (shop.getName().equals(name)) {
                 return shop;
@@ -73,6 +86,5 @@ public class ShopDAO {
         }
         return true;
     }
-
 
 }

@@ -2,6 +2,7 @@ package Persistance;
 
 import Bussines.Entities.Product;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.lang.reflect.Type;
@@ -15,7 +16,7 @@ public class ProductDAO {
     private Gson gson;
 
     public ProductDAO() {
-        this.gson = new Gson();
+        this.gson = new GsonBuilder().setPrettyPrinting().create();
     }
 
     public void checkFile() throws FileNotFoundException {
@@ -24,31 +25,27 @@ public class ProductDAO {
         }
     }
 
-    public void addProductToFile(Product product) {
+    public void addProductToFile(Product product) throws IOException{
         List<Product> products = getAll();
         products.add(product);
         saveProducts(products);
     }
 
-    private void saveProducts(List<Product> products) {
-        try (FileWriter writer = new FileWriter(path.toFile())) {
-            gson.toJson(products, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void saveProducts(List<Product> products) throws IOException {
+        FileWriter writer = new FileWriter(path.toFile());
+        gson.toJson(products, writer);
+        writer.close();
     }
 
-    public List<Product> getAll() {
+    public List<Product> getAll() throws IOException {
         if (!Files.exists(path) || path.toFile().length() == 0) {
             return new ArrayList<>();
         }
 
-        try (Reader reader = new FileReader(path.toFile())) {
-            Type productListType = new TypeToken<ArrayList<Product>>(){}.getType();
+        Type productListType = new TypeToken<ArrayList<Product>>(){}.getType();
+        try (Reader reader = new FileReader(path.toFile())) { //Utilizamos aqui el try para cerrar el reader correctamente
             return gson.fromJson(reader, productListType);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ArrayList<>();
         }
     }
+
 }

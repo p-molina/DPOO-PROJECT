@@ -82,6 +82,7 @@ public class UI {
             try {
                 selection = scanner.nextInt();
                 if (selection >= min && selection <= max) {
+                    scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
                     return selection;
                 } else {
                     System.out.println("\nERROR: The input is out of the range.\nEnter an option between " + min + " and " + max + ".\nTry again...\n");
@@ -102,7 +103,9 @@ public class UI {
         while (true) {
             try {
                 System.out.print(message);
-                return scanner.nextInt();
+                int input = scanner.nextInt();
+                scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
+                return input;
             } catch (InputMismatchException e) {
                 System.out.println("This isn't an integer!");
                 scanner.nextLine();
@@ -110,15 +113,16 @@ public class UI {
         }
     }
 
-    public static float askForFloat(String message, float min, float max) {
+    public static float askForFloat(String message, float min) {
         while (true) {
             try {
                 System.out.print(message);
                 float selection = scanner.nextFloat();
-                if (selection >= min && selection <= max) {
+                if (selection >= min) {
+                    scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
                     return selection;
                 } else {
-                    System.out.println("\nERROR: The input is out of the range.\nEnter a number between " + min + " and " + max + ".\nTry again...\n");
+                    System.out.println("\nERROR: The input is out of the range.\nEnter a number bigger than " + min + ".\nTry again...\n");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("\nERROR: Input is not a valid number. \nTry again...\n");

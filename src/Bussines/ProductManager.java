@@ -5,6 +5,7 @@ import Bussines.Entities.Product;
 import Persistance.ProductDAO;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class  ProductManager {
     private ProductDAO productDAO;
@@ -17,9 +18,22 @@ public class  ProductManager {
         productDAO.checkFile();
     }
 
-    public void createProduct(String name, String brand, double mrp, String category) {
-        Product product = new Product(name, brand, mrp, new Category(category));
+    public void createProduct(String name, String brand, double mrp, String category) throws IOException {
+        Product product = new Product(name, brand, mrp, category);
 
         productDAO.addProductToFile(product);
+    }
+
+    public boolean checkName(String name) throws IOException{
+        boolean found = false;
+
+        for (Product product: productDAO.getAll()) {
+            if (product.getName().equals(name)) {
+                found = true;
+                break;
+            }
+        }
+
+        return found;
     }
 }

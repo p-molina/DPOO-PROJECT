@@ -15,7 +15,7 @@ public class Main {
 
         //Aqui inicializamos las clases de la capa Bussines
         ProductManager productManager = new ProductManager(productDAO);
-        ShopManager shopManager = new ShopManager(shopDAO);
+        ShopManager shopManager = new ShopManager(shopDAO, productDAO);
 
         //Aqui inicializamos las clases de la capa Presentacion
         ProductController productController = new ProductController(productManager);
