@@ -1,6 +1,5 @@
 package Bussines;
 
-import Bussines.Entities.Category;
 import Bussines.Entities.Product;
 import Bussines.Entities.Review;
 import Persistance.ProductDAO;

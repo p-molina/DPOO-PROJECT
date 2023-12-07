@@ -93,6 +93,7 @@ public class ProductController {
             if(option.equalsIgnoreCase("yes")) {
                 try {
                     productManager.deleteProduct(name);
+                    shopManager.deleteProductFromShops(name);
                     UI.showMessage("\"" + name + "\" has been withdrawn from sale.");
                 } catch (IOException e) {
                     UI.showMessage("ERROR: Problem with the file!. Going back...");

@@ -11,6 +11,15 @@ public class ShopController {
     public ShopController(ShopManager shopManager) {
         this.shopManager = shopManager;
     }
+
+    public void checkFile() {
+        try {
+            shopManager.checkFile();
+        } catch(IOException e) {
+            UI.showMessage("ERROR: Problem with 'shops.json' file.");
+        }
+    }
+
     public void runShopMenu() {
         boolean isRunning = true;//fer isRunning = false; y torna al menú principal.
 

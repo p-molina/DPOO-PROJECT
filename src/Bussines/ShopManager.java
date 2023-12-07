@@ -7,6 +7,7 @@ import Persistance.ProductDAO;
 import Persistance.ShopDAO;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ShopManager {
 
@@ -17,10 +18,15 @@ public class ShopManager {
         this.shopDAO = shopDAO;
         this.productDAO = productDAO;
     }
+    public void checkFile() throws IOException{
+        shopDAO.checkFile();
+    }
+
     public void createShop(String name, String description , int since, String nameModel) throws IOException {
         Shop shop = new Shop(name, description, since, 0, new BusinessModel(nameModel));
-
-        shopDAO.addShop(shop);
+        List<Shop> shops = shopDAO.getAllShops();
+        shops.add(shop);
+        shopDAO.addShop(shops);
     }
     public boolean isShopUnique(String name) throws IOException {
         Shop isUnique = shopDAO.findByName(name);
@@ -38,7 +44,7 @@ public class ShopManager {
 
         return mrp;
     }
-    public void deleteProductFromShops() throws IOException {
+    public void deleteProductFromShops(String name) throws IOException {
         shopDAO.getAllShops();
     }
 }

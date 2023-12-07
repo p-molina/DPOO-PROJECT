@@ -51,6 +51,7 @@ public class Menu {
 
         try {
             productController.checkProductFile();
+            shopController.checkFile();
             check = true;
         } catch (FileNotFoundException e){
             UI.showMessage(e.getMessage());

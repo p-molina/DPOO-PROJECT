@@ -29,17 +29,10 @@ public class ShopDAO {
         }
     }
 
-    public void saveAllShops(List<Shop> shops) throws IOException {
+    public void addShop(List<Shop> shops) throws IOException {
         try (FileWriter fileWriter = new FileWriter(path.toFile())) {
             gson.toJson(shops, fileWriter);
         }
-    }
-
-    public void addShop(Shop shop) throws IOException {
-        checkFile(); // Comprobar si el archivo existe
-        List<Shop> existingShops = loadAllShops();
-        existingShops.add(shop);
-        saveAllShops(existingShops);
     }
 
     private List<Shop> loadAllShops() throws IOException {
@@ -74,17 +67,18 @@ public class ShopDAO {
         }
         return null;
     }
-    public boolean deleteShop(String name) throws IOException {
-        Shop shopToRemove = findByName(name);
 
-        if (shopToRemove != null) {
-            List<Shop> existingShops = loadAllShops();
-            existingShops.remove(shopToRemove);
-            saveAllShops(existingShops);
-        } else {
-            return false;
-        }
-        return true;
-    }
+//    public boolean deleteShop(String name) throws IOException {
+//        Shop shopToRemove = findByName(name);
+//
+//        if (shopToRemove != null) {
+//            List<Shop> existingShops = loadAllShops();
+//            existingShops.remove(shopToRemove);
+//            saveAllShops(existingShops);
+//        } else {
+//            return false;
+//        }
+//        return true;
+//    }
 
 }
