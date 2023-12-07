@@ -53,7 +53,7 @@ public class ShopDAO {
         return gson.fromJson(reader, shopListType);
     }
 
-    public List<Shop> getAll() throws IOException {
+    public List<Shop> getAllShops() throws IOException {
         if (!Files.exists(path) || path.toFile().length() == 0) {
             return new ArrayList<>();
         }

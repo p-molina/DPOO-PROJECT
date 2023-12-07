@@ -25,19 +25,19 @@ public class ProductDAO {
         }
     }
 
-    public void addProductToFile(Product product) throws IOException{
-        List<Product> products = getAll();
-        products.add(product);
-        saveProducts(products);
-    }
-
-    private void saveProducts(List<Product> products) throws IOException {
+    public void addProduct(List<Product> products) throws IOException{
         FileWriter writer = new FileWriter(path.toFile());
         gson.toJson(products, writer);
         writer.close();
     }
 
-    public List<Product> getAll() throws IOException {
+    public void deleteProduct(List<Product> products) throws IOException {
+        try (FileWriter writer = new FileWriter(path.toFile())) {
+            gson.toJson(products, writer);
+        }
+    }
+
+    public List<Product> getAllProducts() throws IOException {
         if (!Files.exists(path) || path.toFile().length() == 0) {
             return new ArrayList<>();
         }
@@ -46,5 +46,4 @@ public class ProductDAO {
             return gson.fromJson(reader, productListType);
         }
     }
-
 }

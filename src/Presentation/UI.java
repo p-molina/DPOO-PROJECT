@@ -5,10 +5,7 @@ import Bussines.Entities.Review;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
 
 public class UI {
     private static final Scanner scanner = new Scanner(System.in);
@@ -74,6 +71,10 @@ public class UI {
                         "\t2) Loyalty\n" +
                         "\t3) Sponsored");
                 break;
+            case DELETE_MENU:
+                System.out.println( "\t1) Delete product" +
+                                    "\n\n\t2) Back");
+                break;
         }
     }
 
@@ -81,21 +82,39 @@ public class UI {
         System.out.println(message);
     }
 
-    public static void showListOfProducts(List<Product> productList) {
-        System.out.println("+-------------------------------------------------------------+");
-        System.out.println("| Name        | Brand      | MRP     | Category     | Rating  |");
-        System.out.println("+-------------------------------------------------------------+");
+    public static void showListOfProducts(HashMap<Product, Double> productRatingMap) {
+        int maxNameLength = "Name".length();
+        int maxBrandLength = "Brand".length();
+        int maxCategoryLength = "Category".length();
 
-        for (Product product : productList) {
-            double avgRating = getAverageRating(product.getReviews());
-            String ratingStr = avgRating == -1 ? "N/A" : String.format("%.2f", avgRating);
-
-            System.out.printf("| %-11s | %-10s | %-7.2f | %-12s | %-6s |\n",
-                    product.getName(), product.getBrand(), product.getMrp(), product.getCategory(), ratingStr);
+        for (Product product : productRatingMap.keySet()) { //Obtenemos la informacion de el nombre mas largo para rescalar la columna de el nombre, la marca y la categoria
+            maxNameLength = Math.max(maxNameLength, product.getName().length());
+            maxBrandLength = Math.max(maxBrandLength, product.getBrand().length());
+            maxCategoryLength = Math.max(maxCategoryLength, product.getCategory().length());
         }
 
-        System.out.println("+-------------------------------------------------------------+");
+        String headerFormat = "| %-" + maxNameLength + "s | %-" + maxBrandLength + "s | %-9s | %-" + maxCategoryLength + "s | %-6s |\n";
+        String separator = String.format("+-%1$-" + maxNameLength + "s-+-%2$-" + maxBrandLength + "s-+-%3$-9s-+-%4$-" + maxCategoryLength + "s-+-%5$-6s-+\n",
+                "","" ,"", "", "").replace(' ', '-');
+
+        System.out.println();
+        System.out.print(separator);
+        System.out.printf(headerFormat, "Name", "Brand", "MRP", "Category", "Rating");
+        System.out.print(separator);
+
+        for (Map.Entry<Product, Double> entry : productRatingMap.entrySet()) {
+            Product product = entry.getKey();
+            Double avgRating = entry.getValue();
+            String ratingStr = avgRating == -1 ? "N/A" : String.format("%.2f", avgRating);
+
+            System.out.printf(headerFormat,
+                    product.getName(), product.getBrand(), String.format("%.2f", product.getMrp()), product.getCategory(), ratingStr);
+        }
+
+        System.out.println(separator);
     }
+
+
 
     private static double getAverageRating(Review[] reviews) {
         if (reviews.length == 0) {

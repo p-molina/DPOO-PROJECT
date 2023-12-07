@@ -1,0 +1,39 @@
+[
+  {
+    "name": "elCofre Copy Shop",
+    "description": "We specialize in 3D printing, which is the future.",
+    "since": 1973,
+    "earnings": 27012.42,
+    "businessModel": "LOYALTY",
+    "catalogue": [
+      {
+        "productName": "Impresión 3D personalizada",
+        "price": 150.00
+      },
+      {
+        "productName": "Prototipado rápido",
+        "price": 200.00
+      },
+      {
+        "productName": "Modelado 3D",
+        "price": 100.00
+      }
+    ]
+  },
+  {
+    "name": "Queviures Groceries",
+    "description": "We sell fresh-baked (or practically fresh-baked) xuixos.",
+    "since": 2022,
+    "earnings": 979854.77,
+    "businessModel": "MAX_PROFIT",
+    "catalogue": []
+  },
+  {
+    "name": "VM Cinema",
+    "description": "The leading platform for independent comedy sketches.",
+    "since": 2006,
+    "earnings": 2.13,
+    "businessModel": "SPONSORED",
+    "catalogue": []
+  }
+]

@@ -30,12 +30,15 @@ public class ShopManager {
     public double getMRPFromProduct(String name) throws IOException {
         double mrp = -1;
 
-        for (Product product : productDAO.getAll()) {
+        for (Product product : productDAO.getAllProducts()) {
             if (product.getName().equals(name)) {
                 mrp = product.getMrp();
             }
         }
 
         return mrp;
+    }
+    public void deleteProductFromShops() throws IOException {
+        shopDAO.getAllShops();
     }
 }

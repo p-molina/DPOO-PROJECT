@@ -16,7 +16,7 @@ public class ShopController {
 
         while (isRunning) {
             UI.showMenu(MenuOptions.MANAGE_SHOPS);
-            int selection = UI.askForOption("Choose an option: ", 1, 3);
+            int selection = UI.askForOption("Choose an option: ", 1, 4);
             switch (selection) {
                 case 1:
                     isRunning = createShop();
@@ -24,6 +24,8 @@ public class ShopController {
                 case 2:
                     break;
                 case 3:
+                    break;
+                case 4:
                     break;
             }
         }

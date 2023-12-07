@@ -2,10 +2,13 @@ package Bussines;
 
 import Bussines.Entities.Category;
 import Bussines.Entities.Product;
+import Bussines.Entities.Review;
 import Persistance.ProductDAO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 public class  ProductManager {
     private ProductDAO productDAO;
@@ -20,14 +23,27 @@ public class  ProductManager {
 
     public void createProduct(String name, String brand, double mrp, String category) throws IOException {
         Product product = new Product(name, brand, mrp, category);
+        List<Product> products = productDAO.getAllProducts();
+        products.add(product);
 
-        productDAO.addProductToFile(product);
+        productDAO.addProduct(products);
+    }
+
+    public void deleteProduct(String name) throws IOException{
+        List<Product> products = productDAO.getAllProducts();
+
+        for(Product product: products) {
+            if(product.getName().equals(name)) {
+                products.remove(product);
+                productDAO.deleteProduct(products);
+            }
+        }
     }
 
     public boolean checkName(String name) throws IOException {
         boolean found = false;
 
-        for (Product product: productDAO.getAll()) {
+        for (Product product: productDAO.getAllProducts()) {
             if (product.getName().equals(name)) {
                 found = true;
                 break;
@@ -49,5 +65,29 @@ public class  ProductManager {
         }
 
         return titleCase.toString().trim(); //Lo juntamos enuna string de nuevo
+    }
+
+    public HashMap<Product, Double> getProductsRatingMap() throws IOException{
+        HashMap<Product, Double> productRatingMap = new HashMap<>();
+
+        for (Product product : productDAO.getAllProducts()) {
+            double avgRating = getAverageRating(product.getReviews());
+            productRatingMap.put(product, avgRating);
+        }
+
+        return productRatingMap;
+    }
+
+    private double getAverageRating(Review[] reviews) {
+        if (reviews == null || reviews.length == 0) {
+            return -1;
+        }
+
+        double sum = 0;
+        for (Review review : reviews) {
+            sum += review.getClassificationStars();
+        }
+
+        return sum / reviews.length;
     }
 }

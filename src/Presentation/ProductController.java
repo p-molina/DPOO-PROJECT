@@ -2,15 +2,19 @@ package Presentation;
 
 import Bussines.Entities.Category;
 import Bussines.ProductManager;
+import Bussines.ShopManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ProductController {
     private ProductManager productManager;
+    private ShopManager shopManager;
 
-    public ProductController(ProductManager productManager) {
-            this.productManager = productManager;
+    public ProductController(ProductManager productManager, ShopManager shopManager) {
+
+        this.productManager = productManager;
+        this.shopManager = shopManager;
     }
 
     public void checkProductFile() throws FileNotFoundException {
@@ -26,6 +30,7 @@ public class ProductController {
                 createPorduct();
                 break;
             case 2:
+                deleteProduct();
                 break;
             case 3:
                 break;
@@ -64,6 +69,35 @@ public class ProductController {
     }
 
     private void deleteProduct() {
+        try {
+            UI.showListOfProducts(productManager.getProductsRatingMap());
+        } catch (IOException e) {
+            UI.showMessage("ERROR: Problem with the file!. Going back...");
+            return;
+        }
 
+        UI.showMenu(MenuOptions.DELETE_MENU);
+        if (UI.askForOption("\nChoose an option: ", 1, 2) == 1) {
+            String name;
+            while(true) {
+                name = UI.askForString("\nPlease enter the product’s name to delete: ");
+                try {
+                    if (productManager.checkName(name)) {break;}
+                    UI.showMessage("\nERROR: This product '" + name + "' does not exists. Try again...");
+                } catch (IOException e) {
+                    UI.showMessage("ERROR: Problem with the file!. Going back...");
+                    break;
+                }
+            }
+            String option = UI.askForString("Are you sure you want to remove \"" + name + "\"?");
+            if(option.equalsIgnoreCase("yes")) {
+                try {
+                    productManager.deleteProduct(name);
+                    UI.showMessage("\"" + name + "\" has been withdrawn from sale.");
+                } catch (IOException e) {
+                    UI.showMessage("ERROR: Problem with the file!. Going back...");
+                }
+            }
+        }
     }
 }
