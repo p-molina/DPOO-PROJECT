@@ -10,7 +10,6 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class ShopDAO {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
     }
 
-    public static void checkFile() throws IOException {
+    public void checkFile() throws IOException {
         if (!Files.exists(path)) {
             Files.createFile(path);
         }
@@ -62,7 +61,7 @@ public class ShopDAO {
         }
         return null;
     }
-    public static boolean deleteShop(String name) {
+    public boolean deleteShop(String name) throws IOException {
         Shop shopToRemove = findByName(name);
 
         if (shopToRemove != null) {

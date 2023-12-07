@@ -2,6 +2,8 @@ package Presentation;
 
 import Bussines.ShopManager;
 
+import java.io.IOException;
+
 public class ShopController {
 
     private ShopManager shopManager;
@@ -31,11 +33,15 @@ public class ShopController {
     {
         String name = UI.askForString("\nPlease enter the shop’s name: ");
         //COMPROVAR NOM UNIC
-        if(shopManager.isShopUnique(name))
-        {
-            UI.showMessage("ERROR SHOP ALREADY EXISTS");
-            return false;
+        try {
+            if (shopManager.isShopUnique(name)) {
+                UI.showMessage("ERROR SHOP ALREADY EXISTS");
+                return false;
+            }
+        } catch (IOException e) {
+            e.getMessage();
         }
+
         String description = UI.askForString("Please enter the shops’s description: ");
         int year = UI.askForInt("Please enter the shop founding year: ");
         //COMPROVAR ANY POSITIU
@@ -46,13 +52,16 @@ public class ShopController {
         }
         UI.showMenu(MenuOptions.SELECT_MODEL);
         int modelSelection = UI.askForOption("\nPlease pick the shop’s business model: ", 1, 3);
-
-        if (modelSelection == 1) {
-            shopManager.createShop(name, description, year, "MAXIMUM_BENEFITS");
-        } else if (modelSelection == 2) {
-            shopManager.createShop(name, description, year, "LOYALTY");
-        } else if (modelSelection == 3)  {
-            shopManager.createShop(name, description, year, "SPONSORED");
+        try {
+            if (modelSelection == 1) {
+                shopManager.createShop(name, description, year, "MAXIMUM_BENEFITS");
+            } else if (modelSelection == 2) {
+                shopManager.createShop(name, description, year, "LOYALTY");
+            } else if (modelSelection == 3) {
+                shopManager.createShop(name, description, year, "SPONSORED");
+            }
+        } catch(IOException e) {
+            UI.showMessage("ERROR: Problem with the file! Going back.");
         }
 
         UI.showMessage(name + " is now part of the elCofre family. \n");
