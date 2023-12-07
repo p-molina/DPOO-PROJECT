@@ -25,13 +25,7 @@ public class ProductDAO {
         }
     }
 
-    public void addProduct(List<Product> products) throws IOException{
-        FileWriter writer = new FileWriter(path.toFile());
-        gson.toJson(products, writer);
-        writer.close();
-    }
-
-    public void deleteProduct(List<Product> products) throws IOException {
+    public void saveAllProduct(List<Product> products) throws IOException { //Actualizamos la información del fichero
         try (FileWriter writer = new FileWriter(path.toFile())) {
             gson.toJson(products, writer);
         }

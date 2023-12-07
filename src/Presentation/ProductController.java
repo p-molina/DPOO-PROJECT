@@ -9,12 +9,9 @@ import java.io.IOException;
 
 public class ProductController {
     private ProductManager productManager;
-    private ShopManager shopManager;
 
-    public ProductController(ProductManager productManager, ShopManager shopManager) {
-
+    public ProductController(ProductManager productManager) {
         this.productManager = productManager;
-        this.shopManager = shopManager;
     }
 
     public void checkProductFile() throws FileNotFoundException {
@@ -22,7 +19,6 @@ public class ProductController {
     }
 
     public void runProductMenu() {
-
         UI.showMenu(MenuOptions.MENU_PRODUCTO);
         int selection = UI.askForOption("Choose an option: ",1, 3);
         switch (selection) {
@@ -89,11 +85,10 @@ public class ProductController {
                     break;
                 }
             }
-            String option = UI.askForString("Are you sure you want to remove \"" + name + "\"?");
+            String option = UI.askForString("Are you sure you want to remove \"" + name + "\"? ");
             if(option.equalsIgnoreCase("yes")) {
                 try {
                     productManager.deleteProduct(name);
-                    shopManager.deleteProductFromShops(name);
                     UI.showMessage("\"" + name + "\" has been withdrawn from sale.");
                 } catch (IOException e) {
                     UI.showMessage("ERROR: Problem with the file!. Going back...");

@@ -14,11 +14,13 @@ public class Main {
         ShopDAO shopDAO = new ShopDAO();
 
         //Aqui inicializamos las clases de la capa Bussines
-        ProductManager productManager = new ProductManager(productDAO);
+        //MIRAR SI ESTO ESTA BIEN
+        ShopManager shopManager1 = new ShopManager();
+        ProductManager productManager = new ProductManager(productDAO, shopManager1);
         ShopManager shopManager = new ShopManager(shopDAO, productDAO);
 
         //Aqui inicializamos las clases de la capa Presentacion
-        ProductController productController = new ProductController(productManager, shopManager);
+        ProductController productController = new ProductController(productManager);
         ShopController shopController = new ShopController(shopManager);
         CartController cartController = new CartController();
 

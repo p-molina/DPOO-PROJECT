@@ -6,14 +6,17 @@ import Persistance.ProductDAO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class  ProductManager {
     private ProductDAO productDAO;
+    private ShopManager shopManager;
 
-    public ProductManager(ProductDAO productDAO) {
+    public ProductManager(ProductDAO productDAO, ShopManager shopManager) {
         this.productDAO = productDAO;
+        this.shopManager = shopManager;
     }
 
     public void checkProductFile() throws FileNotFoundException {
@@ -25,18 +28,24 @@ public class  ProductManager {
         List<Product> products = productDAO.getAllProducts();
         products.add(product);
 
-        productDAO.addProduct(products);
+        productDAO.saveAllProduct(products);
     }
 
-    public void deleteProduct(String name) throws IOException{
+    public void deleteProduct(String name) throws IOException {
         List<Product> products = productDAO.getAllProducts();
+        List<Product> toRemove = new ArrayList<>();
 
-        for(Product product: products) {
-            if(product.getName().equals(name)) {
-                products.remove(product);
-                productDAO.deleteProduct(products);
+        for (Product product : products) {
+            if (product.getName().equals(name)) {
+                toRemove.add(product);
             }
         }
+
+        products.removeAll(toRemove);
+        productDAO.saveAllProduct(products);
+
+        //Eliminamos el prducto de todas las tiendas en las que se encuentre
+        shopManager.deleteProductFromShops(name);
     }
 
     public boolean checkName(String name) throws IOException {

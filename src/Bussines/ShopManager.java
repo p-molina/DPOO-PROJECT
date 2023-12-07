@@ -1,12 +1,14 @@
 package Bussines;
 
 import Bussines.Entities.BusinessModel;
+import Bussines.Entities.CatalogProduct;
 import Bussines.Entities.Product;
 import Bussines.Entities.Shop;
 import Persistance.ProductDAO;
 import Persistance.ShopDAO;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 public class ShopManager {
@@ -14,6 +16,7 @@ public class ShopManager {
     private ShopDAO shopDAO;
     private ProductDAO productDAO;
 
+    public ShopManager(){}
     public ShopManager(ShopDAO shopDAO, ProductDAO productDAO) {
         this.shopDAO = shopDAO;
         this.productDAO = productDAO;
@@ -68,6 +71,25 @@ public class ShopManager {
         return null;
     }
     public void deleteProductFromShops(String name) throws IOException {
-        shopDAO.getAllShops();
+        List<Shop> shops = shopDAO.getAllShops();
+
+        for (Shop shop : shops) {
+            if (shop.getCatalogProductList() != null) {
+                List<CatalogProduct> catalogProductList = shop.getCatalogProductList();
+                Iterator<CatalogProduct> iterator = catalogProductList.iterator();
+
+                // Itera sobre la lista de productos usando el iterador
+                while (iterator.hasNext()) {
+                    CatalogProduct catalogProduct = iterator.next();
+
+                    if (catalogProduct.getNameProduct().equals(name)) {
+                        iterator.remove();
+                    }
+                }
+            }
+        }
+
+        shopDAO.saveAllShops(shops);
     }
+
 }

@@ -34,6 +34,11 @@
     "since": 1980,
     "earnings": 0.0,
     "businessModel": "MAXIMUM_BENEFITS",
-    "catalogProductList": []
+    "catalogProductList": [
+      {
+        "nameProduct": "Asd",
+        "price": 2.2
+      }
+    ]
   }
 ]

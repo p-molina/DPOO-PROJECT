@@ -20,7 +20,7 @@ public class Shop {
         this.since = since;
         this.earnings = earnings;
         this.businessModel = businessModel;
-        this.catalogProductList = new ArrayList<CatalogProduct>();
+        this.catalogProductList = new ArrayList<CatalogProduct>(0);
     }
 
     public String getName() {
