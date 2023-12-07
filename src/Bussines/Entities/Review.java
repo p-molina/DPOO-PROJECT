@@ -8,4 +8,8 @@ public class Review {
         this.classificationStars = classificationStars;
         this.text = text;
     }
+
+    public int getClassificationStars() {
+        return this.classificationStars;
+    }
 }

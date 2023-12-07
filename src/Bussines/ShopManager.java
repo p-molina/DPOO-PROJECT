@@ -14,7 +14,6 @@ public class ShopManager {
     private ProductDAO productDAO;
 
     public ShopManager(ShopDAO shopDAO, ProductDAO productDAO) {
-
         this.shopDAO = shopDAO;
         this.productDAO = productDAO;
     }
@@ -28,8 +27,8 @@ public class ShopManager {
         return isUnique == null;
     }
 
-    public double getMRPfromProduct(String name) throws IOException {
-        double mrp = 0;
+    public double getMRPFromProduct(String name) throws IOException {
+        double mrp = -1;
 
         for (Product product : productDAO.getAll()) {
             if (product.getName().equals(name)) {

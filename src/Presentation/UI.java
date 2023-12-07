@@ -1,6 +1,10 @@
 package Presentation;
 
+import Bussines.Entities.Product;
+import Bussines.Entities.Review;
+
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -75,6 +79,36 @@ public class UI {
         System.out.println(message);
     }
 
+    public static void showListOfProducts(List<Product> productList) {
+        System.out.println("+-------------------------------------------------------------+");
+        System.out.println("| Name        | Brand      | MRP     | Category     | Rating  |");
+        System.out.println("+-------------------------------------------------------------+");
+
+        for (Product product : productList) {
+            double avgRating = getAverageRating(product.getReviews());
+            String ratingStr = avgRating == -1 ? "N/A" : String.format("%.2f", avgRating);
+
+            System.out.printf("| %-11s | %-10s | %-7.2f | %-12s | %-6s |\n",
+                    product.getName(), product.getBrand(), product.getMrp(), product.getCategory(), ratingStr);
+        }
+
+        System.out.println("+-------------------------------------------------------------+");
+    }
+
+    private static double getAverageRating(Review[] reviews) {
+        if (reviews.length == 0) {
+            return -1;
+        }
+
+        double sum = 0;
+        for (Review review : reviews) {
+            sum += review.getClassificationStars();
+        }
+
+        return sum / reviews.length;
+    }
+
+
     public static int askForOption(String message, int min, int max) {
         int selection = 0;
         while (true) {
@@ -129,5 +163,9 @@ public class UI {
                 scanner.nextLine();
             }
         }
+    }
+
+    public static void closeScanner() {
+        scanner.close();
     }
 }

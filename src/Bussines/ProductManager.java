@@ -24,7 +24,7 @@ public class  ProductManager {
         productDAO.addProductToFile(product);
     }
 
-    public boolean checkName(String name) throws IOException{
+    public boolean checkName(String name) throws IOException {
         boolean found = false;
 
         for (Product product: productDAO.getAll()) {

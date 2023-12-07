@@ -41,7 +41,6 @@ public class ProductDAO {
         if (!Files.exists(path) || path.toFile().length() == 0) {
             return new ArrayList<>();
         }
-
         Type productListType = new TypeToken<ArrayList<Product>>(){}.getType();
         try (Reader reader = new FileReader(path.toFile())) { //Utilizamos aqui el try para cerrar el reader correctamente
             return gson.fromJson(reader, productListType);

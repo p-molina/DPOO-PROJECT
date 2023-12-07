@@ -38,6 +38,7 @@ public class Menu {
                         break;
                     case 6:
                         UI.showMenu(MenuOptions.EXIT_PROGRAM);
+                        UI.closeScanner();
                         return; //We close the infinite loop and close the program and the execution.
                 }
             }
