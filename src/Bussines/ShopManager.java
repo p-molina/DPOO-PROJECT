@@ -23,13 +23,26 @@ public class ShopManager {
     }
 
     public void createShop(String name, String description , int since, String nameModel) throws IOException {
-        Shop shop = new Shop(name, description, since, 0, new BusinessModel(nameModel));
+        //BusinessModel businessModel = new BusinessModel(nameModel);
+        Shop shop = new Shop(name, description, since, 0, nameModel);
         List<Shop> shops = shopDAO.getAllShops();
         shops.add(shop);
-        shopDAO.addShop(shops);
+        shopDAO.saveAllShops(shops);
+    }
+    public boolean deleteShop(String name) throws IOException {
+        Shop shopToRemove = findByName(name);
+
+        if (shopToRemove != null) {
+            List<Shop> existingShops = shopDAO.getAllShops();
+            existingShops.remove(shopToRemove);
+            shopDAO.saveAllShops(existingShops);
+        } else {
+            return false;
+        }
+        return true;
     }
     public boolean isShopUnique(String name) throws IOException {
-        Shop isUnique = shopDAO.findByName(name);
+        Shop isUnique = findByName(name);
         return isUnique == null;
     }
 
@@ -43,6 +56,16 @@ public class ShopManager {
         }
 
         return mrp;
+    }
+    public Shop findByName(String name) throws IOException {
+        List<Shop> shops = shopDAO.getAllShops();
+
+        for (Shop shop : shops) {
+            if (shop.getName().equals(name)) {
+                return shop;
+            }
+        }
+        return null;
     }
     public void deleteProductFromShops(String name) throws IOException {
         shopDAO.getAllShops();

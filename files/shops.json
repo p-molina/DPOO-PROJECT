@@ -4,36 +4,36 @@
     "description": "We specialize in 3D printing, which is the future.",
     "since": 1973,
     "earnings": 27012.42,
-    "businessModel": "LOYALTY",
-    "catalogue": [
-      {
-        "productName": "Impresión 3D personalizada",
-        "price": 150.00
-      },
-      {
-        "productName": "Prototipado rápido",
-        "price": 200.00
-      },
-      {
-        "productName": "Modelado 3D",
-        "price": 100.00
-      }
-    ]
+    "businessModel": "LOYALTY"
   },
   {
     "name": "Queviures Groceries",
     "description": "We sell fresh-baked (or practically fresh-baked) xuixos.",
     "since": 2022,
     "earnings": 979854.77,
-    "businessModel": "MAX_PROFIT",
-    "catalogue": []
+    "businessModel": "MAX_PROFIT"
   },
   {
     "name": "VM Cinema",
     "description": "The leading platform for independent comedy sketches.",
     "since": 2006,
     "earnings": 2.13,
-    "businessModel": "SPONSORED",
-    "catalogue": []
+    "businessModel": "SPONSORED"
+  },
+  {
+    "name": "LolaFlores",
+    "description": "lolaFlores es una tienda de plantas",
+    "since": 2009,
+    "earnings": 0.0,
+    "businessModel": "MAXIMUM_BENEFITS",
+    "catalogProductList": []
+  },
+  {
+    "name": "zara",
+    "description": "tienda de ropa barta cool",
+    "since": 1980,
+    "earnings": 0.0,
+    "businessModel": "MAXIMUM_BENEFITS",
+    "catalogProductList": []
   }
 ]

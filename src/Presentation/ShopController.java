@@ -35,6 +35,7 @@ public class ShopController {
                 case 3:
                     break;
                 case 4:
+                    isRunning = false;
                     break;
             }
         }
@@ -45,7 +46,7 @@ public class ShopController {
         String name = UI.askForString("\nPlease enter the shop’s name: ");
         //COMPROVAR NOM UNIC
         try {
-            if (shopManager.isShopUnique(name)) {
+            if (!shopManager.isShopUnique(name)) {
                 UI.showMessage("ERROR SHOP ALREADY EXISTS");
                 return false;
             }

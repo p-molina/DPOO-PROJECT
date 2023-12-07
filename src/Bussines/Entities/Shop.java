@@ -11,10 +11,10 @@ public class Shop {
     private String description;
     private int since;
     private double earnings;
-    private BusinessModel businessModel;
+    private String businessModel;
     private List<CatalogProduct> catalogProductList;
 
-    public Shop(String name, String description, int since, double earnings, BusinessModel businessModel) {
+    public Shop(String name, String description, int since, double earnings, String businessModel) {
         this.name = name;
         this.description = description;
         this.since = since;
@@ -42,8 +42,4 @@ public class Shop {
     public void setEarnings(double earnings) {
         this.earnings = earnings;
     }
-
-    //public void addCatalogProduct(String nameProduct, String nameShop, int price)
-
-    //public void deleteCatalogProduct(String nameProduct)
 }

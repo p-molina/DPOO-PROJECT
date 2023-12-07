@@ -29,21 +29,10 @@ public class ShopDAO {
         }
     }
 
-    public void addShop(List<Shop> shops) throws IOException {
+    public void saveAllShops(List<Shop> shops) throws IOException {
         try (FileWriter fileWriter = new FileWriter(path.toFile())) {
             gson.toJson(shops, fileWriter);
         }
-    }
-
-    private List<Shop> loadAllShops() throws IOException {
-        if (!Files.exists(path) || Files.size(path) == 0) {
-            return new ArrayList<>();
-        }
-
-        Reader reader = Files.newBufferedReader(path);
-        Type shopListType = new TypeToken<ArrayList<Shop>>() {}.getType();
-
-        return gson.fromJson(reader, shopListType);
     }
 
     public List<Shop> getAllShops() throws IOException {
@@ -51,34 +40,10 @@ public class ShopDAO {
             return new ArrayList<>();
         }
 
-        Reader reader = new FileReader(path.toFile());
         Type shopListType = new TypeToken<ArrayList<Shop>>(){}.getType();
-        reader.close();
-        return gson.fromJson(reader, shopListType);
-    }
-
-    public Shop findByName(String name) throws IOException {
-        List<Shop> shops = loadAllShops();
-
-        for (Shop shop : shops) {
-            if (shop.getName().equals(name)) {
-                return shop;
-            }
+        try (Reader reader = new FileReader(path.toFile())) { //Utilizamos aqui el try para cerrar el reader correctamente
+            return gson.fromJson(reader, shopListType);
         }
-        return null;
     }
-
-//    public boolean deleteShop(String name) throws IOException {
-//        Shop shopToRemove = findByName(name);
-//
-//        if (shopToRemove != null) {
-//            List<Shop> existingShops = loadAllShops();
-//            existingShops.remove(shopToRemove);
-//            saveAllShops(existingShops);
-//        } else {
-//            return false;
-//        }
-//        return true;
-//    }
 
 }
