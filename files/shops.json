@@ -38,6 +38,14 @@
       {
         "nameProduct": "Asd",
         "price": 2.2
+      },
+      {
+        "nameProduct": "camisa",
+        "price": 21.0
+      },
+      {
+        "nameProduct": "camisa",
+        "price": 21.0
       }
     ]
   }

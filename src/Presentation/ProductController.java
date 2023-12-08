@@ -23,7 +23,7 @@ public class ProductController {
         int selection = UI.askForOption("Choose an option: ",1, 3);
         switch (selection) {
             case 1:
-                createPorduct();
+                createProduct();
                 break;
             case 2:
                 deleteProduct();
@@ -33,7 +33,7 @@ public class ProductController {
         }
     }
 
-    private void createPorduct() {
+    private void createProduct() {
         String name = UI.askForString("\nPlease enter the product’s name: ");
         try {
             if (productManager.checkName(name)) {

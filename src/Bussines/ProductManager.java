@@ -98,4 +98,23 @@ public class  ProductManager {
 
         return sum / reviews.length;
     }
+    public double getMRPFromProduct(String name) throws IOException {
+        double mrp = -1;
+
+        for (Product product : productDAO.getAllProducts()) {
+            if (product.getName().equals(name)) {
+                mrp = product.getMrp();
+            }
+        }
+
+        return mrp;
+    }
+    public  String getBrandFromProduct(String nameProduct) throws IOException {
+        String productBrand = null;
+        for (Product product : productDAO.getAllProducts()) {
+            if (product.getName().equals(nameProduct)) {
+                productBrand = product.getBrand();            }
+        }
+        return productBrand;
+    }
 }

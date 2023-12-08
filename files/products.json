@@ -19,5 +19,12 @@
     "mrp": 99.0,
     "category": "SUPER_REDUCED",
     "reviews": []
+  },
+  {
+    "name": "camisa",
+    "brand": "Zarahome",
+    "mrp": 40.0,
+    "category": "GENERAL",
+    "reviews": []
   }
 ]

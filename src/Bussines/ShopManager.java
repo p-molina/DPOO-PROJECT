@@ -12,15 +12,11 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ShopManager {
-
-    private ProductManager productManager;
     private ShopDAO shopDAO;
-    private ProductDAO productDAO;//TODO ELIMINAR
 
     public ShopManager(){}
-    public ShopManager(ShopDAO shopDAO, ProductDAO productDAO) {
+    public ShopManager(ShopDAO shopDAO) {
         this.shopDAO = shopDAO;
-        this.productDAO = productDAO;
     }
     public void checkFile() throws IOException{
         shopDAO.checkFile();
@@ -49,18 +45,6 @@ public class ShopManager {
         Shop isUnique = findByName(name);
         return isUnique == null;
     }
-
-    public double getMRPFromProduct(String name) throws IOException {//TODO posar funció al productmanager y cridarla desde el shop controller
-        double mrp = -1;
-
-        for (Product product : productDAO.getAllProducts()) {
-            if (product.getName().equals(name)) {
-                mrp = product.getMrp();
-            }
-        }
-
-        return mrp;
-    }
     public Shop findByName(String name) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
 
@@ -82,6 +66,7 @@ public class ShopManager {
                 }
             }
         }
+        shopDAO.saveAllShops(shops);
     }
     public void deleteProductFromShops(String name) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
@@ -103,10 +88,5 @@ public class ShopManager {
         }
 
         shopDAO.saveAllShops(shops);
-    }
-    public boolean checkProductName(String nameProduct) throws IOException {//TODO cridar desde el controler el productManager.checkName(nameProduct)
-        boolean found = false;
-        found = productManager.checkName(nameProduct);
-        return found;
     }
 }

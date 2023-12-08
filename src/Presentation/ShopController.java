@@ -1,5 +1,6 @@
 package Presentation;
 
+import Bussines.ProductManager;
 import Bussines.ShopManager;
 
 import java.io.IOException;
@@ -7,9 +8,11 @@ import java.io.IOException;
 public class ShopController {
 
     private ShopManager shopManager;
+    private ProductManager productManager;
 
-    public ShopController(ShopManager shopManager) {
+    public ShopController(ShopManager shopManager, ProductManager productManager) {
         this.shopManager = shopManager;
+        this.productManager = productManager;
     }
 
     public void checkFile() {
@@ -94,7 +97,7 @@ public class ShopController {
         String nameProduct = UI.askForString("\nPlease enter the product’s name: ");
         //COMPROVAR NOM EXISTEIX
         try {
-            if(shopManager.checkProductName(nameProduct))
+            if(!productManager.checkName(nameProduct))
             {
                 UI.showMessage("ERROR PRODUCT DOES NOT EXIST");
                 return false;
@@ -105,7 +108,7 @@ public class ShopController {
         double price = UI.askForDouble("\nPlease enter the product’s price at this shop: ");
         //COMPROVAR PVP OKEY
         try {
-            if(shopManager.getMRPFromProduct(nameProduct) < price)
+            if(productManager.getMRPFromProduct(nameProduct) < price)
             {
                 UI.showMessage("ERROR PRICE IS NOT ACCEPTED");
                 return false;
@@ -118,8 +121,18 @@ public class ShopController {
         } catch (IOException e) {
             e.getMessage();
         }
-        //TODO obtener con un getter la brand del producto a añadir!
-        //UI.showMessage("\""+ nameProduct +"\" by\"" +nameShop +  is now part of the elCofre family. \n");
+        String productBrand = null;
+        try {
+            productBrand = productManager.getBrandFromProduct(nameProduct);
+        } catch (IOException e) {
+            e.getMessage();
+        }
+        UI.showMessage("\""+ nameProduct +"\" by\"" + productBrand +  "\" is now being sold at \"" + nameShop + "\".\n");
+        try {
+            shopManager.expandCatalogue(nameShop, nameProduct, price);
+        } catch (IOException e) {
+            UI.showMessage("ERROR: Problem with the file! Going back.");
+        }
         return true;
     }
 }
