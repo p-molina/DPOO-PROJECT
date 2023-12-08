@@ -45,7 +45,7 @@ public class ProductController {
             return;
         }
         String brand = productManager.toTitleCase(UI.askForString("Please enter the product’s brand: "));
-        double mrp = UI.askForDouble("Please enter the product’s maximum retail price [Please! use ',']: ", 0);
+        double mrp = UI.askForMaxPvp("Please enter the product’s maximum retail price [Please! use ',']: ", 0);
 
         UI.showMenu(MenuOptions.SELECT_CATEGORY);
         int categorySelection = UI.askForOption("\nPlease pick the product’s category: ", 1, 3);

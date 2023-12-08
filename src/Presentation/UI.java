@@ -130,7 +130,7 @@ public class UI {
     }
 
 
-    public static int askForOption(String message, int min, int max) {
+    public static int askForOption(String message, int min, int max) {//TODO el tractament de exepcións s'ha de fer als controlers, no a la UI (aquesta ha de quedar amb les funcións basiques de askFor...)
         int selection = 0;
         while (true) {
             System.out.print(message);
@@ -168,7 +168,7 @@ public class UI {
         }
     }
 
-    public static double askForDouble(String message, float min) {
+    public static double askForMaxPvp(String message, float min) {//TODO el tractament de exepcións s'ha de fer als controlers, no a la UI (aquesta ha de quedar amb les funcións basiques de askFor...)
         while (true) {
             try {
                 System.out.print(message);
@@ -185,6 +185,20 @@ public class UI {
             }
         }
     }
+    public static double askForDouble(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                double selection = scanner.nextDouble();
+                    scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
+                    return selection;
+            } catch (InputMismatchException e) {
+                System.out.println("\nERROR: Input is not a valid number. \nTry again...\n");
+                scanner.nextLine(); // Limpiar el buffer
+            }
+        }
+    }
+
 
     public static void closeScanner() {
         scanner.close();

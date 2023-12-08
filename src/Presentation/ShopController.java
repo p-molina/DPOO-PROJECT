@@ -31,6 +31,7 @@ public class ShopController {
                     isRunning = createShop();
                     break;
                 case 2:
+                    isRunning = expandCatalog();
                     break;
                 case 3:
                     break;
@@ -77,6 +78,48 @@ public class ShopController {
         }
 
         UI.showMessage(name + " is now part of the elCofre family. \n");
+        return true;
+    }
+    private boolean expandCatalog() {
+        String nameShop = UI.askForString("\nPlease enter the shop’s name: ");
+        //COMPROVAR NOM EXISTEIX
+        try {
+            if (shopManager.isShopUnique(nameShop)) {
+                UI.showMessage("ERROR SHOP DOES NOT EXIST");
+                return false;
+            }
+        } catch (IOException e) {
+            e.getMessage();
+        }
+        String nameProduct = UI.askForString("\nPlease enter the product’s name: ");
+        //COMPROVAR NOM EXISTEIX
+        try {
+            if(shopManager.checkProductName(nameProduct))
+            {
+                UI.showMessage("ERROR PRODUCT DOES NOT EXIST");
+                return false;
+            }
+        } catch (IOException e) {
+            e.getMessage();
+        }
+        double price = UI.askForDouble("\nPlease enter the product’s price at this shop: ");
+        //COMPROVAR PVP OKEY
+        try {
+            if(shopManager.getMRPFromProduct(nameProduct) < price)
+            {
+                UI.showMessage("ERROR PRICE IS NOT ACCEPTED");
+                return false;
+            }
+        } catch (IOException e) {
+            e.getMessage();
+        }
+        try {
+            shopManager.expandCatalogue(nameShop, nameProduct, price);
+        } catch (IOException e) {
+            e.getMessage();
+        }
+        //TODO obtener con un getter la brand del producto a añadir!
+        //UI.showMessage("\""+ nameProduct +"\" by\"" +nameShop +  is now part of the elCofre family. \n");
         return true;
     }
 }

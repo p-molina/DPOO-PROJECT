@@ -13,8 +13,9 @@ import java.util.List;
 
 public class ShopManager {
 
+    private ProductManager productManager;
     private ShopDAO shopDAO;
-    private ProductDAO productDAO;
+    private ProductDAO productDAO;//TODO revisar si es bona praxis!
 
     public ShopManager(){}
     public ShopManager(ShopDAO shopDAO, ProductDAO productDAO) {
@@ -70,6 +71,18 @@ public class ShopManager {
         }
         return null;
     }
+    public void expandCatalogue(String nameShop, String nameProduct, double price) throws IOException {
+        List<Shop> shops = shopDAO.getAllShops();
+        for (Shop shop : shops) {
+            if(shop.getName().equals(nameShop)) {
+                if (shop.getCatalogProductList() != null) {
+                    List<CatalogProduct> catalogProductList = shop.getCatalogProductList();
+                    CatalogProduct newProduct = new CatalogProduct(nameProduct, price);
+                    catalogProductList.add(newProduct);
+                }
+            }
+        }
+    }
     public void deleteProductFromShops(String name) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
 
@@ -91,5 +104,9 @@ public class ShopManager {
 
         shopDAO.saveAllShops(shops);
     }
-
+    public boolean checkProductName(String nameProduct) throws IOException {
+        boolean found = false;
+        found = productManager.checkName(nameProduct);
+        return found;
+    }
 }
