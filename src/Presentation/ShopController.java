@@ -71,7 +71,7 @@ public class ShopController {
                                 UI.showMessage("REVIEWS:");
                                 break;
                             case 2:
-                                //productManager.reviewProdut();
+                                //productManager.addReviewProdut();
                                 UI.showMessage("PRODUCT WAS REVIEWED SUCCESFULLY");
                                 break;
                             case 3:

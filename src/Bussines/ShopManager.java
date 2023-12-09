@@ -29,7 +29,7 @@ public class ShopManager {
         shops.add(shop);
         shopDAO.saveAllShops(shops);
     }
-    public boolean deleteShop(String name) throws IOException {
+    public boolean deleteShop(String name) throws IOException {//TODO REVISAR SI ES NECESSARI
         Shop shopToRemove = findByName(name);
 
         if (shopToRemove != null) {
