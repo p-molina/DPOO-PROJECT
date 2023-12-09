@@ -37,6 +37,7 @@ public class ShopController {
                     isRunning = expandCatalog();
                     break;
                 case 3:
+                    isRunning = reduceCatalogue();
                     break;
                 case 4:
                     isRunning = false;
@@ -85,7 +86,7 @@ public class ShopController {
     }
     private boolean expandCatalog() {
         String nameShop = UI.askForString("\nPlease enter the shop’s name: ");
-        //COMPROVAR NOM EXISTEIX
+        //COMPROVAR TENDA EXISTEIX
         try {
             if (shopManager.isShopUnique(nameShop)) {
                 UI.showMessage("ERROR SHOP DOES NOT EXIST");
@@ -95,11 +96,21 @@ public class ShopController {
             e.getMessage();
         }
         String nameProduct = UI.askForString("\nPlease enter the product’s name: ");
-        //COMPROVAR NOM EXISTEIX
+        //COMPROVAR PRODUCTE EXISTEIX
         try {
             if(!productManager.checkName(nameProduct))
             {
                 UI.showMessage("ERROR PRODUCT DOES NOT EXIST");
+                return false;
+            }
+        } catch (IOException e) {
+            e.getMessage();
+        }
+        //COMPROVAR PRODUCTE NO REPETIT
+        try {
+            if(!shopManager.isProductInCatalogue(nameProduct,nameShop))
+            {
+                UI.showMessage("ERROR PRODUCT IS ALREADY IN CATALOGUE");
                 return false;
             }
         } catch (IOException e) {
@@ -133,6 +144,28 @@ public class ShopController {
         } catch (IOException e) {
             UI.showMessage("ERROR: Problem with the file! Going back.");
         }
+        return true;
+    }
+    private boolean reduceCatalogue()
+    {
+        String nameShop = UI.askForString("\nPlease enter the shop’s name: ");
+        //COMPROVAR TENDA EXISTEIX
+        try {
+            if (shopManager.isShopUnique(nameShop)) {
+                UI.showMessage("ERROR SHOP DOES NOT EXIST");
+                return false;
+            }
+        } catch (IOException e) {
+            e.getMessage();
+        }
+        try {
+            String catalogue = shopManager.getCatalogueFromShop(nameShop);
+            UI.showMessage(catalogue);
+        } catch (IOException e) {
+            e.getMessage();
+        }
+        int option = UI.askForInt("Which one would you like to remove? ");
+        //TODO cridar el reduce catalog que elimini de la botiga nameShop el producte option-1;
         return true;
     }
 }

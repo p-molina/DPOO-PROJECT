@@ -68,25 +68,63 @@ public class ShopManager {
         }
         shopDAO.saveAllShops(shops);
     }
-    public void deleteProductFromShops(String name) throws IOException {
+    public void deleteProductFromShop(String nameProduct, String nameShop) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
-
         for (Shop shop : shops) {
-            if (shop.getCatalogProductList() != null) {
-                List<CatalogProduct> catalogProductList = shop.getCatalogProductList();
-                Iterator<CatalogProduct> iterator = catalogProductList.iterator();
-
-                // Itera sobre la lista de productos usando el iterador
-                while (iterator.hasNext()) {
-                    CatalogProduct catalogProduct = iterator.next();
-
-                    if (catalogProduct.getNameProduct().equals(name)) {
-                        iterator.remove();
+            if (shop.getName().equals(nameShop)) {
+                if (shop.getCatalogProductList() != null) {
+                    List<CatalogProduct> catalogProductList = shop.getCatalogProductList();
+                    Iterator<CatalogProduct> iterator = catalogProductList.iterator();
+                    while (iterator.hasNext()) {
+                        CatalogProduct product = iterator.next();
+                        if (product.getNameProduct().equals(nameProduct)) {
+                            iterator.remove(); // Eliminar el producto del catálogo
+                            break; // Terminar el bucle al encontrar el producto
+                        }
                     }
+                    break; // Terminar la búsqueda al encontrar la tienda
                 }
             }
         }
-
         shopDAO.saveAllShops(shops);
+    }
+    public void deleteProductFromAllShops(String name) throws IOException {
+        List<Shop> shops = shopDAO.getAllShops();
+
+        for (Shop shop : shops) {
+            deleteProductFromShop(name, shop.getName());
+        }
+        shopDAO.saveAllShops(shops);
+    }
+    public boolean isProductInCatalogue(String nameProduct, String nameShop) throws IOException {
+        List<Shop> shops = shopDAO.getAllShops();
+        for (Shop shop : shops) {
+            if (shop.getName().equals(nameShop)) {
+                List<CatalogProduct> catalogProductList = shop.getCatalogProductList();
+                if (catalogProductList != null) {
+                    for (CatalogProduct product : catalogProductList) {
+                        if (product.getNameProduct().equals(nameProduct)) {
+                            return true; // El producto está en el catálogo
+                        }
+                    }
+                }
+                break; // Terminar la búsqueda al encontrar la tienda
+            }
+        }
+        return false; // El producto no está en el catálogo o la tienda no fue encontrada
+    }
+    public String getCatalogueFromShop(String shopName) throws IOException {
+        Shop shop = findByName(shopName);
+        if(shop != null)
+        {
+            String message = "";
+            List<CatalogProduct> catalogue = shop.getCatalogProductList();
+            for (int i = 0; i < catalogue.size(); i++) {
+                CatalogProduct product = catalogue.get(i);
+                message = message + (i + 1) + ". " + product.getNameProduct();
+            }
+            return message;
+        }
+        return null;
     }
 }

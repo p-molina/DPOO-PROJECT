@@ -45,7 +45,7 @@ public class  ProductManager {
         productDAO.saveAllProduct(products);
 
         //Eliminamos el prducto de todas las tiendas en las que se encuentre
-        shopManager.deleteProductFromShops(name);
+        shopManager.deleteProductFromAllShops(name);
     }
 
     public boolean checkName(String name) throws IOException {
