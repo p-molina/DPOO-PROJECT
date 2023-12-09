@@ -121,10 +121,22 @@ public class ShopManager {
             List<CatalogProduct> catalogue = shop.getCatalogProductList();
             for (int i = 0; i < catalogue.size(); i++) {
                 CatalogProduct product = catalogue.get(i);
-                message = message + (i + 1) + ". " + product.getNameProduct();
+                message = message + (i + 1) + ". " + product.getNameProduct() + "\n";
             }
             return message;
         }
         return null;
+    }
+    public boolean reduceCatalogue(String shopName, int productIndex) throws IOException {
+        Shop shop = findByName(shopName);
+        List<CatalogProduct> catalogue = shop.getCatalogProductList();
+        if(productIndex != 0)
+        {
+            CatalogProduct selectedProduct = catalogue.get(productIndex - 1);
+            String catalogueProductName = selectedProduct.getNameProduct();
+            deleteProductFromShop(catalogueProductName,shopName);
+            return true;
+        }
+        return false;
     }
 }

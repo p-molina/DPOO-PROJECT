@@ -108,7 +108,7 @@ public class ShopController {
         }
         //COMPROVAR PRODUCTE NO REPETIT
         try {
-            if(!shopManager.isProductInCatalogue(nameProduct,nameShop))
+            if(shopManager.isProductInCatalogue(nameProduct,nameShop))
             {
                 UI.showMessage("ERROR PRODUCT IS ALREADY IN CATALOGUE");
                 return false;
@@ -127,11 +127,6 @@ public class ShopController {
         } catch (IOException e) {
             e.getMessage();
         }
-        try {
-            shopManager.expandCatalogue(nameShop, nameProduct, price);
-        } catch (IOException e) {
-            e.getMessage();
-        }
         String productBrand = null;
         try {
             productBrand = productManager.getBrandFromProduct(nameProduct);
@@ -146,6 +141,7 @@ public class ShopController {
         }
         return true;
     }
+    //Opción de reducir catalogo
     private boolean reduceCatalogue()
     {
         String nameShop = UI.askForString("\nPlease enter the shop’s name: ");
@@ -165,7 +161,15 @@ public class ShopController {
             e.getMessage();
         }
         int option = UI.askForInt("Which one would you like to remove? ");
-        //TODO cridar el reduce catalog que elimini de la botiga nameShop el producte option-1;
+        try {
+            boolean okReduce = shopManager.reduceCatalogue(nameShop,option);
+            if(!okReduce)
+            {
+                UI.showMessage("ERROR, CAN NOT REDUCE CATALOGUE");
+            }
+        } catch (IOException e) {
+            e.getMessage();
+        }
         return true;
     }
 }

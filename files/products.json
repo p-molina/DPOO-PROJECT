@@ -26,5 +26,19 @@
     "mrp": 40.0,
     "category": "GENERAL",
     "reviews": []
+  },
+  {
+    "name": "pantalón",
+    "brand": "Zarabasic",
+    "mrp": 40.0,
+    "category": "REDUCED",
+    "reviews": []
+  },
+  {
+    "name": "vestido",
+    "brand": "Anamoda",
+    "mrp": 30.0,
+    "category": "SUPER_REDUCED",
+    "reviews": []
   }
 ]
