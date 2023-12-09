@@ -45,6 +45,50 @@ public class ShopController {
             }
         }
     }
+    public void listShops()
+    {
+        UI.showMenu(MenuOptions.LIST_SHOPS);
+        String shopsList;
+        String shopInfo;
+        try {
+            shopsList = shopManager.listShops();
+            UI.showMessage(shopsList);
+            UI.showMessage("0) BACK");
+            int shopIndex = UI.askForInt("Which catalogue do you want to see? ");
+            if (shopIndex != 0)
+            {
+                try {
+                    shopInfo = shopManager.getShopInfo(shopIndex);
+                    UI.showMessage(shopInfo);
+                    UI.showMessage("0) BACK");
+                    int catalogueIndex = UI.askForInt("Which one are you interested in? ");
+                    if(catalogueIndex != 0) {
+                        UI.showMenu(MenuOptions.MANAGE_CATALOGUE_PRODUCT);
+                        int option = UI.askForOption("\nChoose an option", 1, 3);
+                        switch (option) {
+                            case 1:
+                                //String reviewsString = productManager.readReviews(nameProduct);
+                                UI.showMessage("REVIEWS:");
+                                break;
+                            case 2:
+                                //productManager.reviewProdut();
+                                UI.showMessage("PRODUCT WAS REVIEWED SUCCESFULLY");
+                                break;
+                            case 3:
+                                //cardManger.addProduct();
+                                UI.showMessage("PRODUCT WAS ADDED TO CARD");
+                                break;
+                        }
+                    }
+                } catch (IOException e) {
+                    UI.showMessage("ERROR, CAN NOT ACCESS SHOP");
+                }
+            }
+        } catch (IOException e) {
+            UI.showMessage("ERROR, CAN NOT LIST SHOPS");
+        }
+
+    }
 
     private boolean createShop()
     {

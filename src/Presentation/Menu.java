@@ -33,6 +33,7 @@ public class Menu {
                     case 3:
                         break;
                     case 4:
+                        listShops();
                         break;
                     case 5:
                         break;
@@ -64,5 +65,9 @@ public class Menu {
     private void manageShop()
     {
         shopController.runShopMenu();
+    }
+    private void listShops()
+    {
+        shopController.listShops();
     }
 }

@@ -10,5 +10,7 @@ public enum MenuOptions {
     MENU_PRODUCTO,
     MANAGE_SHOPS,
     SELECT_MODEL,
-    DELETE_MENU
+    DELETE_MENU,
+    LIST_SHOPS,
+    MANAGE_CATALOGUE_PRODUCT
 }

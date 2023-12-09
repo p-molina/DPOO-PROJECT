@@ -75,6 +75,14 @@ public class UI {
                 System.out.println( "\t1) Delete product" +
                                     "\n\n\t2) Back");
                 break;
+            case LIST_SHOPS:
+                System.out.println("\nThe elCofre family is formed by the following shops: ");
+                break;
+            case MANAGE_CATALOGUE_PRODUCT:
+                System.out.println( "\n\t1) Read Reviews\n" +
+                        "\t2) Review Product\n" +
+                        "\t3) Add to Card");
+                break;
         }
     }
 
