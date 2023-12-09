@@ -55,13 +55,13 @@ public class ShopManager {
         }
         return null;
     }
-    public void expandCatalogue(String nameShop, String nameProduct, double price) throws IOException {
+    public void expandCatalogue(String nameShop, String nameProduct, String nameBrand, double price) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
         for (Shop shop : shops) {
             if(shop.getName().equals(nameShop)) {
                 if (shop.getCatalogProductList() != null) {
                     List<CatalogProduct> catalogProductList = shop.getCatalogProductList();
-                    CatalogProduct newProduct = new CatalogProduct(nameProduct, price);
+                    CatalogProduct newProduct = new CatalogProduct(nameProduct, nameBrand, price);
                     catalogProductList.add(newProduct);
                 }
             }
@@ -121,7 +121,7 @@ public class ShopManager {
             List<CatalogProduct> catalogue = shop.getCatalogProductList();
             for (int i = 0; i < catalogue.size(); i++) {
                 CatalogProduct product = catalogue.get(i);
-                message = message + (i + 1) + ". " + product.getNameProduct() + "\n";
+                message = message + (i + 1) + ". " + product.getNameProduct() + " by " + product.getNameBrand() + " priced at: " + product.getPrice() +"\n";
             }
             return message;
         }

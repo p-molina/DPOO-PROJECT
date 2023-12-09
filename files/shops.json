@@ -36,12 +36,14 @@
     "businessModel": "MAXIMUM_BENEFITS",
     "catalogProductList": [
       {
-        "nameProduct": "Asd",
-        "price": 2.2
+        "nameProduct": "vestido",
+        "nameBrand": "Anamoda",
+        "price": 15.0
       },
       {
         "nameProduct": "camisa",
-        "price": 21.0
+        "nameBrand": "Zarahome",
+        "price": 9.99
       }
     ]
   }

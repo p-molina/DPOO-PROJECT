@@ -116,6 +116,13 @@ public class ShopController {
         } catch (IOException e) {
             e.getMessage();
         }
+        String productBrand = "";
+        //OBTENIR LA BRAND DEL PRODUCTE
+        try {
+            productBrand = productManager.getBrandFromProduct(nameProduct);
+        } catch (IOException e) {
+            e.getMessage();
+        }
         double price = UI.askForDouble("\nPlease enter the product’s price at this shop: ");
         //COMPROVAR PVP OKEY
         try {
@@ -127,15 +134,9 @@ public class ShopController {
         } catch (IOException e) {
             e.getMessage();
         }
-        String productBrand = null;
-        try {
-            productBrand = productManager.getBrandFromProduct(nameProduct);
-        } catch (IOException e) {
-            e.getMessage();
-        }
         UI.showMessage("\""+ nameProduct +"\" by\"" + productBrand +  "\" is now being sold at \"" + nameShop + "\".\n");
         try {
-            shopManager.expandCatalogue(nameShop, nameProduct, price);
+            shopManager.expandCatalogue(nameShop, nameProduct, productBrand, price);
         } catch (IOException e) {
             UI.showMessage("ERROR: Problem with the file! Going back.");
         }
@@ -165,7 +166,10 @@ public class ShopController {
             boolean okReduce = shopManager.reduceCatalogue(nameShop,option);
             if(!okReduce)
             {
-                UI.showMessage("ERROR, CAN NOT REDUCE CATALOGUE");
+                UI.showMessage("ERROR, CAN NOT REDUCE CATALOGUE!");
+            }
+            else {
+                UI.showMessage("PRODUCT HAS BEEN REMOVED FOR CATALOGUE!");
             }
         } catch (IOException e) {
             e.getMessage();
