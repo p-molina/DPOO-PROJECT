@@ -153,8 +153,8 @@ public class ShopManager {
         String infoShop = "";
         List<Shop> shops = shopDAO.getAllShops();
         Shop selectedShop = shops.get(shopIndex - 1);
-        infoShop = "elCofre" + selectedShop.getName() + " Shop - Since " + selectedShop.getSince() + "\n" + selectedShop.getDescription() + ".";
-        infoShop = infoShop + "\n" + getCatalogueFromShop(selectedShop.getName());
+        infoShop = "\nelCofre" + selectedShop.getName() + " Shop - Since " + selectedShop.getSince() + "\n" + selectedShop.getDescription() + ".";
+        infoShop = infoShop + "\n\nProducts:\n" + getCatalogueFromShop(selectedShop.getName());
         return infoShop;
     }
 }

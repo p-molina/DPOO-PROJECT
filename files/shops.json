@@ -46,5 +46,24 @@
         "price": 9.99
       }
     ]
+  },
+  {
+    "name": "vestidos Ana",
+    "description": "Tienda de vestidos elegantes",
+    "since": 2023,
+    "earnings": 0.0,
+    "businessModel": "MAXIMUM_BENEFITS",
+    "catalogProductList": [
+      {
+        "nameProduct": "vestido",
+        "nameBrand": "Anamoda",
+        "price": 24.0
+      },
+      {
+        "nameProduct": "camisa",
+        "nameBrand": "Zarahome",
+        "price": 20.0
+      }
+    ]
   }
 ]
