@@ -19,7 +19,6 @@ public class ProductController {
     public void checkProductFile() throws FileNotFoundException {
         productManager.checkProductFile();
     }
-
     public void runProductMenu() {
         UI.showMenu(MenuOptions.MENU_PRODUCTO);
         int selection = UI.askForOption("Choose an option: ",1, 3);
@@ -34,7 +33,6 @@ public class ProductController {
                 break;
         }
     }
-
     private void createProduct() {
         String name = UI.askForString("\nPlease enter the product’s name: ");
         try {
@@ -70,7 +68,6 @@ public class ProductController {
 
         UI.showMessage("\nThe product \"" + name + "\" by \"" + brand + "\" was added to the system.");
     }
-
     private void deleteProduct() {
         try {
             UI.showListOfProducts(productManager.getProductsRatingMap());
@@ -106,11 +103,9 @@ public class ProductController {
             }
         }
     }
-
     public void runSearchMenu() {
         searchProduct(UI.askForString("\nEnter your query: "));
     }
-
     private void searchProduct(String query) {
         try {
             UI.showMessage("\nThe following products were found:");
@@ -148,7 +143,6 @@ public class ProductController {
             UI.showMessage("ERROR: Problem with the file! Going back...");
         }
     }
-
     private void runReviewMenu(String productName, String brand) {
         UI.showMenu(MenuOptions.MENU_REVIEWS);
         int option = UI.askForOption("Choose an option: ", 1, 2);
@@ -158,7 +152,6 @@ public class ProductController {
             case 2 -> reviewProduct(productName, brand);
         }
     }
-
     private void readReviews(String productName, String brand) {
         try {
             UI.showMessage("\nThese are the reviews for \"" + productName + "\" by \"" + brand + "\":\n");
@@ -180,7 +173,6 @@ public class ProductController {
             UI.showMessage("ERROR: Problem with the file! Going back...");
         }
     }
-
     private void reviewProduct(String productName, String brand) {
 
         try {

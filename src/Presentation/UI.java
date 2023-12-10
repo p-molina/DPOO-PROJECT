@@ -6,7 +6,11 @@ import java.util.*;
 
 public class UI {
     private static final Scanner scanner = new Scanner(System.in);
-
+    /**
+     * Muestra diferentes menús basados en la opción de menú seleccionada.
+     *
+     * @param seleccionMenu La opción de menú a mostrar.
+     */
     public static void showMenu(MenuOptions seleccionMenu) {
         switch(seleccionMenu) {
             case MENU_PRINCIPAL:
@@ -87,11 +91,20 @@ public class UI {
                 break;
         }
     }
-
+    /**
+     * Muestra un mensaje dado.
+     *
+     * @param message El mensaje a mostrar.
+     */
     public static void showMessage(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Muestra una lista de productos junto con sus calificaciones.
+     *
+     * @param productRatingMap Un HashMap que vincula los Productos con sus calificaciones promedio.
+     */
     public static void showListOfProducts(HashMap<Product, Double> productRatingMap) {
         int maxNameLength = "Name".length();
         int maxBrandLength = "Brand".length();
@@ -123,7 +136,14 @@ public class UI {
 
         System.out.println(separator);
     }
-
+    /**
+     * Solicita al usuario una opción dentro de un rango especificado.
+     *
+     * @param message El mensaje de solicitud para el usuario.
+     * @param min La opción mínima válida.
+     * @param max La opción máxima válida.
+     * @return La opción seleccionada por el usuario.
+     */
     public static int askForOption(String message, int min, int max) {//TODO el tractament de exepcións s'ha de fer als controlers, no a la UI (aquesta ha de quedar amb les funcións basiques de askFor...)
         int selection = 0;
         while (true) {
@@ -142,12 +162,22 @@ public class UI {
             }
         }
     }
-
+    /**
+     * Solicita al usuario una cadena de texto.
+     *
+     * @param message El mensaje de solicitud para el usuario.
+     * @return La cadena de texto introducida por el usuario.
+     */
     public static String askForString(String message) {
         System.out.print(message);
         return scanner.nextLine();
     }
-
+    /**
+     * Solicita al usuario un número entero.
+     *
+     * @param message El mensaje de solicitud para el usuario.
+     * @return El número entero introducido por el usuario.
+     */
     public static int askForInt(String message) {
         while (true) {
             try {
@@ -161,7 +191,12 @@ public class UI {
             }
         }
     }
-
+    /**
+     * Solicita al usuario un valor double.
+     *
+     * @param message El mensaje de solicitud para el usuario.
+     * @return El valor double introducido por el usuario.
+     */
     public static double askForDouble(String message) {
         while (true) {
             try {
@@ -175,7 +210,9 @@ public class UI {
             }
         }
     }
-
+    /**
+     * Cierra el recurso del escáner.
+     */
     public static void closeScanner() {
         scanner.close();
     }

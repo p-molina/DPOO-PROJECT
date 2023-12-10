@@ -7,7 +7,6 @@ import Bussines.ShoppingCartManager;
 import java.io.IOException;
 
 public class ShopController {
-
     private ShopManager shopManager;
     private ProductManager productManager;
     private ShoppingCartManager shoppingCartManager;
@@ -23,7 +22,6 @@ public class ShopController {
         this.productManager = productManager;
         this.shoppingCartManager = shoppingCartManager;
     }
-
     /**
      * Comprueba la existencia del archivo de tiendas ('shops.json').
      * Muestra un mensaje de error si hay un problema con el archivo.
@@ -35,7 +33,6 @@ public class ShopController {
             UI.showMessage("ERROR: Problem with 'shops.json' file.");
         }
     }
-
     /**
      * Ejecuta el menú de gestión de tiendas.
      * Muestra las opciones del menú y permite al usuario realizar acciones como crear tiendas,
@@ -71,8 +68,7 @@ public class ShopController {
      * como ver las reseñas, agregar una reseña al producto o agregarlo al carrito de compras.
      * Devuelve al menú principal cuando se selecciona "0) BACK" en cualquier punto del proceso.
      */
-    public void listShops()
-    {
+    public void listShops() {
         UI.showMenu(MenuOptions.LIST_SHOPS);
         String shopsList;
         String shopInfo;
@@ -115,8 +111,7 @@ public class ShopController {
         }
 
     }
-    private boolean createShop()
-    {
+    private boolean createShop() {
         String name = UI.askForString("\nPlease enter the shop’s name: ");
         //COMPROVAR NOM UNIC
         try {
@@ -211,9 +206,7 @@ public class ShopController {
         }
         return true;
     }
-    //Opción de reducir catalogo
-    private boolean reduceCatalogue()
-    {
+    private boolean reduceCatalogue() {
         String nameShop = UI.askForString("\nPlease enter the shop’s name: ");
         //COMPROVAR TENDA EXISTEIX
         try {

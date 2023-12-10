@@ -133,7 +133,6 @@ public class  ProductManager {
         }
         return productBrand;
     }
-
     public String[] getReviews(String productName) throws IOException {
         List<Product> products = productDAO.getAllProducts();
         String[] reviewsArray = new String[0];
@@ -154,7 +153,6 @@ public class  ProductManager {
         }
         return reviewsArray;
     }
-
     public void addReview(String productName, int rating, String comment) throws IOException {
         List<Product> products = productDAO.getAllProducts();
 
@@ -168,6 +166,4 @@ public class  ProductManager {
 
         productDAO.saveAllProduct(products);
     }
-
-
 }

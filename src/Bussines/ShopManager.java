@@ -22,6 +22,7 @@ public class ShopManager {
     public ShopManager(ShopDAO shopDAO) {
         this.shopDAO = shopDAO;
     }
+
     /**
      * Verifica la existencia del archivo asociado a la gestión de tiendas.
      * Lanza una excepción en caso de que el archivo no exista.
@@ -31,7 +32,6 @@ public class ShopManager {
     public void checkFile() throws IOException{
         shopDAO.checkFile();
     }
-
     /**
      * Crea una nueva tienda y la agrega al repositorio de tiendas.
      *
@@ -163,7 +163,6 @@ public class ShopManager {
         }
         return false; // El producto no está en el catálogo o la tienda no fue encontrada
     }
-
     /**
      * Obtiene el catálogo de productos de una tienda específica en forma de cadena de texto.
      *
