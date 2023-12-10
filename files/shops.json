@@ -53,5 +53,26 @@
     "earnings": 0.0,
     "businessModel": "MAXIMUM_BENEFITS",
     "catalogProductList": []
+  },
+  {
+    "name": "coolStreetwear",
+    "description": "ropa de marca moderna y cool",
+    "since": 2023,
+    "earnings": 0.0,
+    "businessModel": "MAXIMUM_BENEFITS",
+    "catalogProductList": [
+      {
+        "nameProduct": "sudadera",
+        "nameBrand": "Nudeproject",
+        "nameShop": "coolStreetwear",
+        "price": 199.99
+      },
+      {
+        "nameProduct": "airforce",
+        "nameBrand": "Nike",
+        "nameShop": "coolStreetwear",
+        "price": 99.99
+      }
+    ]
   }
 ]

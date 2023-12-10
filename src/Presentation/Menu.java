@@ -10,7 +10,7 @@ public class Menu {
     public Menu(ProductController productController, ShopController shopController, CartController cartController) {
         this.productController = productController;
         this.shopController = shopController;
-        this. cartController = cartController;
+        this.cartController = cartController;
     }
 
     public void run() {
@@ -37,6 +37,7 @@ public class Menu {
                         listShops();
                         break;
                     case 5:
+                        manageShoppingCart();
                         break;
                     case 6:
                         UI.showMenu(MenuOptions.EXIT_PROGRAM);
@@ -71,5 +72,12 @@ public class Menu {
     {
         shopController.listShops();
     }
-    private void searchProduct() {productController.runSearchMenu();}
+    private void searchProduct()
+    {
+        productController.runSearchMenu();
+    }
+    private void manageShoppingCart()
+    {
+        cartController.runManageCard();
+    }
 }

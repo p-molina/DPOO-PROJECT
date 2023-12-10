@@ -1,5 +1,6 @@
 import Bussines.ProductManager;
 import Bussines.ShopManager;
+import Bussines.ShoppingCartManager;
 import Persistance.ProductDAO;
 import Persistance.ShopDAO;
 import Presentation.CartController;
@@ -17,12 +18,13 @@ public class Main {
         //MIRAR SI ESTO ESTA BIEN
         ProductManager productManager = new ProductManager(productDAO);
         ShopManager shopManager = new ShopManager(shopDAO);
+        ShoppingCartManager shoppingCartManager = new ShoppingCartManager();
 
         //Aqui inicializamos las clases de la capa Presentacion
 
         ShopController shopController = new ShopController(shopManager, productManager);
         ProductController productController = new ProductController(productManager, shopManager);
-        CartController cartController = new CartController();
+        CartController cartController = new CartController(shoppingCartManager);
 
         //Inicializamos el menu y ejecutamos la pantalla principal
         Menu menu = new Menu(productController, shopController, cartController);

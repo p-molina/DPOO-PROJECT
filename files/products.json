@@ -20,9 +20,7 @@
     "brand": "Viladrau Bakery",
     "mrp": 5.5,
     "category": "REDUCED",
-    "reviews": [
-
-    ]
+    "reviews": []
   },
   {
     "name": "The Neverending Story",
@@ -59,5 +57,19 @@
         "text": "Muy bonito y economico!"
       }
     ]
+  },
+  {
+    "name": "airforce",
+    "brand": "Nike",
+    "mrp": 110.0,
+    "category": "GENERAL",
+    "reviews": []
+  },
+  {
+    "name": "sudadera",
+    "brand": "Nudeproject",
+    "mrp": 200.0,
+    "category": "GENERAL",
+    "reviews": []
   }
 ]
