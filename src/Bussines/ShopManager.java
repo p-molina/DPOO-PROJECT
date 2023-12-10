@@ -1,10 +1,13 @@
 package Bussines;
 
 import Bussines.Entities.CatalogProduct;
+import Bussines.Entities.Product;
 import Bussines.Entities.Shop;
 import Persistance.ShopDAO;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -152,5 +155,33 @@ public class ShopManager {
         infoShop = "\nelCofre" + selectedShop.getName() + " Shop - Since " + selectedShop.getSince() + "\n" + selectedShop.getDescription() + ".";
         infoShop = infoShop + "\n\nProducts:\n" + getCatalogueFromShop(selectedShop.getName());
         return infoShop;
+    }
+
+    public HashMap<String, CatalogProduct> getCatalogueSearch(List<Product> products) throws IOException {
+        HashMap<String, CatalogProduct> catalogProductHashMap = new HashMap<>();
+        List<Shop> shopsList = shopDAO.getAllShops();
+
+        Iterator<Product> productIterator = products.iterator();
+        while (productIterator.hasNext()) {
+            Product product = productIterator.next();
+
+            Iterator<Shop> shopIterator = shopsList.iterator();
+            while (shopIterator.hasNext()) {
+                Shop shop = shopIterator.next();
+                List<CatalogProduct> catalogProductList = shop.getCatalogProductList();
+
+                if (catalogProductList != null) {
+                    Iterator<CatalogProduct> catalogProductIterator = catalogProductList.iterator();
+                    while (catalogProductIterator.hasNext()) {
+                        CatalogProduct catalogProduct = catalogProductIterator.next();
+                        if (product.getName().equals(catalogProduct.getNameProduct())) {
+                            catalogProductHashMap.put(shop.getName(), catalogProduct);
+                        }
+                    }
+                }
+            }
+        }
+
+        return catalogProductHashMap;
     }
 }

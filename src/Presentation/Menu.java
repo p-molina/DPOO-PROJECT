@@ -31,6 +31,7 @@ public class Menu {
                         manageShop();
                         break;
                     case 3:
+                        searchProduct();
                         break;
                     case 4:
                         listShops();
@@ -70,4 +71,5 @@ public class Menu {
     {
         shopController.listShops();
     }
+    private void searchProduct() {productController.runSearchMenu();}
 }

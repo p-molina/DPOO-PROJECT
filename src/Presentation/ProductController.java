@@ -112,7 +112,7 @@ public class ProductController {
 
     private void searchProduct(String query) {
         try {
-            productManager.searchProduct(query);
+            shopManager.getCatalogueSearch(productManager.searchProduct(query));
         } catch (IOException e) {
             UI.showMessage("ERROR: Problem with the file!. Going back...");
         }
