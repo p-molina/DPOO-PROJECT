@@ -35,10 +35,6 @@ public class ProductController {
         }
     }
 
-    public void runSearchMenu() {
-        searchProduct(UI.askForString("\nEnter your query: "));
-    }
-
     private void createProduct() {
         String name = UI.askForString("\nPlease enter the product’s name: ");
         try {
@@ -111,6 +107,10 @@ public class ProductController {
         }
     }
 
+    public void runSearchMenu() {
+        searchProduct(UI.askForString("\nEnter your query: "));
+    }
+
     private void searchProduct(String query) {
         try {
             UI.showMessage("\nThe following products were found:");
@@ -125,15 +125,73 @@ public class ProductController {
                 String productInfo = String.join(" ", productRow);
                 UI.showMessage("\n" + productInfo);
 
-                // Mostrar información de las tiendas para este producto
-                for (String[] shopRow : shopInfo) {
-                    String shopDetails = String.join(" ", shopRow);
-                    UI.showMessage(shopDetails);
+                if(shopInfo.length == 0) {
+                    UI.showMessage("\tThis product is not currently being sold in any shops.");
+                }
+                else {
+                    UI.showMessage("\tSold at: ");
+                    // Mostrar información de las tiendas para este producto
+                    for (String[] shopRow : shopInfo) {
+                        String shopDetails = String.join(" ", shopRow);
+                        UI.showMessage(shopDetails);
+                    }
                 }
             }
+
+            UI.showMessage("\n\n" + (productsInfo.length + 1) + ") Back");
+
+            int option = UI.askForOption("\nWhich one would you like to review? ", 1, (productsInfo.length + 1));
+            if (productsInfo.length + 1 == option) {return;}
+            runReviewMenu(productsInfo[option - 1][1].replaceAll("\"", ""), productsInfo[option - 1][3].replaceAll("\"", ""));
+
         } catch (IOException e) {
             UI.showMessage("ERROR: Problem with the file! Going back...");
         }
     }
 
+    private void runReviewMenu(String productName, String brand) {
+        UI.showMenu(MenuOptions.MENU_REVIEWS);
+        int option = UI.askForOption("Choose an option: ", 1, 2);
+
+        switch (option) {
+            case 1 -> readReviews(productName, brand);
+            case 2 -> reviewProduct(productName, brand);
+        }
+    }
+
+    private void readReviews(String productName, String brand) {
+        try {
+            UI.showMessage("\nThese are the reviews for \"" + productName + "\" by \"" + brand + "\":\n");
+            String[] reviews = productManager.getReviews(productName);
+            if (reviews.length == 0) {//Si el size es 0 significa que no tiene ninguna review
+                UI.showMessage("\tBe the first to put a review!");
+                return;
+            }
+            double averageRating = 0;
+
+            for (int i = 0; i < reviews.length; i++) {
+                averageRating +=  Character.getNumericValue(reviews[i].charAt(0));
+                UI.showMessage("\t" + reviews[i]);
+                if (i == reviews.length - 1) {
+                    UI.showMessage("\n\tAverage rating: " + (averageRating / reviews.length) + "*");
+                }
+            }
+        } catch(IOException e) {
+            UI.showMessage("ERROR: Problem with the file! Going back...");
+        }
+    }
+
+    private void reviewProduct(String productName, String brand) {
+
+        try {
+            int rating = UI.askForOption("Please rate the product (1-5 stars): ", 1, 5);
+            String comment = UI.askForString("Please add a comment to your review: ");
+
+            productManager.addReview(productName, rating, comment);
+
+            UI.showMessage("Thank you for your review of \"" + productName + "\" by \"" + brand + "\".");
+        } catch (IOException e) {
+            UI.showMessage("ERROR: Problem with the file! Going back...");
+        }
+    }
 }
