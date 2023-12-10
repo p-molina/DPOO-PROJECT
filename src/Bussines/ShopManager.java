@@ -49,7 +49,7 @@ public class ShopManager {
             if(shop.getName().equals(nameShop)) {
                 if (shop.getCatalogProductList() != null) {
                     List<CatalogProduct> catalogProductList = shop.getCatalogProductList();
-                    CatalogProduct newProduct = new CatalogProduct(nameProduct, nameBrand, price);
+                    CatalogProduct newProduct = new CatalogProduct(nameProduct, nameBrand, nameShop,price);
                     catalogProductList.add(newProduct);
                 }
             }

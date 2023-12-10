@@ -34,18 +34,7 @@
     "since": 1980,
     "earnings": 0.0,
     "businessModel": "MAXIMUM_BENEFITS",
-    "catalogProductList": [
-      {
-        "nameProduct": "vestido",
-        "nameBrand": "Anamoda",
-        "price": 15.0
-      },
-      {
-        "nameProduct": "camisa",
-        "nameBrand": "Zarahome",
-        "price": 9.99
-      }
-    ]
+    "catalogProductList": []
   },
   {
     "name": "vestidos Ana",

@@ -67,11 +67,11 @@ public class ShopController {
                         int option = UI.askForOption("\nChoose an option", 1, 3);
                         switch (option) {
                             case 1:
-                                //String reviewsString = productManager.readReviews(nameProduct);
+                                //String reviewsString = productManager.readReviewsFromProduct(nameProduct);
                                 UI.showMessage("REVIEWS:");
                                 break;
                             case 2:
-                                //productManager.addReviewProdut();
+                                //productManager.addReviewToProdut();
                                 UI.showMessage("PRODUCT WAS REVIEWED SUCCESFULLY");
                                 break;
                             case 3:
