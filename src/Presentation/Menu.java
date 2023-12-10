@@ -2,17 +2,29 @@ package Presentation;
 
 import java.io.FileNotFoundException;
 
+/**
+ * Clase que representa el menú principal de la aplicación.
+ */
 public class Menu {
     private ProductController productController;
     private ShopController shopController;
     private CartController cartController;
 
+    /**
+     * Constructor para inicializar el menú con los controladores correspondientes.
+     *
+     * @param productController Controlador de productos.
+     * @param shopController    Controlador de tiendas.
+     * @param cartController    Controlador de carrito de compras.
+     */
     public Menu(ProductController productController, ShopController shopController, CartController cartController) {
         this.productController = productController;
         this.shopController = shopController;
         this.cartController = cartController;
     }
-
+    /**
+     * Ejecuta el flujo principal del menú de la aplicación.
+     */
     public void run() {
         UI.showMenu(MenuOptions.MENU_PRINCIPAL);
         UI.showMenu(MenuOptions.CHECKING_FILES);

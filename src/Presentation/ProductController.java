@@ -7,18 +7,34 @@ import Bussines.ShopManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * Controlador para la gestión de productos.
+ */
 public class ProductController {
     private ProductManager productManager;
     private ShopManager shopManager;
 
+    /**
+     * Constructor para inicializar el controlador de productos.
+     *
+     * @param productManager Gestor de productos.
+     * @param shopManager    Gestor de tiendas.
+     */
     public ProductController(ProductManager productManager, ShopManager shopManager) {
         this.shopManager = shopManager;
         this.productManager = productManager;
     }
-
+    /**
+     * Verifica la existencia del archivo de productos.
+     *
+     * @throws FileNotFoundException Si el archivo no se encuentra.
+     */
     public void checkProductFile() throws FileNotFoundException {
         productManager.checkProductFile();
     }
+    /**
+     * Ejecuta el menú de gestión de productos.
+     */
     public void runProductMenu() {
         UI.showMenu(MenuOptions.MENU_PRODUCTO);
         int selection = UI.askForOption("Choose an option: ",1, 3);
@@ -103,6 +119,9 @@ public class ProductController {
             }
         }
     }
+    /**
+     * Ejecuta el menú de búsqueda de productos.
+     */
     public void runSearchMenu() {
         searchProduct(UI.askForString("\nEnter your query: "));
     }
