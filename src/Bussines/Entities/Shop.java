@@ -3,6 +3,9 @@ package Bussines.Entities;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Representa una tienda, incluyendo detalles como nombre, descripción, año de apertura, ingresos, modelo de negocio y lista de productos en el catálogo.
+ */
 public class Shop {
     private String name;
     private String description;
@@ -11,31 +14,60 @@ public class Shop {
     private String businessModel;
     private List<CatalogProduct> catalogProductList;
 
+    /**
+     * Constructor para crear una tienda.
+     *
+     * @param name           Nombre de la tienda.
+     * @param description    Descripción de la tienda.
+     * @param since          Año de apertura de la tienda.
+     * @param earnings       Ingresos de la tienda.
+     * @param businessModel  Modelo de negocio de la tienda.
+     */
     public Shop(String name, String description, int since, double earnings, String businessModel) {
         this.name = name;
         this.description = description;
         this.since = since;
         this.earnings = earnings;
         this.businessModel = businessModel;
-        this.catalogProductList = new ArrayList<CatalogProduct>(0);
+        this.catalogProductList = new ArrayList<>(0);
     }
-
+    /**
+     * Obtiene el nombre de la tienda.
+     *
+     * @return Nombre de la tienda.
+     */
     public String getName() {
         return name;
     }
-
+    /**
+     * Obtiene la descripción de la tienda.
+     *
+     * @return Descripción de la tienda.
+     */
     public String getDescription() {
         return description;
     }
-
+    /**
+     * Obtiene el año de apertura de la tienda.
+     *
+     * @return Año de apertura de la tienda.
+     */
     public int getSince() {
         return since;
     }
-
+    /**
+     * Obtiene la lista de productos del catálogo de la tienda.
+     *
+     * @return Lista de productos del catálogo.
+     */
     public List<CatalogProduct> getCatalogProductList() {
         return catalogProductList;
     }
-
+    /**
+     * Establece los ingresos de la tienda.
+     *
+     * @param earnings Ingresos de la tienda.
+     */
     public void setEarnings(double earnings) {
         this.earnings = earnings;
     }
