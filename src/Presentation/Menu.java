@@ -69,7 +69,7 @@ public class Menu {
             shopController.checkFile();
             check = true;
         } catch (FileNotFoundException e){
-            UI.showMessage(e.getMessage());
+            UI.showMessage("ERROR: 'product.json' file was not found.");
         }
 
         return check;

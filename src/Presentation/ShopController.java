@@ -124,7 +124,8 @@ public class ShopController {
                 return false;
             }
         } catch (IOException e) {
-            e.getMessage();
+            UI.showMessage("ERROR: Problem with the file! Going back.");
+            return false;
         }
 
         String description = UI.askForString("Please enter the shops’s description: ");
@@ -161,7 +162,8 @@ public class ShopController {
                 return false;
             }
         } catch (IOException e) {
-            e.getMessage();
+            UI.showMessage("ERROR: Problem with the file! Going back.");
+            return false;
         }
         String nameProduct = UI.askForString("\nPlease enter the product’s name: ");
         //COMPROVAR PRODUCTE EXISTEIX
@@ -172,7 +174,8 @@ public class ShopController {
                 return false;
             }
         } catch (IOException e) {
-            e.getMessage();
+            UI.showMessage("ERROR: Problem with the file! Going back.");
+            return false;
         }
         //COMPROVAR PRODUCTE NO REPETIT
         try {
@@ -182,14 +185,16 @@ public class ShopController {
                 return false;
             }
         } catch (IOException e) {
-            e.getMessage();
+            UI.showMessage("ERROR: Problem with the file! Going back.");
+            return false;
         }
         String productBrand = "";
         //OBTENIR LA BRAND DEL PRODUCTE
         try {
             productBrand = productManager.getBrandFromProduct(nameProduct);
         } catch (IOException e) {
-            e.getMessage();
+            UI.showMessage("ERROR: Problem with the file! Going back.");
+            return false;
         }
         double price = UI.askForDouble("\nPlease enter the product’s price at this shop: ");
         //COMPROVAR PVP OKEY
@@ -200,7 +205,8 @@ public class ShopController {
                 return false;
             }
         } catch (IOException e) {
-            e.getMessage();
+            UI.showMessage("ERROR: Problem with the file! Going back.");
+            return false;
         }
         UI.showMessage("\""+ nameProduct +"\" by\"" + productBrand +  "\" is now being sold at \"" + nameShop + "\".\n");
         try {
@@ -219,13 +225,15 @@ public class ShopController {
                 return false;
             }
         } catch (IOException e) {
-            e.getMessage();
+            UI.showMessage("ERROR: Problem with the file! Going back.");
+            return false;
         }
         try {
             String catalogue = shopManager.getCatalogueFromShop(nameShop);
             UI.showMessage(catalogue);
         } catch (IOException e) {
-            e.getMessage();
+            UI.showMessage("ERROR: Problem with the file! Going back.");
+            return false;
         }
         int option = UI.askForInt("Which one would you like to remove? ");
         try {
@@ -238,7 +246,8 @@ public class ShopController {
                 UI.showMessage("PRODUCT HAS BEEN REMOVED FOR CATALOGUE!");
             }
         } catch (IOException e) {
-            e.getMessage();
+            UI.showMessage("ERROR: Problem with the file! Going back.");
+            return false;
         }
         return true;
     }
