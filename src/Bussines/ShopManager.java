@@ -13,14 +13,34 @@ import java.util.List;
 
 public class ShopManager {
     private ShopDAO shopDAO;
-
+    
+    /**
+     * Constructor de la clase ShopManager que recibe un objeto ShopDAO como parámetro.
+     *
+     * @param shopDAO El objeto ShopDAO que se utiliza para gestionar las tiendas.
+     */
     public ShopManager(ShopDAO shopDAO) {
         this.shopDAO = shopDAO;
     }
+    /**
+     * Verifica la existencia del archivo asociado a la gestión de tiendas.
+     * Lanza una excepción en caso de que el archivo no exista.
+     *
+     * @throws IOException Si no se encuentra el archivo o ocurre un error de E/S.
+     */
     public void checkFile() throws IOException{
         shopDAO.checkFile();
     }
 
+    /**
+     * Crea una nueva tienda y la agrega al repositorio de tiendas.
+     *
+     * @param name         Nombre de la tienda a crear.
+     * @param description  Descripción de la tienda.
+     * @param since        Año de fundación de la tienda.
+     * @param nameModel    Nombre del modelo de negocio de la tienda.
+     * @throws IOException Si ocurre algún error de entrada o salida al operar con el repositorio.
+     */
     public void createShop(String name, String description , int since, String nameModel) throws IOException {
         //BusinessModel businessModel = new BusinessModel(nameModel);
         Shop shop = new Shop(name, description, since, 0, nameModel);
@@ -28,11 +48,24 @@ public class ShopManager {
         shops.add(shop);
         shopDAO.saveAllShops(shops);
     }
-
+    /**
+     * Verifica si el nombre de una tienda es único en el repositorio.
+     *
+     * @param name Nombre de la tienda a verificar.
+     * @return true si el nombre de la tienda es único, false si ya existe una tienda con ese nombre.
+     * @throws IOException Si ocurre algún error de entrada o salida al operar con el repositorio.
+     */
     public boolean isShopUnique(String name) throws IOException {
         Shop isUnique = findByName(name);
         return isUnique == null;
     }
+    /**
+     * Busca una tienda por su nombre en el repositorio de tiendas.
+     *
+     * @param name Nombre de la tienda a buscar.
+     * @return La tienda encontrada por su nombre, o null si no se encuentra ninguna tienda con ese nombre.
+     * @throws IOException Si ocurre algún error de entrada o salida al operar con el repositorio.
+     */
     public Shop findByName(String name) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
 
@@ -43,6 +76,15 @@ public class ShopManager {
         }
         return null;
     }
+    /**
+     * Expande el catálogo de productos de una tienda específica agregando un nuevo producto.
+     *
+     * @param nameShop   El nombre de la tienda a la que se agregará el producto.
+     * @param nameProduct   El nombre del nuevo producto.
+     * @param nameBrand     La marca del nuevo producto.
+     * @param price     El precio del nuevo producto.
+     * @throws IOException Si ocurre un error de entrada/salida al operar con el repositorio de tiendas.
+     */
     public void expandCatalogue(String nameShop, String nameProduct, String nameBrand, double price) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
         for (Shop shop : shops) {
@@ -56,6 +98,13 @@ public class ShopManager {
         }
         shopDAO.saveAllShops(shops);
     }
+    /**
+     * Elimina un producto específico de un catálogo de una tienda.
+     *
+     * @param nameProduct El nombre del producto que se va a eliminar.
+     * @param nameShop    El nombre de la tienda de la que se eliminará el producto.
+     * @throws IOException Si ocurre un error de entrada/salida al operar con el repositorio de tiendas.
+     */
     public void deleteProductFromShop(String nameProduct, String nameShop) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
         for (Shop shop : shops) {
@@ -76,6 +125,12 @@ public class ShopManager {
         }
         shopDAO.saveAllShops(shops);
     }
+    /**
+     * Elimina un producto específico de todos los catálogos de las tiendas.
+     *
+     * @param name El nombre del producto que se eliminará de todos los catálogos de tiendas.
+     * @throws IOException Si ocurre un error de entrada/salida al operar con el repositorio de tiendas.
+     */
     public void deleteProductFromAllShops(String name) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
 
@@ -83,6 +138,14 @@ public class ShopManager {
             deleteProductFromShop(name, shop.getName());
         }
     }
+    /**
+     * Verifica si un producto está presente en el catálogo de una tienda específica.
+     *
+     * @param nameProduct El nombre del producto que se busca en el catálogo de la tienda.
+     * @param nameShop    El nombre de la tienda donde se buscará el producto.
+     * @return true si el producto está presente en el catálogo de la tienda, false en caso contrario.
+     * @throws IOException Si ocurre un error de entrada/salida al operar con el repositorio de tiendas.
+     */
     public boolean isProductInCatalogue(String nameProduct, String nameShop) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
         for (Shop shop : shops) {
@@ -100,6 +163,14 @@ public class ShopManager {
         }
         return false; // El producto no está en el catálogo o la tienda no fue encontrada
     }
+    /**
+     * Obtiene el catálogo de productos de una tienda específica en forma de cadena de texto.
+     *
+     * @param shopName El nombre de la tienda cuyo catálogo se desea obtener.
+     * @return Una cadena de texto que representa el catálogo de la tienda, o null si la tienda no se encontró.
+     * @throws IOException Si hay un error de entrada/salida al operar con el repositorio de tiendas.
+     */
+
     public String getCatalogueFromShop(String shopName) throws IOException {
         Shop shop = findByName(shopName);
         if(shop != null)
@@ -114,6 +185,14 @@ public class ShopManager {
         }
         return null;
     }
+    /**
+     * Elimina un producto específico del catálogo de una tienda basándose en su índice en el catálogo.
+     *
+     * @param shopName    El nombre de la tienda de la que se eliminará el producto del catálogo.
+     * @param productIndex El índice del producto en el catálogo que se desea eliminar (empezando en 1).
+     * @return true si se elimina el producto, false si el índice no es válido o el producto no se encuentra.
+     * @throws IOException Si hay un error de entrada/salida al operar con el repositorio de tiendas.
+     */
     public boolean reduceCatalogue(String shopName, int productIndex) throws IOException {
         Shop shop = findByName(shopName);
         List<CatalogProduct> catalogue = shop.getCatalogProductList();
@@ -126,6 +205,12 @@ public class ShopManager {
         }
         return false;
     }
+    /**
+     * Devuelve una cadena que enumera las tiendas disponibles junto con sus números correspondientes.
+     *
+     * @return Una cadena con la lista numerada de tiendas disponibles.
+     * @throws IOException Si hay un error de entrada/salida al obtener la lista de tiendas.
+     */
     public String listShops() throws IOException {
         String shopsString = "";
         List<Shop> shops = shopDAO.getAllShops();
@@ -136,6 +221,13 @@ public class ShopManager {
         }
         return shopsString;
     }
+    /**
+     * Obtiene la información detallada de una tienda específica según su índice.
+     *
+     * @param shopIndex El índice de la tienda que se desea obtener.
+     * @return Una cadena que contiene la información detallada de la tienda, incluidos los productos en su catálogo.
+     * @throws IOException Si hay un error de entrada/salida al obtener la información de la tienda.
+     */
     public String getShopInfo(int shopIndex) throws IOException {
         String infoShop = "";
         List<Shop> shops = shopDAO.getAllShops();
@@ -144,6 +236,13 @@ public class ShopManager {
         infoShop = infoShop + "\n\nProducts:\n" + getCatalogueFromShop(selectedShop.getName());
         return infoShop;
     }
+    /**
+     * Busca un producto específico en el catálogo de todas las tiendas y devuelve la información de las tiendas que lo venden.
+     *
+     * @param productInfo Un arreglo de cadenas que contiene la información del producto a buscar, donde la segunda posición es el nombre del producto.
+     * @return Una matriz bidimensional de cadenas que contiene la información de las tiendas que venden el producto buscado, incluido el nombre de la tienda y el precio del producto.
+     * @throws IOException Si hay un error de entrada/salida al buscar el producto en los catálogos de las tiendas.
+     */
     public String[][] getCatalogueSearch(String[] productInfo) throws IOException {
         List<Shop> shopsList = shopDAO.getAllShops();
         List<String[]> shopInfoForProduct = new ArrayList<>();

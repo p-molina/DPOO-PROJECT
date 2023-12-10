@@ -10,11 +10,20 @@ public class ShopController {
     private ShopManager shopManager;
     private ProductManager productManager;
 
+    /**
+     * Constructor de la clase ShopController que recibe instancias de ShopManager y ProductManager.
+     *
+     * @param shopManager    Instancia de ShopManager para la gestión de tiendas.
+     * @param productManager Instancia de ProductManager para la gestión de productos.
+     */
     public ShopController(ShopManager shopManager, ProductManager productManager) {
         this.shopManager = shopManager;
         this.productManager = productManager;
     }
-
+    /**
+     * Comprueba la existencia del archivo de tiendas ('shops.json').
+     * Muestra un mensaje de error si hay un problema con el archivo.
+     */
     public void checkFile() {
         try {
             shopManager.checkFile();
@@ -22,7 +31,12 @@ public class ShopController {
             UI.showMessage("ERROR: Problem with 'shops.json' file.");
         }
     }
-
+    /**
+     * Ejecuta el menú de gestión de tiendas.
+     * Muestra las opciones del menú y permite al usuario realizar acciones como crear tiendas,
+     * ampliar el catálogo o reducir productos del catálogo de una tienda.
+     * Retorna false cuando se elige salir del menú para volver al menú principal.
+     */
     public void runShopMenu() {
         boolean isRunning = true;//fer isRunning = false; y torna al menú principal.
 
@@ -45,6 +59,13 @@ public class ShopController {
             }
         }
     }
+    /**
+     * Muestra la lista de tiendas disponibles y permite al usuario seleccionar una tienda
+     * para ver su información detallada y acceder a su catálogo de productos.
+     * El usuario puede elegir una tienda y luego un producto del catálogo para realizar acciones
+     * como ver las reseñas, agregar una reseña al producto o agregarlo al carrito de compras.
+     * Devuelve al menú principal cuando se selecciona "0) BACK" en cualquier punto del proceso.
+     */
     public void listShops()
     {
         UI.showMenu(MenuOptions.LIST_SHOPS);

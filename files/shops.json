@@ -37,7 +37,14 @@
     "since": 1980,
     "earnings": 0.0,
     "businessModel": "MAXIMUM_BENEFITS",
-    "catalogProductList": []
+    "catalogProductList": [
+      {
+        "nameProduct": "boxer",
+        "nameBrand": "Zarabasic",
+        "nameShop": "zara",
+        "price": 22.0
+      }
+    ]
   },
   {
     "name": "vestidos Ana",
@@ -45,17 +52,6 @@
     "since": 2023,
     "earnings": 0.0,
     "businessModel": "MAXIMUM_BENEFITS",
-    "catalogProductList": [
-      {
-        "nameProduct": "vestido",
-        "nameBrand": "Anamoda",
-        "price": 24.0
-      },
-      {
-        "nameProduct": "camisa",
-        "nameBrand": "Zarahome",
-        "price": 20.0
-      }
-    ]
+    "catalogProductList": []
   }
 ]
