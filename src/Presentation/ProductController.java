@@ -1,5 +1,6 @@
 package Presentation;
 
+import Bussines.Entities.Product;
 import Bussines.ProductManager;
 import Bussines.ShopManager;
 
@@ -35,7 +36,7 @@ public class ProductController {
     }
 
     public void runSearchMenu() {
-        searchProduct(UI.askForString("Enter your query: "));
+        searchProduct(UI.askForString("\nEnter your query: "));
     }
 
     private void createProduct() {
@@ -112,9 +113,27 @@ public class ProductController {
 
     private void searchProduct(String query) {
         try {
-            shopManager.getCatalogueSearch(productManager.searchProduct(query));
+            UI.showMessage("\nThe following products were found:");
+
+            String[][] productsInfo = productManager.searchProduct(query);
+            for (int i = 0; i < productsInfo.length; i++) {
+                String[] productRow = productsInfo[i];
+                // Obtener información de tiendas para el producto actual
+                String[][] shopInfo = shopManager.getCatalogueSearch(productRow);
+
+                // Mostrar información del producto
+                String productInfo = String.join(" ", productRow);
+                UI.showMessage("\n" + productInfo);
+
+                // Mostrar información de las tiendas para este producto
+                for (String[] shopRow : shopInfo) {
+                    String shopDetails = String.join(" ", shopRow);
+                    UI.showMessage(shopDetails);
+                }
+            }
         } catch (IOException e) {
-            UI.showMessage("ERROR: Problem with the file!. Going back...");
+            UI.showMessage("ERROR: Problem with the file! Going back...");
         }
     }
+
 }

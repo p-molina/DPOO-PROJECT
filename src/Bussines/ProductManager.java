@@ -40,21 +40,32 @@ public class  ProductManager {
         products.removeAll(toRemove);
         productDAO.saveAllProduct(products);
     }
-    public List<Product> searchProduct(String query) throws IOException {
-        List<Product> productsFound = new ArrayList<>();
+    public String[][] searchProduct(String query) throws IOException {
         List<Product> productsAux = productDAO.getAllProducts();
+        List<String[]> productsFound = new ArrayList<>();
 
+        int count = 1;
         for (Product product : productsAux) {
             // Comprobar si el nombre del producto contiene el texto introducido, ignorando mayúsculas y minúsculas
-            if (product.getName().toLowerCase().contains(query.toLowerCase())) {
-                productsFound.add(product);
-                // Comprobar si la marca coincide exactamente, incluyendo mayúsculas y minúsculas
-            } else if (product.getBrand().equals(query)) {
-                productsFound.add(product);
+            if (product.getName().toLowerCase().contains(query.toLowerCase())
+                    || product.getBrand().equals(query)) {
+                String[] productInfo = new String[4];
+                productInfo[0] = count + ")";
+                productInfo[1] = "\"" + product.getName() + "\"";
+                productInfo[2] = "by";
+                productInfo[3] = "\"" + product.getBrand() + "\"";
+                productsFound.add(productInfo);
+                count++;
             }
         }
 
-        return productsFound;
+        // Convertir la lista de arreglos de cadenas a una matriz de cadenas
+        String[][] result = new String[productsFound.size()][];
+        for (int i = 0; i < productsFound.size(); i++) {
+            result[i] = productsFound.get(i);
+        }
+
+        return result;
     }
     public boolean checkName(String name) throws IOException {
         boolean found = false;

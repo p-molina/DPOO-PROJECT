@@ -144,32 +144,32 @@ public class ShopManager {
         infoShop = infoShop + "\n\nProducts:\n" + getCatalogueFromShop(selectedShop.getName());
         return infoShop;
     }
-
-    public HashMap<String, CatalogProduct> getCatalogueSearch(List<Product> products) throws IOException {
-        HashMap<String, CatalogProduct> catalogProductHashMap = new HashMap<>();
+    public String[][] getCatalogueSearch(String[] productInfo) throws IOException {
         List<Shop> shopsList = shopDAO.getAllShops();
+        List<String[]> shopInfoForProduct = new ArrayList<>();
 
-        Iterator<Product> productIterator = products.iterator();
-        while (productIterator.hasNext()) {
-            Product product = productIterator.next();
+        // Obtener el nombre del producto de la segunda posición del arreglo
+        String productName = productInfo[1].replaceAll("\"", ""); // Eliminar comillas
 
-            Iterator<Shop> shopIterator = shopsList.iterator();
-            while (shopIterator.hasNext()) {
-                Shop shop = shopIterator.next();
-                List<CatalogProduct> catalogProductList = shop.getCatalogProductList();
-
-                if (catalogProductList != null) {
-                    Iterator<CatalogProduct> catalogProductIterator = catalogProductList.iterator();
-                    while (catalogProductIterator.hasNext()) {
-                        CatalogProduct catalogProduct = catalogProductIterator.next();
-                        if (product.getName().equals(catalogProduct.getNameProduct())) {
-                            catalogProductHashMap.put(shop.getName(), catalogProduct);
-                        }
-                    }
+        for (Shop shop : shopsList) {
+            for (CatalogProduct catalogProduct : shop.getCatalogProductList()) {
+                if (catalogProduct.getNameProduct().equals(productName)) {
+                    // Formatear la información de la tienda y el precio
+                    String[] shopAndPrice = new String[3];
+                    shopAndPrice[0] = "\t-";
+                    shopAndPrice[1] = shop.getName() + ":";
+                    shopAndPrice[2] = String.valueOf(catalogProduct.getPrice());
+                    shopInfoForProduct.add(shopAndPrice);
                 }
             }
         }
 
-        return catalogProductHashMap;
+        // Convertir la lista a una matriz String[][]
+        String[][] result = new String[shopInfoForProduct.size()][];
+        for (int i = 0; i < shopInfoForProduct.size(); i++) {
+            result[i] = shopInfoForProduct.get(i);
+        }
+
+        return result;
     }
 }
