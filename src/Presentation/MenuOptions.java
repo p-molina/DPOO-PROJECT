@@ -1,5 +1,8 @@
 package Presentation;
 
+/**
+ * Enumeración para facilitar la lectura del codigo sobre la muestra de información al usuario
+ */
 public enum MenuOptions {
     MENU_PRINCIPAL,
     CHECKING_FILES,

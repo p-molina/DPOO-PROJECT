@@ -6,6 +6,9 @@ import Bussines.ShoppingCartManager;
 
 import java.io.IOException;
 
+/**
+ * Controlador para la gestión de tiendas.
+ */
 public class ShopController {
     private ShopManager shopManager;
     private ProductManager productManager;

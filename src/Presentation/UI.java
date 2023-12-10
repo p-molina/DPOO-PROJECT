@@ -4,6 +4,9 @@ import Bussines.Entities.Product;
 
 import java.util.*;
 
+/**
+* Clase para mostrarle la información al usuario
+ */
 public class UI {
     private static final Scanner scanner = new Scanner(System.in);
     /**
