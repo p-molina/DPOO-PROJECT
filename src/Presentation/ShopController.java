@@ -89,7 +89,6 @@ public class ShopController {
         }
 
     }
-
     private boolean createShop()
     {
         String name = UI.askForString("\nPlease enter the shop’s name: ");

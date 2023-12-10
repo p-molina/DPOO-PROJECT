@@ -40,5 +40,12 @@
     "mrp": 30.0,
     "category": "SUPER_REDUCED",
     "reviews": []
+  },
+  {
+    "name": "asd",
+    "brand": "Asd",
+    "mrp": 1.0,
+    "category": "GENERAL",
+    "reviews": []
   }
 ]

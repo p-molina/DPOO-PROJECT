@@ -12,17 +12,14 @@ import java.util.List;
 
 public class  ProductManager {
     private ProductDAO productDAO;
-    private ShopManager shopManager;
 
-    public ProductManager(ProductDAO productDAO, ShopManager shopManager) {
+    public ProductManager(ProductDAO productDAO) {
         this.productDAO = productDAO;
-        this.shopManager = shopManager;
     }
 
     public void checkProductFile() throws FileNotFoundException {
         productDAO.checkFile();
     }
-
     public void createProduct(String name, String brand, double mrp, String category) throws IOException {
         Product product = new Product(name, brand, mrp, category);
         List<Product> products = productDAO.getAllProducts();
@@ -30,7 +27,6 @@ public class  ProductManager {
 
         productDAO.saveAllProduct(products);
     }
-
     public void deleteProduct(String name) throws IOException {
         List<Product> products = productDAO.getAllProducts();
         List<Product> toRemove = new ArrayList<>();
@@ -43,11 +39,23 @@ public class  ProductManager {
 
         products.removeAll(toRemove);
         productDAO.saveAllProduct(products);
-
-        //Eliminamos el prducto de todas las tiendas en las que se encuentre
-        shopManager.deleteProductFromAllShops(name);
     }
+    public List<Product> searchProduct(String query) throws IOException {
+        List<Product> productsFound = new ArrayList<>();
+        List<Product> productsAux = productDAO.getAllProducts();
 
+        for (Product product : productsAux) {
+            // Comprobar si el nombre del producto contiene el texto introducido, ignorando mayúsculas y minúsculas
+            if (product.getName().toLowerCase().contains(query.toLowerCase())) {
+                productsFound.add(product);
+                // Comprobar si la marca coincide exactamente, incluyendo mayúsculas y minúsculas
+            } else if (product.getBrand().equals(query)) {
+                productsFound.add(product);
+            }
+        }
+
+        return productsFound;
+    }
     public boolean checkName(String name) throws IOException {
         boolean found = false;
 
@@ -60,7 +68,6 @@ public class  ProductManager {
 
         return found;
     }
-
     public String toTitleCase(String input) {
         String[] words = input.toLowerCase().split("\\s+"); //Indicamos que divida el nombre por espacios, \t o \n con "\\s" y que se puede repetir con el "+"
         StringBuilder titleCase = new StringBuilder();
@@ -74,7 +81,6 @@ public class  ProductManager {
 
         return titleCase.toString().trim(); //Lo juntamos enuna string de nuevo
     }
-
     public HashMap<Product, Double> getProductsRatingMap() throws IOException{
         HashMap<Product, Double> productRatingMap = new HashMap<>();
 
@@ -85,7 +91,6 @@ public class  ProductManager {
 
         return productRatingMap;
     }
-
     private double getAverageRating(Review[] reviews) {
         if (reviews == null || reviews.length == 0) {
             return -1;

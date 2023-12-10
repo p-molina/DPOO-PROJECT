@@ -15,13 +15,13 @@ public class Main {
 
         //Aqui inicializamos las clases de la capa Bussines
         //MIRAR SI ESTO ESTA BIEN
-        ShopManager shopManager1 = new ShopManager();//TODO comprovar si necesario
-        ProductManager productManager = new ProductManager(productDAO, shopManager1);
+        ProductManager productManager = new ProductManager(productDAO);
         ShopManager shopManager = new ShopManager(shopDAO);
 
         //Aqui inicializamos las clases de la capa Presentacion
-        ProductController productController = new ProductController(productManager);
+
         ShopController shopController = new ShopController(shopManager, productManager);
+        ProductController productController = new ProductController(productManager, shopManager);
         CartController cartController = new CartController();
 
         //Inicializamos el menu y ejecutamos la pantalla principal

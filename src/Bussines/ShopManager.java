@@ -1,10 +1,7 @@
 package Bussines;
 
-import Bussines.Entities.BusinessModel;
 import Bussines.Entities.CatalogProduct;
-import Bussines.Entities.Product;
 import Bussines.Entities.Shop;
-import Persistance.ProductDAO;
 import Persistance.ShopDAO;
 
 import java.io.IOException;
@@ -14,7 +11,6 @@ import java.util.List;
 public class ShopManager {
     private ShopDAO shopDAO;
 
-    public ShopManager(){}
     public ShopManager(ShopDAO shopDAO) {
         this.shopDAO = shopDAO;
     }

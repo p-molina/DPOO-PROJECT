@@ -1,10 +1,7 @@
 package Presentation;
 
 import Bussines.Entities.Product;
-import Bussines.Entities.Review;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.*;
 
 public class UI {
@@ -122,22 +119,6 @@ public class UI {
         System.out.println(separator);
     }
 
-
-
-    private static double getAverageRating(Review[] reviews) {
-        if (reviews.length == 0) {
-            return -1;
-        }
-
-        double sum = 0;
-        for (Review review : reviews) {
-            sum += review.getClassificationStars();
-        }
-
-        return sum / reviews.length;
-    }
-
-
     public static int askForOption(String message, int min, int max) {//TODO el tractament de exepcións s'ha de fer als controlers, no a la UI (aquesta ha de quedar amb les funcións basiques de askFor...)
         int selection = 0;
         while (true) {
@@ -176,23 +157,6 @@ public class UI {
         }
     }
 
-    public static double askForMaxPvp(String message, float min) {//TODO el tractament de exepcións s'ha de fer als controlers, no a la UI (aquesta ha de quedar amb les funcións basiques de askFor...)
-        while (true) {
-            try {
-                System.out.print(message);
-                double selection = scanner.nextDouble();
-                if (selection >= min) {
-                    scanner.nextLine(); // Limpiar el buffer en caso de entrada incorrecta
-                    return selection;
-                } else {
-                    System.out.println("\nERROR: The input is out of the range.\nEnter a number bigger than " + min + ".\nTry again...\n");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("\nERROR: Input is not a valid number. \nTry again...\n");
-                scanner.nextLine(); // Limpiar el buffer
-            }
-        }
-    }
     public static double askForDouble(String message) {
         while (true) {
             try {
@@ -206,7 +170,6 @@ public class UI {
             }
         }
     }
-
 
     public static void closeScanner() {
         scanner.close();

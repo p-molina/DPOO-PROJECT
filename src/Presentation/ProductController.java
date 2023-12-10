@@ -1,6 +1,5 @@
 package Presentation;
 
-import Bussines.Entities.Category;
 import Bussines.ProductManager;
 import Bussines.ShopManager;
 
@@ -9,8 +8,10 @@ import java.io.IOException;
 
 public class ProductController {
     private ProductManager productManager;
+    private ShopManager shopManager;
 
-    public ProductController(ProductManager productManager) {
+    public ProductController(ProductManager productManager, ShopManager shopManager) {
+        this.shopManager = shopManager;
         this.productManager = productManager;
     }
 
@@ -33,6 +34,10 @@ public class ProductController {
         }
     }
 
+    public void runSearchMenu() {
+        searchProduct(UI.askForString("Enter your query: "));
+    }
+
     private void createProduct() {
         String name = UI.askForString("\nPlease enter the product’s name: ");
         try {
@@ -45,7 +50,12 @@ public class ProductController {
             return;
         }
         String brand = productManager.toTitleCase(UI.askForString("Please enter the product’s brand: "));
-        double mrp = UI.askForMaxPvp("Please enter the product’s maximum retail price [Please! use ',']: ", 0);
+        double mrp;
+        while(true) {
+            mrp = UI.askForDouble("Please enter the product’s maximum retail price [Please! use ',']: ");
+            if(mrp >= 0) {break;}
+            UI.showMessage("\nSorry! This price cant be lower than 0. Try again...\n");
+        }
 
         UI.showMenu(MenuOptions.SELECT_CATEGORY);
         int categorySelection = UI.askForOption("\nPlease pick the product’s category: ", 1, 3);
@@ -89,11 +99,22 @@ public class ProductController {
             if(option.equalsIgnoreCase("yes")) {
                 try {
                     productManager.deleteProduct(name);
+                    //Eliminamos el prducto de todas las tiendas en las que se encuentre
+                    shopManager.deleteProductFromAllShops(name);
+
                     UI.showMessage("\"" + name + "\" has been withdrawn from sale.");
                 } catch (IOException e) {
                     UI.showMessage("ERROR: Problem with the file!. Going back...");
                 }
             }
+        }
+    }
+
+    private void searchProduct(String query) {
+        try {
+            productManager.searchProduct(query);
+        } catch (IOException e) {
+            UI.showMessage("ERROR: Problem with the file!. Going back...");
         }
     }
 }
