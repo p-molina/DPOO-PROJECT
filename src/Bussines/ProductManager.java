@@ -10,16 +10,37 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Gestor de productos que maneja las operaciones relacionadas con productos.
+ */
 public class  ProductManager {
     private ProductDAO productDAO;
 
+    /**
+     * Constructor para inicializar el gestor de productos.
+     *
+     * @param productDAO DAO para el acceso a datos de productos.
+     */
     public ProductManager(ProductDAO productDAO) {
         this.productDAO = productDAO;
     }
-
+    /**
+     * Verifica la existencia del archivo de productos.
+     *
+     * @throws FileNotFoundException Si el archivo no se encuentra.
+     */
     public void checkProductFile() throws FileNotFoundException {
         productDAO.checkFile();
     }
+    /**
+     * Crea un nuevo producto y lo guarda en el archivo.
+     *
+     * @param name     Nombre del producto.
+     * @param brand    Marca del producto.
+     * @param mrp      Precio máximo de venta al público.
+     * @param category Categoría del producto.
+     * @throws IOException Si ocurre un error de entrada/salida.
+     */
     public void createProduct(String name, String brand, double mrp, String category) throws IOException {
         Product product = new Product(name, brand, mrp, category);
         List<Product> products = productDAO.getAllProducts();
@@ -27,6 +48,12 @@ public class  ProductManager {
 
         productDAO.saveAllProduct(products);
     }
+    /**
+     * Elimina un producto por su nombre.
+     *
+     * @param name Nombre del producto a eliminar.
+     * @throws IOException Si ocurre un error de entrada/salida.
+     */
     public void deleteProduct(String name) throws IOException {
         List<Product> products = productDAO.getAllProducts();
         List<Product> toRemove = new ArrayList<>();
@@ -40,6 +67,13 @@ public class  ProductManager {
         products.removeAll(toRemove);
         productDAO.saveAllProduct(products);
     }
+    /**
+     * Busca productos que coincidan con la consulta dada.
+     *
+     * @param query Consulta de búsqueda.
+     * @return Matriz de String con información de los productos encontrados.
+     * @throws IOException Si ocurre un error de entrada/salida.
+     */
     public String[][] searchProduct(String query) throws IOException {
         List<Product> productsAux = productDAO.getAllProducts();
         List<String[]> productsFound = new ArrayList<>();
@@ -67,6 +101,13 @@ public class  ProductManager {
 
         return result;
     }
+    /**
+     * Verifica si un nombre de producto ya existe.
+     *
+     * @param name Nombre del producto a verificar.
+     * @return Verdadero si el nombre ya existe, falso en caso contrario.
+     * @throws IOException Si ocurre un error de entrada/salida.
+     */
     public boolean checkName(String name) throws IOException {
         boolean found = false;
 
@@ -79,6 +120,12 @@ public class  ProductManager {
 
         return found;
     }
+    /**
+     * Convierte una cadena de texto a formato título.
+     *
+     * @param input Cadena de texto a convertir.
+     * @return Cadena de texto en formato título.
+     */
     public String toTitleCase(String input) {
         String[] words = input.toLowerCase().split("\\s+"); //Indicamos que divida el nombre por espacios, \t o \n con "\\s" y que se puede repetir con el "+"
         StringBuilder titleCase = new StringBuilder();
@@ -92,6 +139,12 @@ public class  ProductManager {
 
         return titleCase.toString().trim(); //Lo juntamos enuna string de nuevo
     }
+    /**
+     * Obtiene un mapa de productos con sus calificaciones promedio.
+     *
+     * @return HashMap de Productos y sus calificaciones promedio.
+     * @throws IOException Si ocurre un error de entrada/salida.
+     */
     public HashMap<Product, Double> getProductsRatingMap() throws IOException{
         HashMap<Product, Double> productRatingMap = new HashMap<>();
 
@@ -114,6 +167,13 @@ public class  ProductManager {
 
         return sum / reviews.size();
     }
+    /**
+     * Obtiene el precio máximo de venta al público (MRP) de un producto por su nombre.
+     *
+     * @param name Nombre del producto.
+     * @return El MRP del producto o -1 si no se encuentra.
+     * @throws IOException Si ocurre un error de entrada/salida.
+     */
     public double getMRPFromProduct(String name) throws IOException {
         double mrp = -1;
 
@@ -125,6 +185,13 @@ public class  ProductManager {
 
         return mrp;
     }
+    /**
+     * Obtiene la marca de un producto dado su nombre.
+     *
+     * @param nameProduct Nombre del producto.
+     * @return Marca del producto o null si no se encuentra.
+     * @throws IOException Si ocurre un error de entrada/salida.
+     */
     public  String getBrandFromProduct(String nameProduct) throws IOException {
         String productBrand = null;
         for (Product product : productDAO.getAllProducts()) {
@@ -133,6 +200,13 @@ public class  ProductManager {
         }
         return productBrand;
     }
+    /**
+     * Obtiene las reseñas de un producto por su nombre.
+     *
+     * @param productName Nombre del producto.
+     * @return Array de cadenas con las reseñas del producto.
+     * @throws IOException Si ocurre un error de entrada/salida.
+     */
     public String[] getReviews(String productName) throws IOException {
         List<Product> products = productDAO.getAllProducts();
         String[] reviewsArray = new String[0];
@@ -153,6 +227,14 @@ public class  ProductManager {
         }
         return reviewsArray;
     }
+    /**
+     * Agrega una reseña a un producto.
+     *
+     * @param productName Nombre del producto a reseñar.
+     * @param rating      Calificación de la reseña.
+     * @param comment     Comentario de la reseña.
+     * @throws IOException Si ocurre un error de entrada/salida.
+     */
     public void addReview(String productName, int rating, String comment) throws IOException {
         List<Product> products = productDAO.getAllProducts();
 

@@ -1,16 +1,17 @@
 package Bussines;
 
 import Bussines.Entities.CatalogProduct;
-import Bussines.Entities.Product;
 import Bussines.Entities.Shop;
 import Persistance.ShopDAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Gestor de productos que maneja las operaciones relacionadas con tiendas.
+ */
 public class ShopManager {
     private ShopDAO shopDAO;
     
@@ -228,7 +229,7 @@ public class ShopManager {
      * @throws IOException Si hay un error de entrada/salida al obtener la información de la tienda.
      */
     public String getShopInfo(int shopIndex) throws IOException {
-        String infoShop = "";
+        String infoShop;
         List<Shop> shops = shopDAO.getAllShops();
         Shop selectedShop = shops.get(shopIndex - 1);
         infoShop = "\nelCofre" + selectedShop.getName() + " Shop - Since " + selectedShop.getSince() + "\n" + selectedShop.getDescription() + ".";
