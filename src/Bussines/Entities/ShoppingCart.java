@@ -7,9 +7,9 @@ public class ShoppingCart {
     private List<CatalogProduct> catalogProductList;
     private double totalBuyPrice;
 
-    public ShoppingCart( double totalBuyPrice) {
+    public ShoppingCart() {
         this.catalogProductList = new ArrayList<CatalogProduct>(0);
-        this.totalBuyPrice = totalBuyPrice;
+        this.totalBuyPrice = 0;
     }
 
     public List<CatalogProduct> getCatalogProductList() {

@@ -22,7 +22,7 @@ public class Main {
 
         //Aqui inicializamos las clases de la capa Presentacion
 
-        ShopController shopController = new ShopController(shopManager, productManager);
+        ShopController shopController = new ShopController(shopManager, productManager, shoppingCartManager);
         ProductController productController = new ProductController(productManager, shopManager);
         CartController cartController = new CartController(shoppingCartManager);
 

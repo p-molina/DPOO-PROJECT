@@ -2,6 +2,7 @@ package Presentation;
 
 import Bussines.ProductManager;
 import Bussines.ShopManager;
+import Bussines.ShoppingCartManager;
 
 import java.io.IOException;
 
@@ -9,6 +10,7 @@ public class ShopController {
 
     private ShopManager shopManager;
     private ProductManager productManager;
+    private ShoppingCartManager shoppingCartManager;
 
     /**
      * Constructor de la clase ShopController que recibe instancias de ShopManager y ProductManager.
@@ -16,9 +18,10 @@ public class ShopController {
      * @param shopManager    Instancia de ShopManager para la gestión de tiendas.
      * @param productManager Instancia de ProductManager para la gestión de productos.
      */
-    public ShopController(ShopManager shopManager, ProductManager productManager) {
+    public ShopController(ShopManager shopManager, ProductManager productManager, ShoppingCartManager shoppingCartManager) {
         this.shopManager = shopManager;
         this.productManager = productManager;
+        this.shoppingCartManager = shoppingCartManager;
     }
 
     /**
@@ -98,7 +101,7 @@ public class ShopController {
                                 UI.showMessage("PRODUCT WAS REVIEWED SUCCESFULLY");
                                 break;
                             case 3:
-                                //cardManger.addProduct();
+                                shoppingCartManager.addProductToCard();//TODO crear nova funció al shopmanager que et retorni un catalogue product en concret amb l'indeex que l´hi passes
                                 UI.showMessage("PRODUCT WAS ADDED TO CARD");
                                 break;
                         }

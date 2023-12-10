@@ -10,6 +10,7 @@ public class CartController {
     }
     public void runManageCard()
     {
-
+        String cardInfo = shoppingCartManager.getCardInfo();
+        UI.showMessage(cardInfo);
     }
 }
