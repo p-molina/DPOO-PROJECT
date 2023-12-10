@@ -12,4 +12,5 @@ public class Review {
     public int getClassificationStars() {
         return this.classificationStars;
     }
+    public String getText() {return this.text;}
 }

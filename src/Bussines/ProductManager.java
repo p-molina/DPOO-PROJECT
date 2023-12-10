@@ -102,8 +102,8 @@ public class  ProductManager {
 
         return productRatingMap;
     }
-    private double getAverageRating(Review[] reviews) {
-        if (reviews == null || reviews.length == 0) {
+    private double getAverageRating(List<Review> reviews) {
+        if (reviews == null || reviews.size() == 0) {
             return -1;
         }
 
@@ -112,7 +112,7 @@ public class  ProductManager {
             sum += review.getClassificationStars();
         }
 
-        return sum / reviews.length;
+        return sum / reviews.size();
     }
     public double getMRPFromProduct(String name) throws IOException {
         double mrp = -1;
@@ -133,4 +133,41 @@ public class  ProductManager {
         }
         return productBrand;
     }
+
+    public String[] getReviews(String productName) throws IOException {
+        List<Product> products = productDAO.getAllProducts();
+        String[] reviewsArray = new String[0];
+
+        for (Product product : products) {
+            if (productName.equals(product.getName())) {
+                List<Review> reviews = product.getReviews(); // Suponiendo que getReviews ahora devuelve una List<Review>
+
+                // Inicializar el array de revisiones con la longitud de la lista de revisiones
+                reviewsArray = new String[reviews.size()];
+
+                for (int i = 0; i < reviews.size(); i++) {
+                    Review review = reviews.get(i); // Usar get(i) para acceder a los elementos de la lista
+                    reviewsArray[i] = review.getClassificationStars() + "* " + review.getText();
+                }
+                break;
+            }
+        }
+        return reviewsArray;
+    }
+
+    public void addReview(String productName, int rating, String comment) throws IOException {
+        List<Product> products = productDAO.getAllProducts();
+
+        for (Product product : products) {
+            if (productName.equals(product.getName())) {
+                List<Review> reviews = product.getReviews();
+                reviews.add(new Review(rating, comment));
+                break;
+            }
+        }
+
+        productDAO.saveAllProduct(products);
+    }
+
+
 }

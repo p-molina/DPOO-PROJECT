@@ -4,20 +4,60 @@
     "brand": "La Salle Gardening",
     "mrp": 79.99,
     "category": "GENERAL",
-    "reviews": []
+    "reviews": [
+      {
+        "classificationStars": 5,
+        "text": "Las rosas llegaron frescas y hermosas. ¡Perfectas para un regalo!"
+      },
+      {
+        "classificationStars": 4,
+        "text": "Muy bonitas, pero esperaba un arreglo un poco más grande."
+      }
+    ]
   },
   {
     "name": "Xuixo de Crema",
     "brand": "Viladrau Bakery",
     "mrp": 5.5,
     "category": "REDUCED",
-    "reviews": []
+    "reviews": [
+
+    ]
   },
   {
     "name": "The Neverending Story",
     "brand": "Book Publishers Incorporated",
     "mrp": 99.0,
     "category": "SUPER_REDUCED",
-    "reviews": []
+    "reviews": [
+      {
+        "classificationStars": 5,
+        "text": "Una joya de libro, con una narrativa fascinante. ¡Recomendado!"
+      },
+      {
+        "classificationStars": 4,
+        "text": "Muy entretenido, aunque algunas partes eran predecibles."
+      }
+    ]
+  },
+  {
+    "name": "vestido",
+    "brand": "Anamoda",
+    "mrp": 24.0,
+    "category": "GENERAL",
+    "reviews": [
+      {
+        "classificationStars": 4,
+        "text": "Elegante y cómodo. Buena calidad por el precio."
+      },
+      {
+        "classificationStars": 2,
+        "text": "El diseño es bonito, pero el material se siente barato."
+      },
+      {
+        "classificationStars": 3,
+        "text": "Muy bonito y economico!"
+      }
+    ]
   }
 ]

@@ -255,7 +255,7 @@ public class ShopManager {
                 if (catalogProduct.getNameProduct().equals(productName)) {
                     // Formatear la información de la tienda y el precio
                     String[] shopAndPrice = new String[3];
-                    shopAndPrice[0] = "\t-";
+                    shopAndPrice[0] = "\t\t-";
                     shopAndPrice[1] = shop.getName() + ":";
                     shopAndPrice[2] = String.valueOf(catalogProduct.getPrice());
                     shopInfoForProduct.add(shopAndPrice);

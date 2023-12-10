@@ -80,6 +80,11 @@ public class UI {
                         "\t2) Review Product\n" +
                         "\t3) Add to Card");
                 break;
+
+            case MENU_REVIEWS:
+                System.out.println( "\n\t1) Read reviews \n" +
+                        "\t2) Review Product\n");
+                break;
         }
     }
 
