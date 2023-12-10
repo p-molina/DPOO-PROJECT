@@ -28,18 +28,7 @@ public class ShopManager {
         shops.add(shop);
         shopDAO.saveAllShops(shops);
     }
-    public boolean deleteShop(String name) throws IOException {//TODO REVISAR SI ES NECESSARI
-        Shop shopToRemove = findByName(name);
 
-        if (shopToRemove != null) {
-            List<Shop> existingShops = shopDAO.getAllShops();
-            existingShops.remove(shopToRemove);
-            shopDAO.saveAllShops(existingShops);
-        } else {
-            return false;
-        }
-        return true;
-    }
     public boolean isShopUnique(String name) throws IOException {
         Shop isUnique = findByName(name);
         return isUnique == null;
@@ -93,7 +82,6 @@ public class ShopManager {
         for (Shop shop : shops) {
             deleteProductFromShop(name, shop.getName());
         }
-        shopDAO.saveAllShops(shops);
     }
     public boolean isProductInCatalogue(String nameProduct, String nameShop) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
