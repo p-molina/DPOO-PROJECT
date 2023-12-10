@@ -101,7 +101,7 @@ public class ShopController {
                                 UI.showMessage("PRODUCT WAS REVIEWED SUCCESFULLY");
                                 break;
                             case 3:
-                                shoppingCartManager.addProductToCard();//TODO crear nova funció al shopmanager que et retorni un catalogue product en concret amb l'indeex que l´hi passes
+                                //shoppingCartManager.addProductToCard();
                                 UI.showMessage("PRODUCT WAS ADDED TO CARD");
                                 break;
                         }
