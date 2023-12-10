@@ -19,6 +19,7 @@ public class ShopController {
      *
      * @param shopManager    Instancia de ShopManager para la gestión de tiendas.
      * @param productManager Instancia de ProductManager para la gestión de productos.
+     * @param shoppingCartManager Instancia de ShoppingCartManager para la gestión del carrito
      */
     public ShopController(ShopManager shopManager, ProductManager productManager, ShoppingCartManager shoppingCartManager) {
         this.shopManager = shopManager;

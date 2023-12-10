@@ -8,7 +8,19 @@ import Presentation.Menu;
 import Presentation.ProductController;
 import Presentation.ShopController;
 
+/**
+ * Clase principal que ejecuta la aplicación.
+ */
 public class Main {
+    /**
+     * Punto de entrada principal para la aplicación.
+     *
+     * Aquí se inicializan las diferentes capas de la aplicación, incluyendo la persistencia, la lógica de negocio
+     * y la presentación. Se crean instancias de los DAOs, los gestores y los controladores, y finalmente se
+     * inicia la ejecución del menú principal de la aplicación.
+     *
+     * @param args Argumentos pasados al programa (no utilizados).
+     */
     public static void main(String[] args) {
         //Aqui inicializamos las clases de la capa Persistencia
         ProductDAO productDAO = new ProductDAO();

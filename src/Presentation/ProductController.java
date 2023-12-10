@@ -1,6 +1,5 @@
 package Presentation;
 
-import Bussines.Entities.Product;
 import Bussines.ProductManager;
 import Bussines.ShopManager;
 
