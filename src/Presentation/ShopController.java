@@ -20,6 +20,7 @@ public class ShopController {
         this.shopManager = shopManager;
         this.productManager = productManager;
     }
+
     /**
      * Comprueba la existencia del archivo de tiendas ('shops.json').
      * Muestra un mensaje de error si hay un problema con el archivo.
@@ -31,6 +32,7 @@ public class ShopController {
             UI.showMessage("ERROR: Problem with 'shops.json' file.");
         }
     }
+
     /**
      * Ejecuta el menú de gestión de tiendas.
      * Muestra las opciones del menú y permite al usuario realizar acciones como crear tiendas,

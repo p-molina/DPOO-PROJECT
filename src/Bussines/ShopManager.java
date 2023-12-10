@@ -163,6 +163,7 @@ public class ShopManager {
         }
         return false; // El producto no está en el catálogo o la tienda no fue encontrada
     }
+
     /**
      * Obtiene el catálogo de productos de una tienda específica en forma de cadena de texto.
      *
@@ -170,7 +171,6 @@ public class ShopManager {
      * @return Una cadena de texto que representa el catálogo de la tienda, o null si la tienda no se encontró.
      * @throws IOException Si hay un error de entrada/salida al operar con el repositorio de tiendas.
      */
-
     public String getCatalogueFromShop(String shopName) throws IOException {
         Shop shop = findByName(shopName);
         if(shop != null)
