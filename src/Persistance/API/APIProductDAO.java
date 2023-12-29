@@ -16,14 +16,16 @@ import java.util.List;
  * Classe para el acceso a datos (DAO) de los productos.
  */
 public class APIProductDAO implements ProductDAO {
-    private final static Path path = Path.of("files/products.json");
+    private final static Path path = Path.of("files/products.json"); //Esto se tiene que modificar
     private Gson gson;
+    private APIConnector apiConnector;
 
     /**
      * Constructor para inicializar el DAO de productos.
      */
     public APIProductDAO() {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
+        this.apiConnector = APIConnector.getInstance();
     }
     /**
      * {@inheritDoc}
@@ -34,6 +36,17 @@ public class APIProductDAO implements ProductDAO {
             throw new FileNotFoundException("ERROR: The file \"products.json\" was not found.");
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String createProduct(Product product) throws IOException {
+        String json = gson.toJson(product);
+        String endpoint = "products";
+        return apiConnector.postRequest(endpoint, json);
+    }
+
     /**
      * {@inheritDoc}
      */

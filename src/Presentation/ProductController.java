@@ -28,7 +28,7 @@ public class ProductController {
      *
      * @throws FileNotFoundException Si el archivo no se encuentra.
      */
-    public void checkProductFile() throws FileNotFoundException {
+    public void checkProductFile() throws FileNotFoundException{
         productManager.checkProductFile();
     }
     /**
