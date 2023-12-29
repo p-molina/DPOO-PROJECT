@@ -2,7 +2,7 @@ package Bussines;
 
 import Bussines.Entities.Product;
 import Bussines.Entities.Review;
-import Persistance.ProductDAO;
+import Persistance.DAO.ProductDAO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

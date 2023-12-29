@@ -1,11 +1,10 @@
-package Persistance;
+package Persistance.API;
 
-import Bussines.Entities.Product;
 import Bussines.Entities.Shop;
+import Persistance.DAO.ShopDAO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -17,52 +16,49 @@ import java.util.List;
 /**
  * Clase para el acceso a datos (DAO) de las tiendas.
  */
-public class ShopDAO {
+public class APIShopDAO implements ShopDAO {
     private static final Path path = Path.of("files/shops.json");
     private Gson gson;
 
     /**
      * Constructor para inicializar el DAO de tiendas.
      */
-    public ShopDAO() {
+    public APIShopDAO() {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
     }
+
     /**
-     * Verifica y crea el archivo de tiendas si no existe.
-     *
-     * @throws IOException Si ocurre un error de entrada/salida.
+     * {@inheritDoc}
      */
+    @Override
     public void checkFile() throws IOException {
         if (!Files.exists(path)) {
             Files.createFile(path);
         }
     }
+
     /**
-     * Guarda todas las tiendas en el archivo JSON.
-     *
-     * @param shops Lista de tiendas a guardar.
-     * @throws IOException Si ocurre un error de entrada/salida al escribir en el archivo.
+     * {@inheritDoc}
      */
+    @Override
     public void saveAllShops(List<Shop> shops) throws IOException {
         try (FileWriter fileWriter = new FileWriter(path.toFile())) {
             gson.toJson(shops, fileWriter);
         }
     }
+
     /**
-     * Recupera todas las tiendas del archivo JSON.
-     *
-     * @return Lista de todas las tiendas.
-     * @throws IOException Si ocurre un error de entrada/salida al leer el archivo.
+     * {@inheritDoc}
      */
+    @Override
     public List<Shop> getAllShops() throws IOException {
         if (!Files.exists(path) || path.toFile().length() == 0) {
             return new ArrayList<>();
         }
 
         Type shopListType = new TypeToken<ArrayList<Shop>>(){}.getType();
-        try (Reader reader = new FileReader(path.toFile())) { //Utilizamos aqui el try para cerrar el reader correctamente
+        try (Reader reader = new FileReader(path.toFile())) {
             return gson.fromJson(reader, shopListType);
         }
     }
-
 }

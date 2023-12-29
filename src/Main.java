@@ -1,8 +1,10 @@
 import Bussines.ProductManager;
 import Bussines.ShopManager;
 import Bussines.ShoppingCartManager;
-import Persistance.ProductDAO;
-import Persistance.ShopDAO;
+import Persistance.API.APIProductDAO;
+import Persistance.API.APIShopDAO;
+import Persistance.DAO.ProductDAO;
+import Persistance.DAO.ShopDAO;
 import Presentation.CartController;
 import Presentation.Menu;
 import Presentation.ProductController;
@@ -23,8 +25,8 @@ public class Main {
      */
     public static void main(String[] args) {
         //Aqui inicializamos las clases de la capa Persistencia
-        ProductDAO productDAO = new ProductDAO();
-        ShopDAO shopDAO = new ShopDAO();
+        ProductDAO productDAO = new APIProductDAO();
+        ShopDAO shopDAO = new APIShopDAO();
 
         //Aqui inicializamos las clases de la capa Bussines
         //MIRAR SI ESTO ESTA BIEN
