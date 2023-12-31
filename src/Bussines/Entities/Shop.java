@@ -71,4 +71,8 @@ public class Shop {
     public void setEarnings(double earnings) {
         this.earnings = earnings;
     }
+
+    public double getEarnings() {
+        return earnings;
+    }
 }

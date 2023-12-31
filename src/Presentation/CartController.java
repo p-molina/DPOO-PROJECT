@@ -1,22 +1,28 @@
 package Presentation;
 
+import Bussines.Entities.Shop;
+import Bussines.ShopManager;
 import Bussines.ShoppingCartManager;
+
+import java.io.IOException;
 
 /**
  * Controlador para la gestión del carrito de compras en la interfaz de usuario.
  */
 public class CartController {
     private ShoppingCartManager shoppingCartManager;
+    private ShopManager shopManager;
 
     /**
      * Constructor para inicializar el controlador del carrito de compras.
      *
      * @param shoppingCartManager Gestor del carrito de compras.
      */
-    public CartController(ShoppingCartManager shoppingCartManager)
-    {
+    public CartController(ShoppingCartManager shoppingCartManager, ShopManager shopManager) {
         this.shoppingCartManager = shoppingCartManager;
+        this.shopManager = shopManager;
     }
+
     /**
      * Ejecuta la gestión del carrito de compras, mostrando su contenido y precio total.
      */
@@ -25,31 +31,38 @@ public class CartController {
         String cardInfo = shoppingCartManager.getCardInfo();
         UI.showMessage(cardInfo);
         UI.showMenu(MenuOptions.MENU_CARD);
-        int option = UI.askForOption("\nChoose an option:", 1,3);
+        int option = UI.askForOption("\nChoose an option: ", 1,3);
         switch (option)
         {
             case 1:
-                checkoutCard();
+                String confirm1 = UI.askForString("\nAre you sure you want to checkout? ");
+                if(confirm1.equals("YES") || confirm1.equals("yes"))
+                {
+                    checkoutCard();
+                }
+
                 break;
             case 2:
-                clearCard();
+                String confirm = UI.askForString("\nAre you sure you want to clear? ");
+                if(confirm.equals("YES") || confirm.equals("yes"))
+                {
+                    clearCard();
+                }
                 break;
         }
     }
     private void clearCard()
     {
-        String confirm = UI.askForString("\nAre you sure you want to checkout? ");
-        if(confirm.equals("YES") || confirm.equals("yes"))
-        {
-            shoppingCartManager.clearCard();
-            UI.showMessage("\nYour cart has been cleared.");
-        }
-
+        shoppingCartManager.clearCard();
+        UI.showMessage("\nYour cart has been cleared.");
     }
     private void checkoutCard()
     {
-        //TODO crear funcio al shopping card manager que retorni string amb la info de les ventes y actualitzi els ingresos de les tendes
-
-        clearCard();
+        try {
+            UI.showMessage(shopManager.setNewIncomes(shoppingCartManager.getCheckoutCard()));
+            clearCard();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
