@@ -288,6 +288,8 @@ public class ShopManager {
     }
     public String setNewIncomes(List<CatalogProduct> infoCheckout) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
+        String infoTicket = "";
+        boolean ok = false;
         for(Shop shop: shops)
         {
             for(CatalogProduct catalogProduct: infoCheckout)
@@ -295,10 +297,18 @@ public class ShopManager {
                 //Nom de la botiga match
                 if(catalogProduct.getNameShop().equals(shop.getName()))
                 {
-
+                    shop.setEarnings((shop.getEarnings() + catalogProduct.getPrice()));
+                    infoTicket = infoTicket + "\n" + catalogProduct.getNameShop() + " has earned " + catalogProduct.getPrice() + ", for an historic total of " + shop.getEarnings() + ".";
+                    ok = true;
                 }
             }
         }
+        shopDAO.saveAllShops(shops);
+        if(!ok)
+        {
+            infoTicket = "ERROR, NO PRODUCTS TO CHECKOUT!";
+        }
+        return infoTicket;
     }
 
 }
