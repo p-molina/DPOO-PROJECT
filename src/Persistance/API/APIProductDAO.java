@@ -25,7 +25,6 @@ public class APIProductDAO implements ProductDAO {
      */
     public APIProductDAO() {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
-        this.apiConnector = APIConnector.getInstance();
     }
     /**
      * {@inheritDoc}
