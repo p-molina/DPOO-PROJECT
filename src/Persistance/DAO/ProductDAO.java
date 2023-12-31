@@ -17,14 +17,6 @@ public interface ProductDAO {
     void checkFile() throws FileNotFoundException;
 
     /**
-     * Guarda un producto en el servidor.
-     *
-     * @param product Producto a guardar.
-     * @throws IOException Si ocurre un error de entrada/salida al escribir en el archivo.
-     */
-    String createProduct(Product product) throws IOException;
-
-    /**
      * Guarda todos los productos en el archivo JSON.
      *
      * @param products Lista de productos a guardar.

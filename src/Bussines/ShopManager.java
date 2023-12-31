@@ -306,7 +306,7 @@ public class ShopManager {
         shopDAO.saveAllShops(shops);
         if(!ok)
         {
-            infoTicket = "ERROR, NO PRODUCTS TO CHECKOUT!";
+            infoTicket = "\nERROR, NO PRODUCTS TO CHECKOUT!";
         }
         return infoTicket;
     }

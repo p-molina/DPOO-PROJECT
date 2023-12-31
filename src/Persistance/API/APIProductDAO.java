@@ -5,6 +5,8 @@ import Persistance.DAO.ProductDAO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import edu.salle.url.api.exception.ApiException;
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
@@ -35,15 +37,20 @@ public class APIProductDAO implements ProductDAO {
             throw new FileNotFoundException("ERROR: The file \"products.json\" was not found.");
         }
     }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String createProduct(Product product) throws IOException {
-        String json = gson.toJson(product);
-        String endpoint = "products";
-        return apiConnector.postRequest(endpoint, json);
+
+    private boolean checkInstanceAPI() {
+        boolean check;
+
+        try {
+            apiConnector = APIConnector.getInstance();
+            check = true;
+        } catch (ApiException e) {
+            //Funcion
+            System.out.println("ERROR: Api problem --> " + e.getMessage() + "\nCause --> " + e.getCause());
+            check = false;
+        }
+
+        return check;
     }
 
     /**
@@ -51,6 +58,10 @@ public class APIProductDAO implements ProductDAO {
      */
     @Override
     public void saveAllProduct(List<Product> products) throws IOException { //Actualizamos la información del fichero
+        if (checkInstanceAPI()) {
+            apiConnector.postRequest("products", gson.toJson(products.get(products.size() - 1)));
+        }
+
         try (FileWriter writer = new FileWriter(path.toFile())) {
             gson.toJson(products, writer);
         }

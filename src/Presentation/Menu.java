@@ -1,5 +1,8 @@
 package Presentation;
 
+import Persistance.API.APIConnector;
+import edu.salle.url.api.exception.ApiException;
+
 import java.io.FileNotFoundException;
 
 /**
@@ -27,7 +30,6 @@ public class Menu {
      */
     public void run() {
         UI.showMenu(MenuOptions.MENU_PRINCIPAL);
-        UI.showMenu(MenuOptions.CHECKING_FILES);
 
         if (checkPersistance()) {
             UI.showMenu(MenuOptions.START_PROGRAM);
@@ -64,12 +66,23 @@ public class Menu {
     private boolean checkPersistance() {
         boolean check = false;
 
+        //Comprovamos primero el estado de la api.
+        UI.showMessage("Checking API status...\n");
         try {
-            productController.checkProductFile();
-            shopController.checkFile();
+            APIConnector.getInstance();
             check = true;
-        } catch (FileNotFoundException e){
-            UI.showMessage("ERROR: 'product.json' file was not found.");
+        } catch (ApiException e) {
+            UI.showMessage("ERROR: The API isn’t available.");
+            UI.showMenu(MenuOptions.CHECKING_FILES);
+
+            //Si la api no funciona comprovamos si se encuentran los ficheros.
+            try {
+                productController.checkProductFile();
+                shopController.checkFile();
+                check = true;
+            } catch (FileNotFoundException e1) { //Si no estan los ficheros el programa no se inicia.
+                UI.showMessage("ERROR: 'product.json' file was not found.");
+            }
         }
 
         return check;

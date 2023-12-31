@@ -42,7 +42,11 @@ public class  ProductManager {
      * @throws IOException Si ocurre un error de entrada/salida.
      */
     public void createProduct(String name, String brand, double mrp, String category) throws IOException {
-        productDAO.createProduct(new Product(name, brand, mrp, category));
+        Product product = new Product(name, brand, mrp, category);
+        List<Product> products = productDAO.getAllProducts();
+        products.add(product);
+
+        productDAO.saveAllProduct(products);
     }
     /**
      * Elimina un producto por su nombre.
