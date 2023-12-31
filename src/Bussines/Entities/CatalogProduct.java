@@ -47,4 +47,8 @@ public class CatalogProduct {
     public double getPrice() {
         return price;
     }
+
+    public String getNameShop() {
+        return nameShop;
+    }
 }

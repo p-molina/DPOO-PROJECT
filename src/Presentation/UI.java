@@ -92,6 +92,11 @@ public class UI {
                 System.out.println( "\n\t1) Read reviews \n" +
                         "\t2) Review Product\n");
                 break;
+            case MENU_CARD:
+                System.out.println( "\n\t1) Checkout \n" +
+                        "\t2) Clear Card\n" +
+                        "\n\t3) Back");
+                break;
         }
     }
     /**

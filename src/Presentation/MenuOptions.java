@@ -16,5 +16,6 @@ public enum MenuOptions {
     DELETE_MENU,
     LIST_SHOPS,
     MANAGE_CATALOGUE_PRODUCT,
-    MENU_REVIEWS
+    MENU_REVIEWS,
+    MENU_CARD
 }

@@ -1,0 +1,52 @@
+[
+  {
+    "name": "zara",
+    "description": "zara ropa",
+    "since": 2000,
+    "earnings": 0.0,
+    "businessModel": "MAXIMUM_BENEFITS",
+    "catalogProductList": [
+      {
+        "nameProduct": "vestido",
+        "nameBrand": "Anamoda",
+        "nameShop": "zara",
+        "price": 19.0
+      },
+      {
+        "nameProduct": "sudadera",
+        "nameBrand": "Nudeproject",
+        "nameShop": "zara",
+        "price": 99.0
+      }
+    ]
+  },
+  {
+    "name": "floristeria Lola",
+    "description": "vende flores",
+    "since": 2020,
+    "earnings": 0.0,
+    "businessModel": "MAXIMUM_BENEFITS",
+    "catalogProductList": []
+  },
+  {
+    "name": "doctors tura",
+    "description": "pediatres de granollers",
+    "since": 1970,
+    "earnings": 0.0,
+    "businessModel": "MAXIMUM_BENEFITS",
+    "catalogProductList": [
+      {
+        "nameProduct": "aspirina",
+        "nameBrand": "Bayer",
+        "nameShop": "doctors tura",
+        "price": 99.0
+      },
+      {
+        "nameProduct": "gelocatil",
+        "nameBrand": "Farrer",
+        "nameShop": "doctors tura",
+        "price": 50.99
+      }
+    ]
+  }
+]

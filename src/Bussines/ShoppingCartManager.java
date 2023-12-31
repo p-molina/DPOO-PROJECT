@@ -49,4 +49,12 @@ public class ShoppingCartManager {
         shoppingCart.setTotalBuyPrice(totalBuyPrice);
         return cardInfo;
     }
+    public void clearCard()
+    {
+        shoppingCart.clearCard();
+    }
+    public List<CatalogProduct> getCheckoutCard()
+    {
+        return shoppingCart.getCatalogProductList();
+    }
 }

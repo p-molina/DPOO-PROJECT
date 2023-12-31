@@ -90,18 +90,17 @@ public class ShopController {
                     int catalogueIndex = UI.askForInt("Which one are you interested in? ");
                     if(catalogueIndex != 0) {
                         UI.showMenu(MenuOptions.MANAGE_CATALOGUE_PRODUCT);
-                        int option = UI.askForOption("\nChoose an option", 1, 3);
+                        int option = UI.askForOption("\nChoose an option: ", 1, 3);
+                        String[] infoProduct = shopManager.getCatalogueProductInfo(shopIndex,catalogueIndex);
                         switch (option) {
                             case 1:
-                                //String reviewsString = productManager.readReviewsFromProduct(nameProduct);
-                                UI.showMessage("REVIEWS:");
+                                readReviews(infoProduct[0],infoProduct[1]);
                                 break;
                             case 2:
-                                //productManager.addReviewToProdut();
-                                UI.showMessage("PRODUCT WAS REVIEWED SUCCESFULLY");
+                                reviewProduct(infoProduct[0],infoProduct[1]);
                                 break;
                             case 3:
-                                //shoppingCartManager.addProductToCard();
+                                shoppingCartManager.addProductToCard(shopManager.getCatalogueProductFromIndex(shopIndex,catalogueIndex));
                                 UI.showMessage("PRODUCT WAS ADDED TO CARD");
                                 break;
                         }
@@ -250,5 +249,39 @@ public class ShopController {
             return false;
         }
         return true;
+    }
+    private void readReviews(String productName, String brand) {
+        try {
+            UI.showMessage("\nThese are the reviews for \"" + productName + "\" by \"" + brand + "\":\n");
+            String[] reviews = productManager.getReviews(productName);
+            if (reviews.length == 0) {//Si el size es 0 significa que no tiene ninguna review
+                UI.showMessage("\tBe the first to put a review!");
+                return;
+            }
+            double averageRating = 0;
+
+            for (int i = 0; i < reviews.length; i++) {
+                averageRating +=  Character.getNumericValue(reviews[i].charAt(0));
+                UI.showMessage("\t" + reviews[i]);
+                if (i == reviews.length - 1) {
+                    UI.showMessage("\n\tAverage rating: " + (averageRating / reviews.length) + "*");
+                }
+            }
+        } catch(IOException e) {
+            UI.showMessage("ERROR: Problem with the file! Going back...");
+        }
+    }
+    private void reviewProduct(String productName, String brand) {
+
+        try {
+            int rating = UI.askForOption("Please rate the product (1-5 stars): ", 1, 5);
+            String comment = UI.askForString("Please add a comment to your review: ");
+
+            productManager.addReview(productName, rating, comment);
+
+            UI.showMessage("Thank you for your review of \"" + productName + "\" by \"" + brand + "\".");
+        } catch (IOException e) {
+            UI.showMessage("ERROR: Problem with the file! Going back...");
+        }
     }
 }

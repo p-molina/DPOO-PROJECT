@@ -49,4 +49,8 @@ public class ShoppingCart {
     public void setTotalBuyPrice(double totalBuyPrice) {
         this.totalBuyPrice = totalBuyPrice;
     }
+    public void clearCard()
+    {
+        this.catalogProductList.clear();
+    }
 }

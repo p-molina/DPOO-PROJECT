@@ -55,6 +55,14 @@
       {
         "classificationStars": 3,
         "text": "Muy bonito y economico!"
+      },
+      {
+        "classificationStars": 4,
+        "text": "el mejor vestido del mundooo"
+      },
+      {
+        "classificationStars": 1,
+        "text": "una mierda muy cara"
       }
     ]
   },
@@ -69,6 +77,43 @@
     "name": "sudadera",
     "brand": "Nudeproject",
     "mrp": 200.0,
+    "category": "GENERAL",
+    "reviews": [
+      {
+        "classificationStars": 3,
+        "text": "muy caras, mucha publicidad y calidad media alta"
+      },
+      {
+        "classificationStars": 5,
+        "text": "la mejor calidad del mundo, me encanta nudeProject"
+      }
+    ]
+  },
+  {
+    "name": "aspirina",
+    "brand": "Bayer",
+    "mrp": 200.0,
+    "category": "GENERAL",
+    "reviews": []
+  },
+  {
+    "name": "gelocatil",
+    "brand": "Farrer",
+    "mrp": 300.0,
+    "category": "GENERAL",
+    "reviews": []
+  },
+  {
+    "name": "nevera",
+    "brand": "Pinguino",
+    "mrp": 500.0,
+    "category": "GENERAL",
+    "reviews": []
+  },
+  {
+    "name": "pomes",
+    "brand": "Pomesfugi",
+    "mrp": 10.0,
     "category": "GENERAL",
     "reviews": []
   }

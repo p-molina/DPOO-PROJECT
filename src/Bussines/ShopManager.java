@@ -271,4 +271,34 @@ public class ShopManager {
 
         return result;
     }
+    public CatalogProduct getCatalogueProductFromIndex(int shopIndex, int productIndex) throws IOException {
+        CatalogProduct catalogProduct;
+        List<Shop> shops = shopDAO.getAllShops();
+        Shop selectedShop = shops.get(shopIndex - 1);
+        List<CatalogProduct> catalogProductList = selectedShop.getCatalogProductList();
+        catalogProduct = catalogProductList.get(productIndex - 1);
+        return catalogProduct;
+    }
+    public String[] getCatalogueProductInfo(int shopIndex, int productIndex) throws IOException {
+        CatalogProduct catalogProduct = getCatalogueProductFromIndex(shopIndex, productIndex);
+        String[] infoProduct = new String[2];
+        infoProduct[0] = catalogProduct.getNameProduct();
+        infoProduct[1] = catalogProduct.getNameBrand();
+        return infoProduct;
+    }
+    public String setNewIncomes(List<CatalogProduct> infoCheckout) throws IOException {
+        List<Shop> shops = shopDAO.getAllShops();
+        for(Shop shop: shops)
+        {
+            for(CatalogProduct catalogProduct: infoCheckout)
+            {
+                //Nom de la botiga match
+                if(catalogProduct.getNameShop().equals(shop.getName()))
+                {
+
+                }
+            }
+        }
+    }
+
 }
