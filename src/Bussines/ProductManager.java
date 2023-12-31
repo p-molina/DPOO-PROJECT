@@ -2,7 +2,7 @@ package Bussines;
 
 import Bussines.Entities.Product;
 import Bussines.Entities.Review;
-import Persistance.ProductDAO;
+import Persistance.DAO.ProductDAO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -42,11 +42,7 @@ public class  ProductManager {
      * @throws IOException Si ocurre un error de entrada/salida.
      */
     public void createProduct(String name, String brand, double mrp, String category) throws IOException {
-        Product product = new Product(name, brand, mrp, category);
-        List<Product> products = productDAO.getAllProducts();
-        products.add(product);
-
-        productDAO.saveAllProduct(products);
+        productDAO.createProduct(new Product(name, brand, mrp, category));
     }
     /**
      * Elimina un producto por su nombre.

@@ -1,6 +1,7 @@
-package Persistance;
+package Persistance.API;
 
 import Bussines.Entities.Product;
+import Persistance.DAO.ProductDAO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -14,43 +15,51 @@ import java.util.List;
 /**
  * Classe para el acceso a datos (DAO) de los productos.
  */
-public class ProductDAO {
-    private final static Path path = Path.of("files/products.json");
+public class APIProductDAO implements ProductDAO {
+    private final static Path path = Path.of("files/products.json"); //Esto se tiene que modificar
     private Gson gson;
+    private APIConnector apiConnector;
 
     /**
      * Constructor para inicializar el DAO de productos.
      */
-    public ProductDAO() {
+    public APIProductDAO() {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
+        this.apiConnector = APIConnector.getInstance();
     }
     /**
-     * Verifica la existencia del archivo de productos.
-     *
-     * @throws FileNotFoundException Si el archivo no se encuentra.
+     * {@inheritDoc}
      */
+    @Override
     public void checkFile() throws FileNotFoundException {
         if (!Files.exists(path)) {
             throw new FileNotFoundException("ERROR: The file \"products.json\" was not found.");
         }
     }
+    
     /**
-     * Guarda todos los productos en el archivo JSON.
-     *
-     * @param products Lista de productos a guardar.
-     * @throws IOException Si ocurre un error de entrada/salida al escribir en el archivo.
+     * {@inheritDoc}
      */
+    @Override
+    public String createProduct(Product product) throws IOException {
+        String json = gson.toJson(product);
+        String endpoint = "products";
+        return apiConnector.postRequest(endpoint, json);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void saveAllProduct(List<Product> products) throws IOException { //Actualizamos la información del fichero
         try (FileWriter writer = new FileWriter(path.toFile())) {
             gson.toJson(products, writer);
         }
     }
     /**
-     * Recupera todos los productos del archivo JSON.
-     *
-     * @return Lista de todos los productos.
-     * @throws IOException Si ocurre un error de entrada/salida al leer el archivo.
+     * {@inheritDoc}
      */
+    @Override
     public List<Product> getAllProducts() throws IOException {
         if (!Files.exists(path) || path.toFile().length() == 0) {
             return new ArrayList<>();

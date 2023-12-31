@@ -2,7 +2,7 @@ package Bussines;
 
 import Bussines.Entities.CatalogProduct;
 import Bussines.Entities.Shop;
-import Persistance.ShopDAO;
+import Persistance.DAO.ShopDAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
