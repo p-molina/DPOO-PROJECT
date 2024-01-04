@@ -40,7 +40,7 @@ public class ShoppingCartManager {
         List<CatalogProduct> cardList = shoppingCart.getCatalogProductList();
 
         for (CatalogProduct catalogProduct : cardList) {
-            cardInfo = cardInfo + "\n\t- " + catalogProduct.getNameProduct() + " by " + catalogProduct.getNameBrand() + "\n\t\tPrice: " + catalogProduct.getPrice();
+            cardInfo = cardInfo + "\n\t-1x " + catalogProduct.getNameProduct() + " by " + catalogProduct.getNameBrand() + "\n\t\tPrice: " + catalogProduct.getPrice();
         }
         for (CatalogProduct catalogProduct : cardList) {
             totalBuyPrice = totalBuyPrice + catalogProduct.getPrice();

@@ -51,4 +51,8 @@ public class CatalogProduct {
     public String getNameShop() {
         return nameShop;
     }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 }

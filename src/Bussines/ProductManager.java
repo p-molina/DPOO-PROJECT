@@ -1,5 +1,6 @@
 package Bussines;
 
+import Bussines.Entities.CatalogProduct;
 import Bussines.Entities.Product;
 import Bussines.Entities.Review;
 import Persistance.DAO.ProductDAO;
@@ -247,5 +248,38 @@ public class  ProductManager {
         }
 
         productDAO.saveAllProduct(products);
+    }
+    public List<CatalogProduct> getTaxBasePrice(List<CatalogProduct> infoCheckout) throws IOException {
+        List<Product> products = productDAO.getAllProducts();
+
+        for (CatalogProduct catalogProduct: infoCheckout)
+        {
+            for (Product product: products)
+            {
+                if(catalogProduct.getNameProduct().equals(product.getName()))
+                {
+                    switch (product.getCategory()) {
+                        case "GENERAL" ->
+                                catalogProduct.setPrice(Math.round((catalogProduct.getPrice()) / ((21.0 / 100.0) + 1.0)));
+                        case "REDUCED" -> {
+                            List<Review> reviews = product.getReviews();
+                            if (getAverageRating(reviews) > 3.5) {
+                                catalogProduct.setPrice(Math.round((catalogProduct.getPrice()) / ((5.0 / 100.0) + 1.0)));
+                            } else {
+                                catalogProduct.setPrice(Math.round((catalogProduct.getPrice()) / ((10.0 / 100.0) + 1.0)));
+                            }
+                        }
+                        case "SUPER_REDUCED" -> {
+                            if (product.getMrp() > 100.0) {
+                                catalogProduct.setPrice(Math.round(catalogProduct.getPrice()));
+                            } else {
+                                catalogProduct.setPrice(Math.round(((catalogProduct.getPrice()) / ((4.0 / 100.0) + 1.0)) * 100) / 100.0);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return infoCheckout;
     }
 }

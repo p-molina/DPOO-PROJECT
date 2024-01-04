@@ -310,5 +310,4 @@ public class ShopManager {
         }
         return infoTicket;
     }
-
 }

@@ -1,6 +1,7 @@
 package Presentation;
 
 import Bussines.Entities.Shop;
+import Bussines.ProductManager;
 import Bussines.ShopManager;
 import Bussines.ShoppingCartManager;
 
@@ -12,15 +13,17 @@ import java.io.IOException;
 public class CartController {
     private ShoppingCartManager shoppingCartManager;
     private ShopManager shopManager;
+    private ProductManager productManager;
 
     /**
      * Constructor para inicializar el controlador del carrito de compras.
      *
      * @param shoppingCartManager Gestor del carrito de compras.
      */
-    public CartController(ShoppingCartManager shoppingCartManager, ShopManager shopManager) {
+    public CartController(ShoppingCartManager shoppingCartManager, ShopManager shopManager, ProductManager productManager) {
         this.shoppingCartManager = shoppingCartManager;
         this.shopManager = shopManager;
+        this.productManager = productManager;
     }
 
     /**
@@ -59,7 +62,7 @@ public class CartController {
     private void checkoutCard()
     {
         try {
-            UI.showMessage(shopManager.setNewIncomes(shoppingCartManager.getCheckoutCard()));
+            UI.showMessage(shopManager.setNewIncomes(productManager.getTaxBasePrice(shoppingCartManager.getCheckoutCard())));
             clearCard();
         } catch (IOException e) {
             throw new RuntimeException(e);

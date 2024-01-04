@@ -116,5 +116,31 @@
     "mrp": 10.0,
     "category": "GENERAL",
     "reviews": []
+  },
+  {
+    "name": "jacket",
+    "brand": "Polo",
+    "mrp": 300.0,
+    "category": "SUPER_REDUCED",
+    "reviews": []
+  },
+  {
+    "name": "agua",
+    "brand": "Bezoyaç",
+    "mrp": 5.0,
+    "category": "SUPER_REDUCED",
+    "reviews": []
+  },
+  {
+    "name": "cuadro",
+    "brand": "Picaso",
+    "mrp": 1000.0,
+    "category": "REDUCED",
+    "reviews": [
+      {
+        "classificationStars": 5,
+        "text": "brutal, el mejor cuadro del mundo"
+      }
+    ]
   }
 ]

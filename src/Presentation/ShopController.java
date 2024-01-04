@@ -187,7 +187,7 @@ public class ShopController {
             UI.showMessage("ERROR: Problem with the file! Going back.");
             return false;
         }
-        String productBrand = "";
+        String productBrand;
         //OBTENIR LA BRAND DEL PRODUCTE
         try {
             productBrand = productManager.getBrandFromProduct(nameProduct);

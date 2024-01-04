@@ -38,7 +38,7 @@ public class Main {
 
         ShopController shopController = new ShopController(shopManager, productManager, shoppingCartManager);
         ProductController productController = new ProductController(productManager, shopManager);
-        CartController cartController = new CartController(shoppingCartManager, shopManager);
+        CartController cartController = new CartController(shoppingCartManager, shopManager, productManager);
 
         //Inicializamos el menu y ejecutamos la pantalla principal
         Menu menu = new Menu(productController, shopController, cartController);

@@ -3,9 +3,15 @@
     "name": "zara",
     "description": "zara ropa",
     "since": 2000,
-    "earnings": 118.0,
+    "earnings": 1308.19,
     "businessModel": "MAXIMUM_BENEFITS",
     "catalogProductList": [
+      {
+        "nameProduct": "sudadera",
+        "nameBrand": "Nudeproject",
+        "nameShop": "zara",
+        "price": 99.0
+      },
       {
         "nameProduct": "vestido",
         "nameBrand": "Anamoda",
@@ -13,10 +19,16 @@
         "price": 19.0
       },
       {
-        "nameProduct": "sudadera",
-        "nameBrand": "Nudeproject",
+        "nameProduct": "jacket",
+        "nameBrand": "Polo",
         "nameShop": "zara",
-        "price": 99.0
+        "price": 200.0
+      },
+      {
+        "nameProduct": "cuadro",
+        "nameBrand": "Picaso",
+        "nameShop": "zara",
+        "price": 500.0
       }
     ]
   },
@@ -24,9 +36,16 @@
     "name": "floristeria Lola",
     "description": "vende flores",
     "since": 2020,
-    "earnings": 0.0,
+    "earnings": 3.84,
     "businessModel": "MAXIMUM_BENEFITS",
-    "catalogProductList": []
+    "catalogProductList": [
+      {
+        "nameProduct": "agua",
+        "nameBrand": "Bezoyaç",
+        "nameShop": "floristeria Lola",
+        "price": 2.0
+      }
+    ]
   },
   {
     "name": "doctors tura",
