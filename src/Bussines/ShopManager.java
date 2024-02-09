@@ -1,7 +1,9 @@
 package Bussines;
 
 import Bussines.Entities.CatalogProduct;
-import Bussines.Entities.Shop;
+import Bussines.Entities.Shop.LoyaltyShop;
+import Bussines.Entities.Shop.Shop;
+import Bussines.Entities.Shop.SponsoredShop;
 import Persistance.DAO.ShopDAO;
 
 import java.io.IOException;
@@ -14,7 +16,7 @@ import java.util.List;
  */
 public class ShopManager {
     private ShopDAO shopDAO;
-    
+
     /**
      * Constructor de la clase ShopManager que recibe un objeto ShopDAO como parámetro.
      *
@@ -30,7 +32,7 @@ public class ShopManager {
      *
      * @throws IOException Si no se encuentra el archivo o ocurre un error de E/S.
      */
-    public void checkFile() throws IOException{
+    public void checkFile() throws IOException {
         shopDAO.checkFile();
     }
     /**
@@ -42,13 +44,20 @@ public class ShopManager {
      * @param nameModel    Nombre del modelo de negocio de la tienda.
      * @throws IOException Si ocurre algún error de entrada o salida al operar con el repositorio.
      */
-    public void createShop(String name, String description , int since, String nameModel) throws IOException {
-        //BusinessModel businessModel = new BusinessModel(nameModel);
-        Shop shop = new Shop(name, description, since, 0, nameModel);
-        List<Shop> shops = shopDAO.getAllShops();
-        shops.add(shop);
-        shopDAO.saveAllShops(shops);
+    public void createShop(String name, String description, int since, String nameModel, double threshold, String sponsor) throws IOException {
+        switch(nameModel) {
+            case "MAXIMUM_BENEFITS":
+                shopDAO.createShop(new Shop(name, description, since, 0, nameModel));
+                break;
+            case "LOYALTY":
+                shopDAO.createShop(new LoyaltyShop(name, description, since, 0, nameModel, threshold));
+                break;
+            case "SPONSORED":
+                shopDAO.createShop(new SponsoredShop(name, description, since, 0, nameModel, sponsor));
+                break;
+        }
     }
+
     /**
      * Verifica si el nombre de una tienda es único en el repositorio.
      *
@@ -88,16 +97,23 @@ public class ShopManager {
      */
     public void expandCatalogue(String nameShop, String nameProduct, String nameBrand, double price) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
+        int position = 0;
+
         for (Shop shop : shops) {
             if(shop.getName().equals(nameShop)) {
                 if (shop.getCatalogProductList() != null) {
                     List<CatalogProduct> catalogProductList = shop.getCatalogProductList();
                     CatalogProduct newProduct = new CatalogProduct(nameProduct, nameBrand, nameShop,price);
                     catalogProductList.add(newProduct);
+                    break;
                 }
             }
+            position++;
         }
-        shopDAO.saveAllShops(shops);
+
+        shopDAO.deleteShop(position);
+        shopDAO.createShop(shops.get(position));
+
     }
     /**
      * Elimina un producto específico de un catálogo de una tienda.
@@ -108,6 +124,8 @@ public class ShopManager {
      */
     public void deleteProductFromShop(String nameProduct, String nameShop) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
+        int position = 0;
+
         for (Shop shop : shops) {
             if (shop.getName().equals(nameShop)) {
                 if (shop.getCatalogProductList() != null) {
@@ -123,21 +141,11 @@ public class ShopManager {
                     break; // Terminar la búsqueda al encontrar la tienda
                 }
             }
+            position++;
         }
-        shopDAO.saveAllShops(shops);
-    }
-    /**
-     * Elimina un producto específico de todos los catálogos de las tiendas.
-     *
-     * @param name El nombre del producto que se eliminará de todos los catálogos de tiendas.
-     * @throws IOException Si ocurre un error de entrada/salida al operar con el repositorio de tiendas.
-     */
-    public void deleteProductFromAllShops(String name) throws IOException {
-        List<Shop> shops = shopDAO.getAllShops();
 
-        for (Shop shop : shops) {
-            deleteProductFromShop(name, shop.getName());
-        }
+        shopDAO.deleteShop(position);
+        shopDAO.createShop(shops.get(position));
     }
     /**
      * Verifica si un producto está presente en el catálogo de una tienda específica.
@@ -290,6 +298,8 @@ public class ShopManager {
         List<Shop> shops = shopDAO.getAllShops();
         String infoTicket = "";
         boolean ok = false;
+        int position = 0;
+
         for(Shop shop: shops)
         {
             for(CatalogProduct catalogProduct: infoCheckout)
@@ -300,10 +310,15 @@ public class ShopManager {
                     shop.setEarnings((shop.getEarnings() + catalogProduct.getPrice()));
                     infoTicket = infoTicket + "\n" + catalogProduct.getNameShop() + " has earned " + catalogProduct.getPrice() + ", for an historic total of " + shop.getEarnings() + ".";
                     ok = true;
+                    break;
                 }
             }
+            position++;
         }
-        shopDAO.saveAllShops(shops);
+
+        shopDAO.deleteShop(position);
+        shopDAO.createShop(shops.get(position));
+
         if(!ok)
         {
             infoTicket = "\nERROR, NO PRODUCTS TO CHECKOUT!";

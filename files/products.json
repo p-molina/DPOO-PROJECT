@@ -1,146 +1,35 @@
 [
   {
-    "name": "Bouquet of Roses",
-    "brand": "La Salle Gardening",
-    "mrp": 79.99,
+    "name": "Camiseta",
+    "brand": "Zara",
+    "mrp": 19.99,
     "category": "GENERAL",
     "reviews": [
       {
-        "classificationStars": 5,
-        "text": "Las rosas llegaron frescas y hermosas. ¡Perfectas para un regalo!"
-      },
-      {
         "classificationStars": 4,
-        "text": "Muy bonitas, pero esperaba un arreglo un poco más grande."
+        "text": "Buena camiseta"
       }
     ]
   },
   {
-    "name": "Xuixo de Crema",
-    "brand": "Viladrau Bakery",
-    "mrp": 5.5,
+    "name": "74LS273",
+    "brand": "Texas Instruments",
+    "mrp": 0.23,
+    "category": "GENERAL",
+    "reviews": []
+  },
+  {
+    "name": "NE555",
+    "brand": "Texas Instruments",
+    "mrp": 2.99,
     "category": "REDUCED",
     "reviews": []
   },
   {
-    "name": "The Neverending Story",
-    "brand": "Book Publishers Incorporated",
-    "mrp": 99.0,
-    "category": "SUPER_REDUCED",
-    "reviews": [
-      {
-        "classificationStars": 5,
-        "text": "Una joya de libro, con una narrativa fascinante. ¡Recomendado!"
-      },
-      {
-        "classificationStars": 4,
-        "text": "Muy entretenido, aunque algunas partes eran predecibles."
-      }
-    ]
-  },
-  {
-    "name": "vestido",
-    "brand": "Anamoda",
-    "mrp": 24.0,
-    "category": "GENERAL",
-    "reviews": [
-      {
-        "classificationStars": 4,
-        "text": "Elegante y cómodo. Buena calidad por el precio."
-      },
-      {
-        "classificationStars": 2,
-        "text": "El diseño es bonito, pero el material se siente barato."
-      },
-      {
-        "classificationStars": 3,
-        "text": "Muy bonito y economico!"
-      },
-      {
-        "classificationStars": 4,
-        "text": "el mejor vestido del mundooo"
-      },
-      {
-        "classificationStars": 1,
-        "text": "una mierda muy cara"
-      }
-    ]
-  },
-  {
-    "name": "airforce",
-    "brand": "Nike",
-    "mrp": 110.0,
-    "category": "GENERAL",
-    "reviews": []
-  },
-  {
-    "name": "sudadera",
-    "brand": "Nudeproject",
-    "mrp": 200.0,
-    "category": "GENERAL",
-    "reviews": [
-      {
-        "classificationStars": 3,
-        "text": "muy caras, mucha publicidad y calidad media alta"
-      },
-      {
-        "classificationStars": 5,
-        "text": "la mejor calidad del mundo, me encanta nudeProject"
-      }
-    ]
-  },
-  {
-    "name": "aspirina",
-    "brand": "Bayer",
-    "mrp": 200.0,
-    "category": "GENERAL",
-    "reviews": []
-  },
-  {
-    "name": "gelocatil",
-    "brand": "Farrer",
-    "mrp": 300.0,
-    "category": "GENERAL",
-    "reviews": []
-  },
-  {
-    "name": "nevera",
-    "brand": "Pinguino",
-    "mrp": 500.0,
-    "category": "GENERAL",
-    "reviews": []
-  },
-  {
-    "name": "pomes",
-    "brand": "Pomesfugi",
-    "mrp": 10.0,
-    "category": "GENERAL",
-    "reviews": []
-  },
-  {
-    "name": "jacket",
-    "brand": "Polo",
-    "mrp": 300.0,
+    "name": "Manzana",
+    "brand": "Mercadona",
+    "mrp": 0.8,
     "category": "SUPER_REDUCED",
     "reviews": []
-  },
-  {
-    "name": "agua",
-    "brand": "Bezoyaç",
-    "mrp": 5.0,
-    "category": "SUPER_REDUCED",
-    "reviews": []
-  },
-  {
-    "name": "cuadro",
-    "brand": "Picaso",
-    "mrp": 1000.0,
-    "category": "REDUCED",
-    "reviews": [
-      {
-        "classificationStars": 5,
-        "text": "brutal, el mejor cuadro del mundo"
-      }
-    ]
   }
 ]

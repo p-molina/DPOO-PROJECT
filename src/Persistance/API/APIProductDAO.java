@@ -28,6 +28,7 @@ public class APIProductDAO implements ProductDAO {
     public APIProductDAO() {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -40,13 +41,12 @@ public class APIProductDAO implements ProductDAO {
 
     private boolean checkInstanceAPI() {
         boolean check;
-
         try {
             apiConnector = APIConnector.getInstance();
             check = true;
         } catch (ApiException e) {
             //Funcion
-            System.out.println("ERROR: Api problem --> " + e.getMessage() + "\nCause --> " + e.getCause());
+            System.out.println("\nERROR: Api problem --> " + e.getMessage());
             check = false;
         }
 
@@ -57,20 +57,11 @@ public class APIProductDAO implements ProductDAO {
      * {@inheritDoc}
      */
     @Override
-    public void saveAllProduct(List<Product> products) throws IOException { //Actualizamos la información del fichero
+    public List<Product> getAllProducts() throws IOException {
         if (checkInstanceAPI()) {
-            apiConnector.postRequest("products", gson.toJson(products.get(products.size() - 1)));
+            return Product.toProductList(apiConnector.getRequest("products"));
         }
 
-        try (FileWriter writer = new FileWriter(path.toFile())) {
-            gson.toJson(products, writer);
-        }
-    }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Product> getAllProducts() throws IOException {
         if (!Files.exists(path) || path.toFile().length() == 0) {
             return new ArrayList<>();
         }
@@ -79,4 +70,47 @@ public class APIProductDAO implements ProductDAO {
             return gson.fromJson(reader, productListType);
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void createProduct(Product product) throws IOException {
+        if (checkInstanceAPI()) {
+            apiConnector.postRequest("products", gson.toJson(product));
+            //Se acaba la funcion ya que si no se guardaría en la nube y en el json
+            return;
+        }
+
+        // Leer la lista existente de productos
+        List<Product> products = getAllProducts();
+
+        if (products == null) {
+            products = new ArrayList<>();
+        }
+
+        // Añadir el nuevo producto a la lista
+        products.add(product);
+
+        // Guardar la lista actualizada en el archivo
+        try (FileWriter writer = new FileWriter(path.toFile())) {
+            gson.toJson(products, writer);
+        }
+    }
+
+    public void deleteProduct(int position) throws IOException {
+        if(checkInstanceAPI()){
+            apiConnector.deleteRequest("products/" + position);
+            //Se acaba la funcion ya que si no se guardaría en la nube y en el json
+            return;
+        }
+
+        List<Product> products = getAllProducts();
+        products.remove(position);
+
+        try (FileWriter writer = new FileWriter(path.toFile())) {
+            gson.toJson(products, writer);
+        }
+    }
+
 }

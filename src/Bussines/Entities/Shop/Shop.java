@@ -1,5 +1,11 @@
-package Bussines.Entities;
+package Bussines.Entities.Shop;
 
+import Bussines.Entities.CatalogProduct;
+import Bussines.Entities.Product;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +61,9 @@ public class Shop {
     public int getSince() {
         return since;
     }
+    public String getBusinessModel() {
+        return this.businessModel;
+    }
     /**
      * Obtiene la lista de productos del catálogo de la tienda.
      *
@@ -74,5 +83,11 @@ public class Shop {
 
     public double getEarnings() {
         return earnings;
+    }
+
+    public static List<Shop> toShopList(String input) {
+        Gson gson = new Gson();
+        Type shopListType = new TypeToken<ArrayList<Shop>>(){}.getType();
+        return gson.fromJson(input, shopListType);
     }
 }

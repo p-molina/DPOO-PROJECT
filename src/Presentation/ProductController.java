@@ -85,14 +85,19 @@ public class ProductController {
     }
     private void deleteProduct() {
         try {
+            if(productManager.getProductsRatingMap().size() == 0) {
+                System.out.println("\nERROR: There are no products in the system.\nGoing back...\n");
+                return;
+            }
+
             UI.showListOfProducts(productManager.getProductsRatingMap());
         } catch (IOException e) {
-            UI.showMessage("ERROR: Problem with the file!. Going back...");
+            UI.showMessage("\nERROR: Problem with the file!. Going back...");
             return;
         }
 
         UI.showMenu(MenuOptions.DELETE_MENU);
-        if (UI.askForOption("\nChoose an option: ", 1, 2) == 1) {
+        if (UI.askForOption("Choose an option: ", 1, 2) == 1) {
             String name;
             while(true) {
                 name = UI.askForString("\nPlease enter the product’s name to delete: ");
@@ -100,20 +105,21 @@ public class ProductController {
                     if (productManager.checkName(name)) {break;}
                     UI.showMessage("\nERROR: This product '" + name + "' does not exists. Try again...");
                 } catch (IOException e) {
-                    UI.showMessage("ERROR: Problem with the file!. Going back...");
+                    UI.showMessage("\nERROR: Problem with the file!. Going back...");
                     break;
                 }
             }
+
             String option = UI.askForString("Are you sure you want to remove \"" + name + "\"? ");
             if(option.equalsIgnoreCase("yes")) {
                 try {
                     productManager.deleteProduct(name);
                     //Eliminamos el prducto de todas las tiendas en las que se encuentre
-                    shopManager.deleteProductFromAllShops(name);
+                    //shopManager.deleteProductFromAllShops(name);
 
-                    UI.showMessage("\"" + name + "\" has been withdrawn from sale.");
+                    UI.showMessage("\n\"" + name + "\" has been withdrawn from sale.");
                 } catch (IOException e) {
-                    UI.showMessage("ERROR: Problem with the file!. Going back...");
+                    UI.showMessage("\nERROR: Problem deleting the product!. Going back...");
                 }
             }
         }
@@ -192,9 +198,9 @@ public class ProductController {
         }
     }
     private void reviewProduct(String productName, String brand) {
-
         try {
-            int rating = UI.askForOption("Please rate the product (1-5 stars): ", 1, 5);
+            UI.showMessage("WARNING: Enter the rate using '*', with values from 1-5. Rates beyond this range, or no input, will be counted as 0.\n");
+            String rating = UI.askForString("Please rate the product (1-5 stars): ");
             String comment = UI.askForString("Please add a comment to your review: ");
 
             productManager.addReview(productName, rating, comment);

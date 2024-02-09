@@ -106,7 +106,7 @@ public class ShopController {
                         }
                     }
                 } catch (IOException e) {
-                    UI.showMessage("ERROR, CAN NOT ACCESS SHOP");
+                    UI.showMessage("\nERROR, CAN NOT ACCESS SHOP");
                 }
             }
         } catch (IOException e) {
@@ -139,11 +139,13 @@ public class ShopController {
         int modelSelection = UI.askForOption("\nPlease pick the shop’s business model: ", 1, 3);
         try {
             if (modelSelection == 1) {
-                shopManager.createShop(name, description, year, "MAXIMUM_BENEFITS");
+                shopManager.createShop(name, description, year, "MAXIMUM_BENEFITS", 0, null);
             } else if (modelSelection == 2) {
-                shopManager.createShop(name, description, year, "LOYALTY");
+                double threshold = UI.askForDouble("Please enter the shop’s loyalty threshold: ");
+                shopManager.createShop(name, description, year, "LOYALTY", threshold, null);
             } else if (modelSelection == 3) {
-                shopManager.createShop(name, description, year, "SPONSORED");
+                String sponsor = UI.askForString("Please enter the shop’s sponsoring brand: ");
+                shopManager.createShop(name, description, year, "SPONSORED", 0, sponsor);
             }
         } catch(IOException e) {
             UI.showMessage("ERROR: Problem with the file! Going back.");
@@ -268,20 +270,20 @@ public class ShopController {
                 }
             }
         } catch(IOException e) {
-            UI.showMessage("ERROR: Problem with the file! Going back...");
+            UI.showMessage("\nERROR: Problem with the file! Going back...");
         }
     }
     private void reviewProduct(String productName, String brand) {
-
         try {
-            int rating = UI.askForOption("Please rate the product (1-5 stars): ", 1, 5);
+            UI.showMessage("WARNING: Enter the rate using '*', with values from 1-5. Rates beyond this range, or no input, will be counted as 0.\n");
+            String rating = UI.askForString("Please rate the product (1-5 stars): ");
             String comment = UI.askForString("Please add a comment to your review: ");
 
             productManager.addReview(productName, rating, comment);
 
-            UI.showMessage("Thank you for your review of \"" + productName + "\" by \"" + brand + "\".");
+            UI.showMessage("\nThank you for your review of \"" + productName + "\" by \"" + brand + "\".");
         } catch (IOException e) {
-            UI.showMessage("ERROR: Problem with the file! Going back...");
+            UI.showMessage("\nERROR: Problem with the file! Going back...");
         }
     }
 }

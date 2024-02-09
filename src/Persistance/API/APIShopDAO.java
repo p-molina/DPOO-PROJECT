@@ -1,14 +1,16 @@
 package Persistance.API;
 
-import Bussines.Entities.Shop;
+import Bussines.Entities.Shop.Shop;
 import Persistance.DAO.ShopDAO;
+import Persistance.ShopDeserializer;
+import Persistance.ShopSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import edu.salle.url.api.exception.ApiException;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -26,7 +28,11 @@ public class APIShopDAO implements ShopDAO {
      * Constructor para inicializar el DAO de tiendas.
      */
     public APIShopDAO() {
-        this.gson = new GsonBuilder().setPrettyPrinting().create();
+        this.gson = new GsonBuilder()
+                .registerTypeAdapter(Shop.class, new ShopSerializer())
+                .registerTypeAdapter(Shop.class, new ShopDeserializer())
+                .setPrettyPrinting()
+                .create();
     }
 
     /**
@@ -46,27 +52,34 @@ public class APIShopDAO implements ShopDAO {
             check = true;
         } catch (ApiException e) {
             //Funcion
+            System.out.println("ERROR: Api problem --> " + e.getMessage() + "\nCause --> " + e.getCause());
             check = false;
         }
 
         return check;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void saveAllShops(List<Shop> shops) throws IOException {
+    public void createShop(Shop shop) throws IOException{
         if (checkInstanceAPI()) {
-            apiConnector = APIConnector.getInstance();
-            apiConnector.postRequest("products", gson.toJson(shops.get(shops.size() - 1)));
+            apiConnector.postRequest("shops", gson.toJson(shop));
+            System.out.println(gson.toJson(shop));
+            return;
         }
 
-        //Si la instancia da error es que la api no va y estamos utilizando los ficheros locales
-        try (FileWriter fileWriter = new FileWriter(path.toFile())) {
-            gson.toJson(shops, fileWriter);
+        // Leer la lista existente de tienas
+        List<Shop> shops = getAllShops();
+
+        if (shops == null) {
+            shops = new ArrayList<>();
         }
 
+        // Añadir el nuevo producto a la lista
+        shops.add(shop);
+
+        // Guardar la lista actualizada en el archivo
+        try (FileWriter writer = new FileWriter(path.toFile())) {
+            gson.toJson(shops, writer);
+        }
     }
 
     /**
@@ -74,13 +87,60 @@ public class APIShopDAO implements ShopDAO {
      */
     @Override
     public List<Shop> getAllShops() throws IOException {
-        if (!Files.exists(path) || path.toFile().length() == 0) {
-            return new ArrayList<>();
+        List<Shop> shops = new ArrayList<>();
+
+        if (checkInstanceAPI()) {
+            String jsonResponse = apiConnector.getRequest("shops");
+            // Verificar si la respuesta es nula o vacía antes de parsear
+            if (jsonResponse == null || jsonResponse.isEmpty()) {
+                return shops; // Devuelve lista vacía si no hay respuesta
+            }
+            JsonParser parser = new JsonParser();
+            JsonElement jsonElement = parser.parse(jsonResponse);
+            if (jsonElement != null && jsonElement.isJsonArray()) {
+                for (JsonElement element : jsonElement.getAsJsonArray()) {
+                    Shop shop = gson.fromJson(element, Shop.class);
+                    shops.add(shop);
+                }
+            }
+        } else if (!Files.exists(path) || path.toFile().length() == 0) {
+            return shops; // Devuelve lista vacía si el archivo no existe o está vacío
+        } else {
+            try (Reader reader = new FileReader(path.toFile())) {
+                JsonParser parser = new JsonParser();
+                JsonElement jsonElement = parser.parse(reader);
+                // Comprueba si jsonElement es un array después de parsear el archivo
+                if (jsonElement != null && jsonElement.isJsonArray()) {
+                    for (JsonElement element : jsonElement.getAsJsonArray()) {
+                        Shop shop = gson.fromJson(element, Shop.class);
+                        shops.add(shop);
+                    }
+                }
+            }
         }
 
-        Type shopListType = new TypeToken<ArrayList<Shop>>(){}.getType();
-        try (Reader reader = new FileReader(path.toFile())) {
-            return gson.fromJson(reader, shopListType);
+        return shops;
+    }
+
+    @Override
+    public void deleteShop(int position) throws IOException{
+        if(checkInstanceAPI()) {
+            apiConnector.deleteRequest("shops/" + position);
+        }
+
+        // Leer la lista existente de tienas
+        List<Shop> shops = getAllShops();
+
+        if (shops == null) {
+            shops = new ArrayList<>();
+        }
+
+        // Eliminar la antigua tienda de la lista
+        shops.remove(position);
+
+        // Guardar la lista actualizada en el archivo
+        try (FileWriter writer = new FileWriter(path.toFile())) {
+            gson.toJson(shops, writer);
         }
     }
 }

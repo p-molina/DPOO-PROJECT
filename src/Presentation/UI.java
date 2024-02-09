@@ -77,7 +77,7 @@ public class UI {
                 break;
             case DELETE_MENU:
                 System.out.println( "\t1) Delete product" +
-                                    "\n\n\t2) Back");
+                                    "\n\n\t2) Back\n");
                 break;
             case LIST_SHOPS:
                 System.out.println("\nThe elCofre family is formed by the following shops: ");

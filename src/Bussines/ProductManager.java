@@ -43,11 +43,7 @@ public class  ProductManager {
      * @throws IOException Si ocurre un error de entrada/salida.
      */
     public void createProduct(String name, String brand, double mrp, String category) throws IOException {
-        Product product = new Product(name, brand, mrp, category);
-        List<Product> products = productDAO.getAllProducts();
-        products.add(product);
-
-        productDAO.saveAllProduct(products);
+        productDAO.createProduct(new Product(name, brand, mrp, category));
     }
     /**
      * Elimina un producto por su nombre.
@@ -57,16 +53,12 @@ public class  ProductManager {
      */
     public void deleteProduct(String name) throws IOException {
         List<Product> products = productDAO.getAllProducts();
-        List<Product> toRemove = new ArrayList<>();
-
-        for (Product product : products) {
-            if (product.getName().equals(name)) {
-                toRemove.add(product);
-            }
+        int position;
+        for (position = 0; position < products.size(); position++) {
+            //Paramos la ejecucion ya que neccesitamos saber la posición del producto en la lista
+            if(products.get(position).getName().equals(name)) {break;}
         }
-
-        products.removeAll(toRemove);
-        productDAO.saveAllProduct(products);
+        productDAO.deleteProduct(position);
     }
     /**
      * Busca productos que coincidan con la consulta dada.
@@ -82,8 +74,7 @@ public class  ProductManager {
         int count = 1;
         for (Product product : productsAux) {
             // Comprobar si el nombre del producto contiene el texto introducido, ignorando mayúsculas y minúsculas
-            if (product.getName().toLowerCase().contains(query.toLowerCase())
-                    || product.getBrand().equals(query)) {
+            if (product.getName().toLowerCase().contains(query.toLowerCase()) || product.getBrand().equals(query)) {
                 String[] productInfo = new String[4];
                 productInfo[0] = count + ")";
                 productInfo[1] = "\"" + product.getName() + "\"";
@@ -232,22 +223,33 @@ public class  ProductManager {
      * Agrega una reseña a un producto.
      *
      * @param productName Nombre del producto a reseñar.
-     * @param rating      Calificación de la reseña.
+     * @param ratingChar      Calificación de la reseña en estrellas.
      * @param comment     Comentario de la reseña.
      * @throws IOException Si ocurre un error de entrada/salida.
      */
-    public void addReview(String productName, int rating, String comment) throws IOException {
+    public void addReview(String productName, String ratingChar, String comment) throws IOException {
         List<Product> products = productDAO.getAllProducts();
 
+        int rating = 0;
+
+        for (int i = 0; i < ratingChar.length(); i++) {
+            if(ratingChar.charAt(i) == '*') {
+                rating++;
+            }
+        }
+
+        int j = 0;
         for (Product product : products) {
             if (productName.equals(product.getName())) {
                 List<Review> reviews = product.getReviews();
                 reviews.add(new Review(rating, comment));
                 break;
             }
+            j++;
         }
 
-        productDAO.saveAllProduct(products);
+        productDAO.deleteProduct(j);
+        productDAO.createProduct(products.get(j));
     }
     public List<CatalogProduct> getTaxBasePrice(List<CatalogProduct> infoCheckout) throws IOException {
         List<Product> products = productDAO.getAllProducts();

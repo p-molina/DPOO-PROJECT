@@ -1,5 +1,9 @@
 package Bussines.Entities;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,5 +71,11 @@ public class Product {
      */
     public List<Review> getReviews() {
         return reviews;
+    }
+
+    public static List<Product> toProductList(String input) {
+        Gson gson = new Gson();
+        Type productListType = new TypeToken<ArrayList<Product>>(){}.getType();
+        return gson.fromJson(input, productListType);
     }
 }

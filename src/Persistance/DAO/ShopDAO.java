@@ -1,6 +1,6 @@
 package Persistance.DAO;
 
-import Bussines.Entities.Shop;
+import Bussines.Entities.Shop.Shop;
 import java.io.IOException;
 import java.util.List;
 
@@ -15,13 +15,7 @@ public interface ShopDAO {
      */
     void checkFile() throws IOException;
 
-    /**
-     * Guarda todas las tiendas en el archivo JSON.
-     *
-     * @param shops Lista de tiendas a guardar.
-     * @throws IOException Si ocurre un error de entrada/salida al escribir en el archivo.
-     */
-    void saveAllShops(List<Shop> shops) throws IOException;
+    void createShop(Shop shop) throws IOException;
 
     /**
      * Recupera todas las tiendas del archivo JSON.
@@ -30,4 +24,5 @@ public interface ShopDAO {
      * @throws IOException Si ocurre un error de entrada/salida al leer el archivo.
      */
     List<Shop> getAllShops() throws IOException;
+    void deleteShop(int position) throws IOException;
 }

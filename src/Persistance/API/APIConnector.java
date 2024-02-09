@@ -16,7 +16,7 @@ import java.io.IOException;
  * @see edu.salle.url.api.ApiHelper
  */
 public class APIConnector {
-    private static final String BASE_API_URL = "https://balandrau.salle.url.edu/dpoo/S1_Project_107/";   // URL base de la API.
+    private static final String BASE_API_URL = "https://balandrau.salle.url.edu/dpoo/S1_grup_107/";   // URL base de la API.
     private static APIConnector instance = null;
     private ApiHelper apiHelper;
 
@@ -79,4 +79,5 @@ public class APIConnector {
     public String deleteRequest(String endpoint) throws IOException, ApiException {
         return apiHelper.deleteFromUrl(BASE_API_URL + endpoint);
     }
+
 }

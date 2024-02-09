@@ -1,71 +1,37 @@
 [
   {
-    "name": "zara",
-    "description": "zara ropa",
-    "since": 2000,
-    "earnings": 1308.19,
-    "businessModel": "MAXIMUM_BENEFITS",
-    "catalogProductList": [
-      {
-        "nameProduct": "sudadera",
-        "nameBrand": "Nudeproject",
-        "nameShop": "zara",
-        "price": 99.0
-      },
-      {
-        "nameProduct": "vestido",
-        "nameBrand": "Anamoda",
-        "nameShop": "zara",
-        "price": 19.0
-      },
-      {
-        "nameProduct": "jacket",
-        "nameBrand": "Polo",
-        "nameShop": "zara",
-        "price": 200.0
-      },
-      {
-        "nameProduct": "cuadro",
-        "nameBrand": "Picaso",
-        "nameShop": "zara",
-        "price": 500.0
-      }
-    ]
+    "sponsorBrand": "Cerberus Assembly",
+    "name": "The Invulnerable Vagrant",
+    "description": "Purveyors of the finest arcane curiosities.",
+    "since": 835,
+    "earnings": 0.0,
+    "businessModel": "SPONSORED",
+    "catalogProductList": []
   },
   {
-    "name": "floristeria Lola",
-    "description": "vende flores",
-    "since": 2020,
-    "earnings": 3.84,
-    "businessModel": "MAXIMUM_BENEFITS",
-    "catalogProductList": [
-      {
-        "nameProduct": "agua",
-        "nameBrand": "Bezoyaç",
-        "nameShop": "floristeria Lola",
-        "price": 2.0
-      }
-    ]
+    "loyaltyTreshold": 999.99,
+    "name": "elCofre Copy Shop",
+    "description": "We specialize in 3D printing, which is the future.",
+    "since": 1973,
+    "earnings": 27012.42,
+    "businessModel": "LOYALTY",
+    "catalogProductList": []
   },
   {
-    "name": "doctors tura",
-    "description": "pediatres de granollers",
-    "since": 1970,
-    "earnings": 149.99,
+    "name": "Tiendecita",
+    "description": "tienda chiquitina de tiendas",
+    "since": 1400,
+    "earnings": 0.0,
     "businessModel": "MAXIMUM_BENEFITS",
-    "catalogProductList": [
-      {
-        "nameProduct": "aspirina",
-        "nameBrand": "Bayer",
-        "nameShop": "doctors tura",
-        "price": 99.0
-      },
-      {
-        "nameProduct": "gelocatil",
-        "nameBrand": "Farrer",
-        "nameShop": "doctors tura",
-        "price": 50.99
-      }
-    ]
+    "catalogue": []
+  },
+  {
+    "sponsorBrand": "Cerberus Assembly",
+    "name": "The Vulnerable Vagrant",
+    "description": "Purveyors of the finest arcane curiosities.",
+    "since": 835,
+    "earnings": 0.0,
+    "businessModel": "SPONSORED",
+    "catalogProductList": []
   }
 ]
