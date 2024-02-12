@@ -2,6 +2,9 @@ package Bussines;
 
 import Bussines.Entities.CatalogProduct;
 import Bussines.Entities.Product;
+import Bussines.Entities.Products.GeneralProduct;
+import Bussines.Entities.Products.ReducedProduct;
+import Bussines.Entities.Products.SuperReducedProduct;
 import Bussines.Entities.Review;
 import Persistance.DAO.ProductDAO;
 
@@ -43,7 +46,17 @@ public class  ProductManager {
      * @throws IOException Si ocurre un error de entrada/salida.
      */
     public void createProduct(String name, String brand, double mrp, String category) throws IOException {
-        productDAO.createProduct(new Product(name, brand, mrp, category));
+        switch (category)
+        {
+            case "GENERAL":
+                productDAO.createProduct(new GeneralProduct(name, brand, mrp, category));
+                break;
+            case "REDUCED":
+                productDAO.createProduct(new ReducedProduct(name, brand, mrp, category));
+                break;
+            case "SUPER_REDUCED":
+                productDAO.createProduct(new SuperReducedProduct(name, brand, mrp, category));
+        }
     }
     /**
      * Elimina un producto por su nombre.
@@ -141,23 +154,11 @@ public class  ProductManager {
         HashMap<Product, Double> productRatingMap = new HashMap<>();
 
         for (Product product : productDAO.getAllProducts()) {
-            double avgRating = getAverageRating(product.getReviews());
+            double avgRating = product.getAverageRating();
             productRatingMap.put(product, avgRating);
         }
 
         return productRatingMap;
-    }
-    private double getAverageRating(List<Review> reviews) {
-        if (reviews == null || reviews.size() == 0) {
-            return -1;
-        }
-
-        double sum = 0;
-        for (Review review : reviews) {
-            sum += review.getClassificationStars();
-        }
-
-        return sum / reviews.size();
     }
     /**
      * Obtiene el precio máximo de venta al público (MRP) de un producto por su nombre.
@@ -260,25 +261,7 @@ public class  ProductManager {
             {
                 if(catalogProduct.getNameProduct().equals(product.getName()))
                 {
-                    switch (product.getCategory()) {
-                        case "GENERAL" ->
-                                catalogProduct.setPrice(Math.round((catalogProduct.getPrice()) / ((21.0 / 100.0) + 1.0)));
-                        case "REDUCED" -> {
-                            List<Review> reviews = product.getReviews();
-                            if (getAverageRating(reviews) > 3.5) {
-                                catalogProduct.setPrice(Math.round((catalogProduct.getPrice()) / ((5.0 / 100.0) + 1.0)));
-                            } else {
-                                catalogProduct.setPrice(Math.round((catalogProduct.getPrice()) / ((10.0 / 100.0) + 1.0)));
-                            }
-                        }
-                        case "SUPER_REDUCED" -> {
-                            if (product.getMrp() > 100.0) {
-                                catalogProduct.setPrice(Math.round(catalogProduct.getPrice()));
-                            } else {
-                                catalogProduct.setPrice(Math.round(((catalogProduct.getPrice()) / ((4.0 / 100.0) + 1.0)) * 100) / 100.0);
-                            }
-                        }
-                    }
+                    catalogProduct.setPrice(product.calculateTaxBasePrice(catalogProduct.getPrice()));
                 }
             }
         }

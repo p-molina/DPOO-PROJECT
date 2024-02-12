@@ -17,38 +17,31 @@ public class ShopDeserializer implements JsonDeserializer<Shop> {
         String businessModel = jsonObject.has("businessModel") ? jsonObject.get("businessModel").getAsString() : "";
 
         // Crear la instancia de Shop correspondiente
-        Shop shop;
-        switch (businessModel) {
-            case "LOYALTY":
-                shop = new LoyaltyShop(
-                        jsonObject.get("name").getAsString(),
-                        jsonObject.get("description").getAsString(),
-                        jsonObject.get("since").getAsInt(),
-                        jsonObject.get("earnings").getAsDouble(),
-                        businessModel,
-                        jsonObject.has("loyaltyThreshold") ? jsonObject.get("loyaltyThreshold").getAsDouble() : 0.0
-                );
-                break;
-            case "SPONSORED":
-                shop = new SponsoredShop(
-                        jsonObject.get("name").getAsString(),
-                        jsonObject.get("description").getAsString(),
-                        jsonObject.get("since").getAsInt(),
-                        jsonObject.get("earnings").getAsDouble(),
-                        businessModel,
-                        jsonObject.has("sponsorBrand") ? jsonObject.get("sponsorBrand").getAsString() : ""
-                );
-                break;
-            default:
-                shop = new Shop(
-                        jsonObject.get("name").getAsString(),
-                        jsonObject.get("description").getAsString(),
-                        jsonObject.get("since").getAsInt(),
-                        jsonObject.get("earnings").getAsDouble(),
-                        businessModel
-                );
-                break;
-        }
+        Shop shop = switch (businessModel) {
+            case "LOYALTY" -> new LoyaltyShop(
+                    jsonObject.get("name").getAsString(),
+                    jsonObject.get("description").getAsString(),
+                    jsonObject.get("since").getAsInt(),
+                    jsonObject.get("earnings").getAsDouble(),
+                    businessModel,
+                    jsonObject.has("loyaltyThreshold") ? jsonObject.get("loyaltyThreshold").getAsDouble() : 0.0
+            );
+            case "SPONSORED" -> new SponsoredShop(
+                    jsonObject.get("name").getAsString(),
+                    jsonObject.get("description").getAsString(),
+                    jsonObject.get("since").getAsInt(),
+                    jsonObject.get("earnings").getAsDouble(),
+                    businessModel,
+                    jsonObject.has("sponsorBrand") ? jsonObject.get("sponsorBrand").getAsString() : ""
+            );
+            default -> new Shop(
+                    jsonObject.get("name").getAsString(),
+                    jsonObject.get("description").getAsString(),
+                    jsonObject.get("since").getAsInt(),
+                    jsonObject.get("earnings").getAsDouble(),
+                    businessModel
+            );
+        };
 
         // Deserializar el catálogo de productos, si tiene algún producto dentro
         if (jsonObject.has("catalogue") && jsonObject.get("catalogue").isJsonArray()) {
