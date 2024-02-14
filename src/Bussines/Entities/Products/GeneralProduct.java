@@ -1,6 +1,9 @@
 package Bussines.Entities.Products;
 
 import Bussines.Entities.Product;
+import Bussines.Entities.Review;
+
+import java.util.List;
 
 public class GeneralProduct extends Product {
     /**
@@ -11,8 +14,8 @@ public class GeneralProduct extends Product {
      * @param mrp      Precio máximo de venta al público.
      * @param category Categoría del producto.
      */
-    public GeneralProduct(String name, String brand, double mrp, String category) {
-        super(name, brand, mrp, category);
+    public GeneralProduct(String name, String brand, double mrp, String category, List<Review> reviews) {
+        super(name, brand, mrp, category, reviews);
     }
     public double calculateTaxBasePrice(double price) {
         price = (Math.round(price / ((21.0 / 100.0) + 1.0)));

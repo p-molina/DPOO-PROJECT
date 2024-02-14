@@ -16,7 +16,6 @@ public abstract class Product {
     private double mrp;
     private String category;
     private List<Review> reviews;
-
     /**
      * Constructor para crear un producto.
      *
@@ -25,12 +24,12 @@ public abstract class Product {
      * @param mrp      Precio máximo de venta al público.
      * @param category Categoría del producto.
      */
-    public Product(String name, String brand, double mrp, String category) {
+    public Product(String name, String brand, double mrp, String category, List<Review> reviews) {
         this.name = name;
-        this.mrp = mrp;
         this.brand = brand;
+        this.mrp = mrp;
         this.category = category;
-        this.reviews = new ArrayList<>(0);
+        this.reviews = reviews;
     }
     /**
      * Obtiene el nombre del producto.

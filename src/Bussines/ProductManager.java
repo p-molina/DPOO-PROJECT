@@ -49,13 +49,13 @@ public class  ProductManager {
         switch (category)
         {
             case "GENERAL":
-                productDAO.createProduct(new GeneralProduct(name, brand, mrp, category));
+                productDAO.createProduct(new GeneralProduct(name, brand, mrp, category, new ArrayList<>(0)));
                 break;
             case "REDUCED":
-                productDAO.createProduct(new ReducedProduct(name, brand, mrp, category));
+                productDAO.createProduct(new ReducedProduct(name, brand, mrp, category,new ArrayList<>(0)));
                 break;
             case "SUPER_REDUCED":
-                productDAO.createProduct(new SuperReducedProduct(name, brand, mrp, category));
+                productDAO.createProduct(new SuperReducedProduct(name, brand, mrp, category,new ArrayList<>(0)));
         }
     }
     /**

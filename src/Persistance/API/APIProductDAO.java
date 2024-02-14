@@ -2,6 +2,7 @@ package Persistance.API;
 
 import Bussines.Entities.Product;
 import Persistance.DAO.ProductDAO;
+import Persistance.ProductDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -26,7 +27,9 @@ public class APIProductDAO implements ProductDAO {
      * Constructor para inicializar el DAO de productos.
      */
     public APIProductDAO() {
-        this.gson = new GsonBuilder().setPrettyPrinting().create();
+        this.gson = new GsonBuilder()
+                .registerTypeAdapter(Product.class, new ProductDeserializer())
+                .create();
     }
 
     /**
@@ -45,8 +48,6 @@ public class APIProductDAO implements ProductDAO {
             apiConnector = APIConnector.getInstance();
             check = true;
         } catch (ApiException e) {
-            //Funcion
-            System.out.println("\nERROR: Api problem --> " + e.getMessage());
             check = false;
         }
 
@@ -65,7 +66,7 @@ public class APIProductDAO implements ProductDAO {
         if (!Files.exists(path) || path.toFile().length() == 0) {
             return new ArrayList<>();
         }
-        Type productListType = new TypeToken<ArrayList<Product>>(){}.getType();
+        Type productListType = new TypeToken<ArrayList<Product>>(){}.getType();//ERROR
         try (Reader reader = new FileReader(path.toFile())) { //Utilizamos aqui el try para cerrar el reader correctamente
             return gson.fromJson(reader, productListType);
         }
