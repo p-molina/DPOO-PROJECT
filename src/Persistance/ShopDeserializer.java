@@ -52,8 +52,8 @@ public class ShopDeserializer implements JsonDeserializer<Shop> {
         }
 
         // Deserializar el catálogo de productos, si tiene algún producto dentro
-        if (jsonObject.has("catalogue") && jsonObject.get("catalogue").isJsonArray()) {
-            JsonArray catalogueArray = jsonObject.getAsJsonArray("catalogue");
+        if (jsonObject.has("catalogProductList") && jsonObject.get("catalogProductList").isJsonArray()) {
+            JsonArray catalogueArray = jsonObject.getAsJsonArray("catalogProductList");
             for (JsonElement productElement : catalogueArray) {
                 JsonObject productObject = productElement.getAsJsonObject();
 

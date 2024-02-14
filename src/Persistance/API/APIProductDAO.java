@@ -5,6 +5,8 @@ import Persistance.DAO.ProductDAO;
 import Persistance.ProductDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import edu.salle.url.api.exception.ApiException;
 
@@ -59,18 +61,41 @@ public class APIProductDAO implements ProductDAO {
      */
     @Override
     public List<Product> getAllProducts() throws IOException {
+        List<Product> products = new ArrayList<>();
+
         if (checkInstanceAPI()) {
-            return Product.toProductList(apiConnector.getRequest("products"));
+            String jsonResponse = apiConnector.getRequest("products");
+            // Verificar si la respuesta es nula o vacía antes de parsear
+            if (jsonResponse == null || jsonResponse.isEmpty()) {
+                return products; // Devuelve lista vacía si no hay respuesta
+            }
+            JsonParser parser = new JsonParser();
+            JsonElement jsonElement = parser.parse(jsonResponse);
+            if (jsonElement != null && jsonElement.isJsonArray()) {
+                for (JsonElement element : jsonElement.getAsJsonArray()) {
+                    Product product = gson.fromJson(element, Product.class);
+                    products.add(product);
+                }
+            }
+        } else if (!Files.exists(path) || path.toFile().length() == 0) {
+            return products; // Devuelve lista vacía si el archivo no existe o está vacío
+        } else {
+            try (Reader reader = new FileReader(path.toFile())) {
+                JsonParser parser = new JsonParser();
+                JsonElement jsonElement = parser.parse(reader);
+                // Comprueba si jsonElement es un array después de parsear el archivo
+                if (jsonElement != null && jsonElement.isJsonArray()) {
+                    for (JsonElement element : jsonElement.getAsJsonArray()) {
+                        Product product = gson.fromJson(element, Product.class);
+                        products.add(product);
+                    }
+                }
+            }
         }
 
-        if (!Files.exists(path) || path.toFile().length() == 0) {
-            return new ArrayList<>();
-        }
-        Type productListType = new TypeToken<ArrayList<Product>>(){}.getType();//ERROR
-        try (Reader reader = new FileReader(path.toFile())) { //Utilizamos aqui el try para cerrar el reader correctamente
-            return gson.fromJson(reader, productListType);
-        }
+        return products;
     }
+
 
     /**
      * {@inheritDoc}
