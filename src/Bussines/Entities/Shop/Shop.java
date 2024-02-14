@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Representa una tienda, incluyendo detalles como nombre, descripción, año de apertura, ingresos, modelo de negocio y lista de productos en el catálogo.
  */
-public class Shop {
+public abstract class Shop {
     private String name;
     private String description;
     private int since;
@@ -61,9 +61,6 @@ public class Shop {
     public int getSince() {
         return since;
     }
-    public String getBusinessModel() {
-        return this.businessModel;
-    }
     /**
      * Obtiene la lista de productos del catálogo de la tienda.
      *
@@ -83,11 +80,5 @@ public class Shop {
 
     public double getEarnings() {
         return earnings;
-    }
-
-    public static List<Shop> toShopList(String input) {
-        Gson gson = new Gson();
-        Type shopListType = new TypeToken<ArrayList<Shop>>(){}.getType();
-        return gson.fromJson(input, shopListType);
     }
 }

@@ -2,6 +2,7 @@ package Bussines;
 
 import Bussines.Entities.CatalogProduct;
 import Bussines.Entities.Shop.LoyaltyShop;
+import Bussines.Entities.Shop.MaximumBenefitsShop;
 import Bussines.Entities.Shop.Shop;
 import Bussines.Entities.Shop.SponsoredShop;
 import Persistance.DAO.ShopDAO;
@@ -47,7 +48,7 @@ public class ShopManager {
     public void createShop(String name, String description, int since, String nameModel, double threshold, String sponsor) throws IOException {
         switch(nameModel) {
             case "MAXIMUM_BENEFITS":
-                shopDAO.createShop(new Shop(name, description, since, 0, nameModel));
+                shopDAO.createShop(new MaximumBenefitsShop(name, description, since, 0, nameModel));
                 break;
             case "LOYALTY":
                 shopDAO.createShop(new LoyaltyShop(name, description, since, 0, nameModel, threshold));

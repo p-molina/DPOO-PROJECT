@@ -1,6 +1,7 @@
 package Persistance;
 
 import Bussines.Entities.CatalogProduct;
+import Bussines.Entities.Shop.MaximumBenefitsShop;
 import Bussines.Entities.Shop.Shop;
 import Bussines.Entities.Shop.LoyaltyShop;
 import Bussines.Entities.Shop.SponsoredShop;
@@ -40,7 +41,7 @@ public class ShopDeserializer implements JsonDeserializer<Shop> {
                 );
                 break;
             default:
-                shop = new Shop(
+                shop = new MaximumBenefitsShop(
                         jsonObject.get("name").getAsString(),
                         jsonObject.get("description").getAsString(),
                         jsonObject.get("since").getAsInt(),
