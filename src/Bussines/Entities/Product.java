@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Representa un producto, incluyendo detalles como nombre, marca, precio máximo de venta al público (MRP), categoría y reseñas.
  */
-public class Product {
+public abstract class Product {
     private String name;
     private String brand;
     private double mrp;
@@ -72,10 +72,23 @@ public class Product {
     public List<Review> getReviews() {
         return reviews;
     }
+    public double getAverageRating() {
+        if (reviews == null || reviews.size() == 0) {
+            return -1;
+        }
 
+        double sum = 0;
+        for (Review review : reviews) {
+            sum += review.getClassificationStars();
+        }
+
+        return sum / reviews.size();
+    }
     public static List<Product> toProductList(String input) {
         Gson gson = new Gson();
         Type productListType = new TypeToken<ArrayList<Product>>(){}.getType();
         return gson.fromJson(input, productListType);
     }
+
+    public abstract double calculateTaxBasePrice(double price);
 }

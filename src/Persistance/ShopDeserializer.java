@@ -1,7 +1,6 @@
 package Persistance;
 
 import Bussines.Entities.CatalogProduct;
-import Bussines.Entities.Shop.MaximumBenefitsShop;
 import Bussines.Entities.Shop.Shop;
 import Bussines.Entities.Shop.LoyaltyShop;
 import Bussines.Entities.Shop.SponsoredShop;
