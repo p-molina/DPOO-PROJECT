@@ -106,15 +106,15 @@ public class ShopManager {
                     List<CatalogProduct> catalogProductList = shop.getCatalogProductList();
                     CatalogProduct newProduct = new CatalogProduct(nameProduct, nameBrand, nameShop,price);
                     catalogProductList.add(newProduct);
-                    break;
                 }
             }
-            position++;
+            shopDAO.deleteShop(0);
         }
 
-        shopDAO.deleteShop(position);
-        shopDAO.createShop(shops.get(position));
-
+        // Guardar la lista actualizada de tiendas en el archivo
+        for (Shop shop : shops) {
+            shopDAO.createShop(shop);
+        }
     }
     /**
      * Elimina un producto específico de un catálogo de una tienda.
@@ -139,14 +139,15 @@ public class ShopManager {
                             break; // Terminar el bucle al encontrar el producto
                         }
                     }
-                    break; // Terminar la búsqueda al encontrar la tienda
                 }
             }
-            position++;
+            shopDAO.deleteShop(0);
         }
 
-        shopDAO.deleteShop(position);
-        shopDAO.createShop(shops.get(position));
+        // Guardar la lista actualizada de tiendas en el archivo
+        for (Shop shop : shops) {
+            shopDAO.createShop(shop);
+        }
     }
     /**
      * Verifica si un producto está presente en el catálogo de una tienda específica.
@@ -328,5 +329,25 @@ public class ShopManager {
             infoTicket = "\nERROR, NO PRODUCTS TO CHECKOUT!";
         }
         return infoTicket;
+    }
+
+    public List<Shop> getAllShops() throws IOException {
+        return shopDAO.getAllShops();
+    }
+
+    public List<CatalogProduct> getCalagoFromShop(String shopName) throws IOException {
+        List<Shop> shops = shopDAO.getAllShops();
+        List<CatalogProduct> catalogInsShop = new ArrayList<>();
+
+        for (Shop shop : shops) {
+            if (shop.getName().equals(shopName)) {
+                for (CatalogProduct catalogProduct: shop.getCatalogProductList()) {
+                    catalogInsShop.add(catalogProduct);
+                }
+                break;
+            }
+        }
+
+        return catalogInsShop;
     }
 }

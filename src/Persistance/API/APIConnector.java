@@ -45,7 +45,7 @@ public class APIConnector {
 
     /**
      * Realiza una solicitud GET a la API.
-     *
+     *Be
      * @param endpoint El endpoint de la API a consultar.
      * @return La respuesta de la API como cadena de texto.
      * @throws IOException Si ocurre un error en la comunicación con la API.

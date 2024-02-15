@@ -62,7 +62,6 @@ public class APIShopDAO implements ShopDAO {
     public void createShop(Shop shop) throws IOException{
         if (checkInstanceAPI()) {
             apiConnector.postRequest("shops", gson.toJson(shop));
-            System.out.println(gson.toJson(shop));
             return;
         }
 
@@ -126,6 +125,7 @@ public class APIShopDAO implements ShopDAO {
     public void deleteShop(int position) throws IOException{
         if(checkInstanceAPI()) {
             apiConnector.deleteRequest("shops/" + (position));
+            return;
         }
 
         // Leer la lista existente de tienas

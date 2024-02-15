@@ -77,4 +77,8 @@ public abstract class Shop {
     public double getEarnings() {
         return earnings;
     }
+
+    public String getBusinessModel() {
+        return this.businessModel;
+    }
 }

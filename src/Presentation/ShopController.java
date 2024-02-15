@@ -155,7 +155,13 @@ public class ShopController {
         return true;
     }
     private boolean expandCatalog() {
-        String nameShop = UI.askForString("\nPlease enter the shop’s name: ");
+        try {
+            UI.showListOfShops(shopManager.getAllShops());
+        } catch (IOException e) {
+            UI.showMessage("ERROR: Problem with the file! Going back.");
+            return false;
+        }
+        String nameShop = UI.askForString("Please enter the shop’s name: ");
         //COMPROVAR TENDA EXISTEIX
         try {
             if (shopManager.isShopUnique(nameShop)) {
@@ -166,12 +172,18 @@ public class ShopController {
             UI.showMessage("ERROR: Problem with the file! Going back.");
             return false;
         }
-        String nameProduct = UI.askForString("\nPlease enter the product’s name: ");
+        try {
+            UI.showListOfProducts(productManager.getProductsRatingMap());
+        } catch (IOException e) {
+            UI.showMessage("ERROR: Problem with the file! Going back.");
+            return false;
+        }
+        String nameProduct = UI.askForString("Please enter the product’s name: ");
         //COMPROVAR PRODUCTE EXISTEIX
         try {
             if(!productManager.checkName(nameProduct))
             {
-                UI.showMessage("ERROR PRODUCT DOES NOT EXIST");
+                UI.showMessage("\nERROR PRODUCT DOES NOT EXIST");
                 return false;
             }
         } catch (IOException e) {
@@ -218,8 +230,15 @@ public class ShopController {
         return true;
     }
     private boolean reduceCatalogue() {
-        String nameShop = UI.askForString("\nPlease enter the shop’s name: ");
-        //COMPROVAR TENDA EXISTEIX
+        try {
+            UI.showListOfShops(shopManager.getAllShops());
+        } catch (IOException e) {
+            UI.showMessage("ERROR: Problem with the file! Going back.");
+            return false;
+        }
+
+        String nameShop = UI.askForString("Please enter the shop’s name: ");
+
         try {
             if (shopManager.isShopUnique(nameShop)) {
                 UI.showMessage("ERROR SHOP DOES NOT EXIST");
@@ -229,14 +248,16 @@ public class ShopController {
             UI.showMessage("ERROR: Problem with the file! Going back.");
             return false;
         }
+
         try {
-            String catalogue = shopManager.getCatalogueFromShop(nameShop);
-            UI.showMessage(catalogue);
+            UI.showListOfCatalogProducts(shopManager.getCalagoFromShop(nameShop));
         } catch (IOException e) {
             UI.showMessage("ERROR: Problem with the file! Going back.");
             return false;
         }
-        int option = UI.askForInt("Which one would you like to remove? ");
+
+        int option = UI.askForInt("Please enter the product’s number: ");
+
         try {
             boolean okReduce = shopManager.reduceCatalogue(nameShop,option);
             if(!okReduce)
