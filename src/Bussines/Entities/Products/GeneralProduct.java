@@ -1,6 +1,5 @@
 package Bussines.Entities.Products;
 
-import Bussines.Entities.Product;
 import Bussines.Entities.Review;
 
 import java.util.List;

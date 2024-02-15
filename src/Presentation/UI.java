@@ -1,6 +1,6 @@
 package Presentation;
 
-import Bussines.Entities.Product;
+import Bussines.Entities.Products.Product;
 
 import java.util.*;
 

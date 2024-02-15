@@ -1,5 +1,6 @@
-package Bussines.Entities;
+package Bussines.Entities.Products;
 
+import Bussines.Entities.Review;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

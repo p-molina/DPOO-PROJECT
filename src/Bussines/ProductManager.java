@@ -1,7 +1,7 @@
 package Bussines;
 
 import Bussines.Entities.CatalogProduct;
-import Bussines.Entities.Product;
+import Bussines.Entities.Products.Product;
 import Bussines.Entities.Products.GeneralProduct;
 import Bussines.Entities.Products.ReducedProduct;
 import Bussines.Entities.Products.SuperReducedProduct;

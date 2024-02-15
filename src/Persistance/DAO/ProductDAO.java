@@ -1,6 +1,6 @@
 package Persistance.DAO;
 
-import Bussines.Entities.Product;
+import Bussines.Entities.Products.Product;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;

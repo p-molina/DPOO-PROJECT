@@ -1,7 +1,7 @@
 package Persistance;
 
 
-import Bussines.Entities.Product;
+import Bussines.Entities.Products.Product;
 import Bussines.Entities.Products.GeneralProduct;
 import Bussines.Entities.Products.SuperReducedProduct;
 import Bussines.Entities.Products.ReducedProduct;
