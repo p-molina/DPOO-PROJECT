@@ -299,7 +299,6 @@ public class ShopManager {
         List<Shop> shops = shopDAO.getAllShops();
         String infoTicket = "";
         boolean ok = false;
-        int position = 0;
 
         for(Shop shop: shops)
         {
@@ -311,14 +310,15 @@ public class ShopManager {
                     shop.setEarnings((shop.getEarnings() + catalogProduct.getPrice()));
                     infoTicket = infoTicket + "\n" + catalogProduct.getNameShop() + " has earned " + catalogProduct.getPrice() + ", for an historic total of " + shop.getEarnings() + ".";
                     ok = true;
-                    break;
                 }
             }
-            position++;
+            shopDAO.deleteShop(0);
         }
 
-        shopDAO.deleteShop(position);
-        shopDAO.createShop(shops.get(position));
+        // Guardar la lista actualizada de tiendas en el archivo
+        for (Shop shop : shops) {
+            shopDAO.createShop(shop);
+        }
 
         if(!ok)
         {

@@ -52,7 +52,7 @@ public class APIShopDAO implements ShopDAO {
             check = true;
         } catch (ApiException e) {
             //Funcion
-            System.out.println("ERROR: Api problem --> " + e.getMessage() + "\nCause --> " + e.getCause());
+            //System.out.println("ERROR: Api problem --> " + e.getMessage() + "\nCause --> " + e.getCause());
             check = false;
         }
 
@@ -125,7 +125,7 @@ public class APIShopDAO implements ShopDAO {
     @Override
     public void deleteShop(int position) throws IOException{
         if(checkInstanceAPI()) {
-            apiConnector.deleteRequest("shops/" + position);
+            apiConnector.deleteRequest("shops/" + (position));
         }
 
         // Leer la lista existente de tienas

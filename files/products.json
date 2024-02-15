@@ -1,1 +1,8 @@
-[{"name":"Camiseta","brand":"Zara","mrp":19.99,"category":"GENERAL","reviews":[{"classificationStars":4,"text":"Buena camiseta"}]},{"name":"74LS273","brand":"Texas Instruments","mrp":0.23,"category":"GENERAL","reviews":[]},{"name":"NE555","brand":"Texas Instruments","mrp":2.99,"category":"REDUCED","reviews":[]},{"name":"Manzana","brand":"Mercadona","mrp":0.8,"category":"SUPER_REDUCED","reviews":[]},{"name":"zapas","brand":"Lolo","mrp":100.0,"category":"GENERAL","reviews":[]}]
+[{"name":"74LS273","brand":"Texas Instruments","mrp":0.23,"category":"GENERAL","reviews":[]},
+  {"name":"NE555","brand":"Texas Instruments","mrp":2.99,"category":"REDUCED","reviews":[]},
+  {"name":"Manzana","brand":"Mercadona","mrp":0.8,"category":"SUPER_REDUCED","reviews":[]},
+  {"name":"zapas","brand":"Lolo","mrp":100.0,"category":"GENERAL","reviews":[]},
+  {"name":"sudadera","brand":"Zarabasic","mrp":100.0,"category":"GENERAL","reviews":[]},
+  {"name":"camiseta","brand":"Zarabasic","mrp":30.0,"category":"SUPER_REDUCED","reviews":[]},
+  {"name":"filete","brand":"Carness","mrp":200.0,"category":"SUPER_REDUCED","reviews":[]},
+  {"name":"traje","brand":"Polo","mrp":1000.0,"category":"REDUCED","reviews":[{"classificationStars":4,"text":"buen traje pero caro"},{"classificationStars":5,"text":"fino"}]}]
