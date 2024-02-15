@@ -184,13 +184,16 @@ public class ShopManager {
         Shop shop = findByName(shopName);
         if(shop != null)
         {
-            String message = "";
+            StringBuilder message = new StringBuilder();
             List<CatalogProduct> catalogue = shop.getCatalogProductList();
+            if (catalogue.isEmpty()) {
+                return "\nThe catalogue for shop " + shopName + " is empty.";
+            }
             for (int i = 0; i < catalogue.size(); i++) {
                 CatalogProduct product = catalogue.get(i);
-                message = message + (i + 1) + ". " + product.getNameProduct() + " by " + product.getNameBrand() + " priced at: " + product.getPrice() +"\n";
+                message.append(i + 1).append(". ").append(product.getNameProduct()).append(" by ").append(product.getNameBrand()).append(" priced at: ").append(product.getPrice()).append("\n");
             }
-            return message;
+            return message.toString();
         }
         return null;
     }

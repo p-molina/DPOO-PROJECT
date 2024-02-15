@@ -39,7 +39,7 @@ public class ProductDeserializer implements JsonDeserializer<Product> {
             case "SUPER_REDUCED":
                 return new SuperReducedProduct(name, brand, mrp, category, reviews);
             default:
-                throw new JsonParseException("Unknown product category: " + category);
+                throw new JsonParseException("ERROR: unknown product category: " + category);
         }
     }
 }
