@@ -84,11 +84,5 @@ public abstract class Product {
 
         return sum / reviews.size();
     }
-    public static List<Product> toProductList(String input) {
-        Gson gson = new Gson();
-        Type productListType = new TypeToken<ArrayList<Product>>(){}.getType();
-        return gson.fromJson(input, productListType);
-    }
-
     public abstract double calculateTaxBasePrice(double price);
 }

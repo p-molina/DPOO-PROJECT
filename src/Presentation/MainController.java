@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 /**
  * Clase que representa el menú principal de la aplicación.
  */
-public class Menu {
+public class MainController {
     private ProductController productController;
     private ShopController shopController;
     private CartController cartController;
@@ -20,7 +20,7 @@ public class Menu {
      * @param shopController    Controlador de tiendas.
      * @param cartController    Controlador de carrito de compras.
      */
-    public Menu(ProductController productController, ShopController shopController, CartController cartController) {
+    public MainController(ProductController productController, ShopController shopController, CartController cartController) {
         this.productController = productController;
         this.shopController = shopController;
         this.cartController = cartController;

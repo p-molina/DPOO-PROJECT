@@ -156,7 +156,7 @@ public class ShopController {
     }
     private boolean expandCatalog() {
         try {
-            UI.showListOfShops(shopManager.getAllShops());
+            UI.showMessage(shopManager.prepareShopsTable());
         } catch (IOException e) {
             UI.showMessage("ERROR: Problem with the file! Going back.");
             return false;
@@ -173,7 +173,7 @@ public class ShopController {
             return false;
         }
         try {
-            UI.showListOfProducts(productManager.getProductsRatingMap());
+            UI.showMessage(productManager.prepareProductsRatingTable());
         } catch (IOException e) {
             UI.showMessage("ERROR: Problem with the file! Going back.");
             return false;
@@ -231,7 +231,7 @@ public class ShopController {
     }
     private boolean reduceCatalogue() {
         try {
-            UI.showListOfShops(shopManager.getAllShops());
+            UI.showMessage(shopManager.prepareShopsTable());
         } catch (IOException e) {
             UI.showMessage("ERROR: Problem with the file! Going back.");
             return false;
@@ -250,7 +250,7 @@ public class ShopController {
         }
 
         try {
-            UI.showListOfCatalogProducts(shopManager.getCatalogFromShop(nameShop));
+            UI.showMessage(shopManager.prepareCatalogProductsTable(nameShop));
         } catch (IOException e) {
             UI.showMessage("ERROR: Problem with the file! Going back.");
             return false;

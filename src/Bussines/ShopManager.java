@@ -320,6 +320,7 @@ public class ShopManager {
                            if(catalogProduct.getNameShop().equals(shop.getName()))
                            {
                                catalogProduct.setPrice((Math.round(catalogProduct.getPrice() / ((21.0 / 100.0) + 1.0))));
+                               infoTicket = infoTicket + "\n" + catalogProduct.getNameProduct() + " has 21% of discount now! Price: " + catalogProduct.getPrice() + ".";
                            }
                        }
                     }
@@ -340,6 +341,7 @@ public class ShopManager {
                         if(getDiscount)
                         {
                             catalogProduct.setPrice((Math.round(catalogProduct.getPrice() / ((10.0 / 100.0) + 1.0))));
+                            infoTicket = infoTicket + "\n" + catalogProduct.getNameProduct() + " has 10% of discount now! Price: " + catalogProduct.getPrice() + ".";
                         }
                     }
                     break;
@@ -368,24 +370,100 @@ public class ShopManager {
         }
         return infoTicket;
     }
+    public String prepareShopsTable() throws IOException{
+        List<Shop> shopList = shopDAO.getAllShops();
 
-    public List<Shop> getAllShops() throws IOException {
-        return shopDAO.getAllShops();
+        int maxNameLength = "Name".length();
+        int maxDescriptionLength = "Description".length();
+        int maxSinceLength = "Since".length();
+        int maxEarningsLength = "Earnings".length();
+        int maxBusinessModelLength = "Business Model".length();
+        int maxSpecialFeatureLength = "Special Feature".length();
+
+        // Ajuste de las longitudes de las columnas
+        for (Shop shop : shopList) {
+            maxNameLength = Math.max(maxNameLength, shop.getName().length());
+            maxDescriptionLength = Math.max(maxDescriptionLength, shop.getDescription().length());
+            maxBusinessModelLength = Math.max(maxBusinessModelLength, shop.getBusinessModel().length());
+
+            // Determinación de la longitud de la característica especial
+            String specialFeature = shop instanceof LoyaltyShop ?
+                    "Loyalty: " + ((LoyaltyShop) shop).getLoyaltyThreshold() :
+                    shop instanceof SponsoredShop ? "Sponsor: " + ((SponsoredShop) shop).getSponsorBrand() : "";
+            maxSpecialFeatureLength = Math.max(maxSpecialFeatureLength, specialFeature.length());
+        }
+
+        StringBuilder tableBuilder = new StringBuilder();
+        String headerFormat = "| %-" + maxNameLength + "s | %-" + maxDescriptionLength + "s | %-" + maxSinceLength + "s | %-" + maxEarningsLength + "s | %-" + maxBusinessModelLength + "s | %-" + maxSpecialFeatureLength + "s |\n";
+        String separator = "+-" + "-".repeat(maxNameLength) + "-+-" + "-".repeat(maxDescriptionLength) + "-+-" + "-".repeat(maxSinceLength) + "-+-" + "-".repeat(maxEarningsLength) + "-+-" + "-".repeat(maxBusinessModelLength) + "-+-" + "-".repeat(maxSpecialFeatureLength) + "-+\n";
+
+        tableBuilder.append(separator);
+        tableBuilder.append(String.format(headerFormat, "Name", "Description", "Since", "Earnings", "Business Model", "Special Feature"));
+        tableBuilder.append(separator);
+
+        for (Shop shop : shopList) {
+            String specialFeature = "";
+            if (shop instanceof LoyaltyShop) {
+                specialFeature = "Loyalty: " + ((LoyaltyShop) shop).getLoyaltyThreshold();
+            } else if (shop instanceof SponsoredShop) {
+                specialFeature = "Sponsor: " + ((SponsoredShop) shop).getSponsorBrand();
+            }
+
+            tableBuilder.append(String.format(headerFormat,
+                    shop.getName(),
+                    shop.getDescription(),
+                    String.valueOf(shop.getSince()),
+                    String.format("%.2f", shop.getEarnings()),
+                    shop.getBusinessModel(),
+                    specialFeature));
+        }
+
+        tableBuilder.append(separator);
+        return tableBuilder.toString();
     }
 
-    public List<CatalogProduct> getCatalogFromShop(String shopName) throws IOException {
+    public String prepareCatalogProductsTable(String shopName) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
-        List<CatalogProduct> catalogInsShop = new ArrayList<>();
+        List<CatalogProduct> productList = new ArrayList<>();
 
         for (Shop shop : shops) {
             if (shop.getName().equals(shopName)) {
                 for (CatalogProduct catalogProduct: shop.getCatalogProductList()) {
-                    catalogInsShop.add(catalogProduct);
+                    productList.add(catalogProduct);
                 }
                 break;
             }
         }
 
-        return catalogInsShop;
+        int maxProductNameLength = "Product Name".length();
+        int maxBrandNameLength = "Brand Name".length();
+        int maxShopNameLength = "Shop Name".length();
+        int maxPriceLength = "Price".length();
+
+        for (CatalogProduct product : productList) {
+            maxProductNameLength = Math.max(maxProductNameLength, product.getNameProduct().length());
+            maxBrandNameLength = Math.max(maxBrandNameLength, product.getNameBrand().length());
+            maxShopNameLength = Math.max(maxShopNameLength, product.getNameShop().length());
+            maxPriceLength = Math.max(maxPriceLength, String.format("%.2f", product.getPrice()).length());
+        }
+
+        StringBuilder tableBuilder = new StringBuilder();
+        String headerFormat = "| %-" + maxProductNameLength + "s | %-" + maxBrandNameLength + "s | %-" + maxShopNameLength + "s | %" + maxPriceLength + "s |\n";
+        String separator = "+-" + "-".repeat(maxProductNameLength) + "-+-" + "-".repeat(maxBrandNameLength) + "-+-" + "-".repeat(maxShopNameLength) + "-+-" + "-".repeat(maxPriceLength) + "-+\n";
+
+        tableBuilder.append(separator);
+        tableBuilder.append(String.format(headerFormat, "Product Name", "Brand Name", "Shop Name", "Price"));
+        tableBuilder.append(separator);
+
+        for (CatalogProduct product : productList) {
+            tableBuilder.append(String.format(headerFormat,
+                    product.getNameProduct(),
+                    product.getNameBrand(),
+                    product.getNameShop(),
+                    String.format("%.2f", product.getPrice())));
+        }
+        tableBuilder.append(separator);
+
+        return tableBuilder.toString();
     }
 }

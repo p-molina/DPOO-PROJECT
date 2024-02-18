@@ -85,12 +85,12 @@ public class ProductController {
     }
     private void deleteProduct() {
         try {
-            if(productManager.getProductsRatingMap().size() == 0) {
+            if(productManager.getTotalShops()) {
                 System.out.println("\nERROR: There are no products in the system.\nGoing back...\n");
                 return;
             }
 
-            UI.showListOfProducts(productManager.getProductsRatingMap());
+            UI.showMessage(productManager.prepareProductsRatingTable());
         } catch (IOException e) {
             UI.showMessage("\nERROR: Problem with the file!. Going back...");
             return;

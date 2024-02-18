@@ -112,7 +112,6 @@ public class UI {
     public static void showMessage(String message) {
         System.out.println(message);
     }
-
     /**
      * Muestra una lista de productos junto con sus calificaciones.
      *
@@ -150,94 +149,6 @@ public class UI {
         System.out.println(separator);
     }
 
-    public static void showListOfShops(List<Shop> shopList) {
-        int maxNameLength = "Name".length();
-        int maxDescriptionLength = "Description".length();
-        int maxSinceLength = "Since".length();
-        int maxEarningsLength = "Earnings".length();
-        int maxBusinessModelLength = "Business Model".length();
-        int maxSpecialFeatureLength = "Special Feature".length();
-
-        // Ajustar las longitudes de las columnas basadas en los valores de las tiendas
-        for (Shop shop : shopList) {
-            maxNameLength = Math.max(maxNameLength, shop.getName().length());
-            maxDescriptionLength = Math.max(maxDescriptionLength, shop.getDescription().length());
-            maxBusinessModelLength = Math.max(maxBusinessModelLength, shop.getBusinessModel().length());
-
-            if (shop instanceof LoyaltyShop) {
-                maxSpecialFeatureLength = Math.max(maxSpecialFeatureLength, ("Loyalty: " + ((LoyaltyShop) shop).getLoyaltyThreshold()).length());
-            } else if (shop instanceof SponsoredShop) {
-                maxSpecialFeatureLength = Math.max(maxSpecialFeatureLength, ("Sponsor: " + ((SponsoredShop) shop).getSponsorBrand()).length());
-            }
-        }
-
-        String headerFormat = "| %-" + maxNameLength + "s | %-" + maxDescriptionLength + "s | %-" + maxSinceLength + "s | %-" + maxEarningsLength + "s | %-" + maxBusinessModelLength + "s | %-" + maxSpecialFeatureLength + "s |\n";
-        String separator = String.format("+-%1$-" + maxNameLength + "s-+-%2$-" + maxDescriptionLength + "s-+-%3$-" + maxSinceLength + "s-+-%4$-" + maxEarningsLength + "s-+-%5$-" + maxBusinessModelLength + "s-+-%6$-" + maxSpecialFeatureLength + "s-+\n",
-                "", "", "", "", "", "").replace(' ', '-');
-
-        System.out.println();
-        System.out.print(separator);
-        System.out.printf(headerFormat, "Name", "Description", "Since", "Earnings", "Business Model", "Special Feature");
-        System.out.print(separator);
-
-        for (Shop shop : shopList) {
-            String specialFeature = "";
-            if (shop instanceof LoyaltyShop) {
-                specialFeature = "Loyalty: " + ((LoyaltyShop) shop).getLoyaltyThreshold();
-            } else if (shop instanceof SponsoredShop) {
-                specialFeature = "Sponsor: " + ((SponsoredShop) shop).getSponsorBrand();
-            }
-
-            System.out.printf(headerFormat,
-                    shop.getName(),
-                    shop.getDescription(),
-                    String.valueOf(shop.getSince()),
-                    String.format("%.2f", shop.getEarnings()),
-                    shop.getBusinessModel(),
-                    specialFeature);
-        }
-
-        System.out.println(separator);
-    }
-
-    public static void showListOfCatalogProducts(List<CatalogProduct> productList) {
-        int maxProductNameLength = "Product Name".length();
-        int maxBrandNameLength = "Brand Name".length();
-        int maxShopNameLength = "Shop Name".length();
-        int maxPriceLength = "Price".length();
-
-        // Ajustar las longitudes de las columnas basadas en los valores de los productos
-        for (CatalogProduct product : productList) {
-            maxProductNameLength = Math.max(maxProductNameLength, product.getNameProduct().length());
-            maxBrandNameLength = Math.max(maxBrandNameLength, product.getNameBrand().length());
-            maxShopNameLength = Math.max(maxShopNameLength, product.getNameShop().length());
-            // Asumiendo que queremos una longitud mínima para el precio para manejar el formato de precio
-            maxPriceLength = Math.max(maxPriceLength, String.format("%.2f", product.getPrice()).length());
-        }
-
-        String headerFormat = "| %-" + maxProductNameLength + "s | %-" + maxBrandNameLength + "s | %-" + maxShopNameLength + "s | %" + maxPriceLength + "s |\n";
-        String separator = String.format("+-%1$-" + maxProductNameLength + "s-+-%2$-" + maxBrandNameLength + "s-+-%3$-" + maxShopNameLength + "s-+-%4$" + maxPriceLength + "s-+\n",
-                "", "", "", "").replace(' ', '-');
-
-        System.out.println();
-        System.out.print(separator);
-        System.out.printf(headerFormat, "Product Name", "Brand Name", "Shop Name", "Price");
-        System.out.print(separator);
-
-        int i = 1;
-
-        for (CatalogProduct product : productList) {
-            System.out.printf(headerFormat,
-                    i + ". " + product.getNameProduct(),
-                    product.getNameBrand(),
-                    product.getNameShop(),
-                    String.format("%.2f", product.getPrice()));
-            i++;
-        }
-
-        System.out.println(separator);
-    }
-
     /**
      * Solicita al usuario una opción dentro de un rango especificado.
      *
@@ -246,7 +157,7 @@ public class UI {
      * @param max La opción máxima válida.
      * @return La opción seleccionada por el usuario.
      */
-    public static int askForOption(String message, int min, int max) {//TODO el tractament de exepcións s'ha de fer als controlers, no a la UI (aquesta ha de quedar amb les funcións basiques de askFor...)
+    public static int askForOption(String message, int min, int max) {
         int selection = 0;
         while (true) {
             System.out.print(message);

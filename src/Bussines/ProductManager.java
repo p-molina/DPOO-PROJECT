@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Gestor de productos que maneja las operaciones relacionadas con productos.
@@ -144,13 +145,49 @@ public class  ProductManager {
 
         return titleCase.toString().trim(); //Lo juntamos enuna string de nuevo
     }
-    /**
-     * Obtiene un mapa de productos con sus calificaciones promedio.
-     *
-     * @return HashMap de Productos y sus calificaciones promedio.
-     * @throws IOException Si ocurre un error de entrada/salida.
-     */
-    public HashMap<Product, Double> getProductsRatingMap() throws IOException{
+
+    public String prepareProductsRatingTable() throws IOException {
+        HashMap<Product, Double> productRatingMap = getProductsRatingMap();
+
+
+        int maxNameLength = "Name".length();
+        int maxBrandLength = "Brand".length();
+        int maxCategoryLength = "Category".length();
+        int maxRatingLength = "Rating".length(); // Asumiendo que "Rating" es el título de la columna
+
+        // Ajustar las longitudes de las columnas
+        for (Product product : productRatingMap.keySet()) {
+            maxNameLength = Math.max(maxNameLength, product.getName().length());
+            maxBrandLength = Math.max(maxBrandLength, product.getBrand().length());
+            maxCategoryLength = Math.max(maxCategoryLength, product.getCategory().length());
+            Double rating = productRatingMap.get(product);
+            String ratingStr = rating == -1 ? "N/A" : String.format("%.2f", rating);
+            maxRatingLength = Math.max(maxRatingLength, ratingStr.length());
+        }
+
+        StringBuilder tableBuilder = new StringBuilder();
+        String headerFormat = "| %-" + maxNameLength + "s | %-" + maxBrandLength + "s | %-9s | %-" + maxCategoryLength + "s | %-" + maxRatingLength + "s |\n";
+        String separator = String.format("+-%1$-" + maxNameLength + "s-+-%2$-" + maxBrandLength + "s-+-%3$-9s-+-%4$-" + maxCategoryLength + "s-+-%5$-" + maxRatingLength + "s-+\n",
+                "", "", "", "", "").replace(' ', '-');
+
+        tableBuilder.append(separator);
+        tableBuilder.append(String.format(headerFormat, "Name", "Brand", "MRP", "Category", "Rating"));
+        tableBuilder.append(separator);
+
+        for (Map.Entry<Product, Double> entry : productRatingMap.entrySet()) {
+            Product product = entry.getKey();
+            Double avgRating = entry.getValue();
+            String ratingStr = avgRating == -1 ? "N/A" : String.format("%.2f", avgRating);
+
+            tableBuilder.append(String.format(headerFormat,
+                    product.getName(), product.getBrand(), String.format("%.2f", product.getMrp()), product.getCategory(), ratingStr));
+        }
+
+        tableBuilder.append(separator);
+        return tableBuilder.toString();
+    }
+
+    private HashMap<Product, Double> getProductsRatingMap() throws IOException{
         HashMap<Product, Double> productRatingMap = new HashMap<>();
 
         for (Product product : productDAO.getAllProducts()) {
@@ -159,6 +196,14 @@ public class  ProductManager {
         }
 
         return productRatingMap;
+    }
+
+    public boolean getTotalShops() throws IOException{
+        if (productDAO.getAllProducts().size() == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
     /**
      * Obtiene el precio máximo de venta al público (MRP) de un producto por su nombre.

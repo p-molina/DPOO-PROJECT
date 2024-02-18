@@ -6,7 +6,7 @@ import Persistance.API.APIShopDAO;
 import Persistance.DAO.ProductDAO;
 import Persistance.DAO.ShopDAO;
 import Presentation.CartController;
-import Presentation.Menu;
+import Presentation.MainController;
 import Presentation.ProductController;
 import Presentation.ShopController;
 
@@ -41,7 +41,7 @@ public class Main {
         CartController cartController = new CartController(shoppingCartManager, shopManager, productManager);
 
         //Inicializamos el menu y ejecutamos la pantalla principal
-        Menu menu = new Menu(productController, shopController, cartController);
-        menu.run();
+        MainController mainController = new MainController(productController, shopController, cartController);
+        mainController.run();
     }
 }

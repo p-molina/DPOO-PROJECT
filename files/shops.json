@@ -9,7 +9,7 @@
     "catalogProductList": []
   },
   {
-    "loyaltyTreshold": 999.99,
+    "loyaltyTreshold": 0.0,
     "name": "elCofre Copy Shop",
     "description": "We specialize in 3D printing, which is the future.",
     "since": 1973,
@@ -50,6 +50,12 @@
         "nameBrand": "Lolo",
         "nameShop": "zara",
         "price": 60.0
+      },
+      {
+        "nameProduct": "Manzana",
+        "nameBrand": "Mercadona",
+        "nameShop": "The normal shop",
+        "price": 0.7
       }
     ]
   },
