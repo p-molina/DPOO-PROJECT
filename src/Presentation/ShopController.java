@@ -221,7 +221,7 @@ public class ShopController {
             UI.showMessage("ERROR: Problem with the file! Going back.");
             return false;
         }
-        UI.showMessage("\""+ nameProduct +"\" by\"" + productBrand +  "\" is now being sold at \"" + nameShop + "\".\n");
+        UI.showMessage("\""+ nameProduct +"\" by \"" + productBrand +  "\" is now being sold at \"" + nameShop + "\".\n");
         try {
             shopManager.expandCatalogue(nameShop, nameProduct, productBrand, price);
         } catch (IOException e) {
@@ -250,7 +250,7 @@ public class ShopController {
         }
 
         try {
-            UI.showListOfCatalogProducts(shopManager.getCalagoFromShop(nameShop));
+            UI.showListOfCatalogProducts(shopManager.getCatalogFromShop(nameShop));
         } catch (IOException e) {
             UI.showMessage("ERROR: Problem with the file! Going back.");
             return false;

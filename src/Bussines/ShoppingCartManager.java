@@ -41,8 +41,6 @@ public class ShoppingCartManager {
 
         for (CatalogProduct catalogProduct : cardList) {
             cardInfo = cardInfo + "\n\t-1x " + catalogProduct.getNameProduct() + " by " + catalogProduct.getNameBrand() + "\n\t\tPrice: " + catalogProduct.getPrice();
-        }
-        for (CatalogProduct catalogProduct : cardList) {
             totalBuyPrice = totalBuyPrice + catalogProduct.getPrice();
         }
         cardInfo = cardInfo + "\nTotal: " + totalBuyPrice;

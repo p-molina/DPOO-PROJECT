@@ -1,1 +1,64 @@
-[]
+[
+  {
+    "sponsorBrand": "Cerberus Assembly",
+    "name": "The Invulnerable Vagrant",
+    "description": "Purveyors of the finest arcane curiosities.",
+    "since": 835,
+    "earnings": 0.0,
+    "businessModel": "SPONSORED",
+    "catalogProductList": []
+  },
+  {
+    "loyaltyTreshold": 999.99,
+    "name": "elCofre Copy Shop",
+    "description": "We specialize in 3D printing, which is the future.",
+    "since": 1973,
+    "earnings": 27012.42,
+    "businessModel": "LOYALTY",
+    "catalogProductList": []
+  },
+  {
+    "name": "Tiendecita",
+    "description": "tienda chiquitina de tiendas",
+    "since": 1400,
+    "earnings": 0.0,
+    "businessModel": "MAXIMUM_BENEFITS",
+    "catalogProductList": []
+  },
+  {
+    "sponsorBrand": "Joe the normal guy",
+    "name": "The normal shop",
+    "description": "Just a normal shop.",
+    "since": 1935,
+    "earnings": 0.0,
+    "businessModel": "SPONSORED",
+    "catalogProductList": [
+      {
+        "nameProduct": "camiseta",
+        "nameBrand": "Zarabasic",
+        "nameShop": "zara",
+        "price": 29.99
+      },
+      {
+        "nameProduct": "traje",
+        "nameBrand": "Polo",
+        "nameShop": "zara",
+        "price": 799.0
+      },
+      {
+        "nameProduct": "zapas",
+        "nameBrand": "Lolo",
+        "nameShop": "zara",
+        "price": 60.0
+      }
+    ]
+  },
+  {
+    "name": "laSalleElectronics",
+    "description": "electronics components for laSalle students",
+    "since": 2023,
+    "earnings": 0.0,
+    "businessModel": "MAXIMUM_BENEFITS",
+    "catalogProductList": []
+  }
+]

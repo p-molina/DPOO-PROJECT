@@ -188,7 +188,7 @@ public class ShopManager {
             StringBuilder message = new StringBuilder();
             List<CatalogProduct> catalogue = shop.getCatalogProductList();
             if (catalogue.isEmpty()) {
-                return "\nThe catalogue for shop " + shopName + " is empty.";
+                return "\nThe catalogue of " + shopName + " is empty.";
             }
             for (int i = 0; i < catalogue.size(); i++) {
                 CatalogProduct product = catalogue.get(i);
@@ -301,11 +301,49 @@ public class ShopManager {
     }
     public String setNewIncomes(List<CatalogProduct> infoCheckout) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
+        double totalBuyPrice = 0;
         String infoTicket = "";
         boolean ok = false;
 
         for(Shop shop: shops)
         {
+            switch (shop.getBusinessModel()) {
+                case "LOYALTY":
+                    LoyaltyShop loyaltyShop = (LoyaltyShop) shop;
+                    for (CatalogProduct catalogProduct : infoCheckout) {
+                         totalBuyPrice = totalBuyPrice + catalogProduct.getPrice();
+                    }
+                    if(totalBuyPrice > loyaltyShop.getLoyaltyThreshold())
+                    {
+                       for(CatalogProduct catalogProduct: infoCheckout)
+                       {
+                           if(catalogProduct.getNameShop().equals(shop.getName()))
+                           {
+                               catalogProduct.setPrice((Math.round(catalogProduct.getPrice() / ((21.0 / 100.0) + 1.0))));
+                           }
+                       }
+                    }
+                    break;
+                case "SPONSORED":
+                    SponsoredShop sponsoredShop = (SponsoredShop) shop;
+                    boolean getDiscount = false;
+
+                        for(CatalogProduct catalogProduct: infoCheckout)
+                        {
+                            if (catalogProduct.getNameShop().equals(shop.getName()) && catalogProduct.getNameBrand().equals(sponsoredShop.getSponsorBrand())) {
+                                getDiscount = true;
+                                break;
+                            }
+                        }
+                    for(CatalogProduct catalogProduct: infoCheckout)
+                    {
+                        if(getDiscount)
+                        {
+                            catalogProduct.setPrice((Math.round(catalogProduct.getPrice() / ((10.0 / 100.0) + 1.0))));
+                        }
+                    }
+                    break;
+            }
             for(CatalogProduct catalogProduct: infoCheckout)
             {
                 //Nom de la botiga match
@@ -335,7 +373,7 @@ public class ShopManager {
         return shopDAO.getAllShops();
     }
 
-    public List<CatalogProduct> getCalagoFromShop(String shopName) throws IOException {
+    public List<CatalogProduct> getCatalogFromShop(String shopName) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
         List<CatalogProduct> catalogInsShop = new ArrayList<>();
 
