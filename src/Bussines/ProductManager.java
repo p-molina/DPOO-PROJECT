@@ -145,6 +145,18 @@ public class  ProductManager {
 
         return titleCase.toString().trim(); //Lo juntamos enuna string de nuevo
     }
+    /**
+     * Prepara y devuelve una tabla en formato de cadena de texto que resume los productos y sus calificaciones promedio.
+     * La tabla incluye columnas para el nombre del producto, la marca, el precio máximo al público (MRP), la categoría,
+     * y la calificación promedio. Si un producto no tiene calificaciones, se muestra "N/A" en la columna de calificación.
+     *
+     * Este método calcula dinámicamente la anchura de cada columna basada en el contenido máximo de cada campo entre
+     * todos los productos para asegurar una visualización adecuada de la tabla.
+     *
+     * @return Una cadena de texto que representa una tabla con los productos y sus calificaciones promedio.
+     *         La tabla está formateada con encabezados y líneas separadoras para mejorar la legibilidad.
+     * @throws IOException Si ocurre un error de entrada/salida al recuperar los productos y sus calificaciones.
+     */
 
     public String prepareProductsRatingTable() throws IOException {
         HashMap<Product, Double> productRatingMap = getProductsRatingMap();
@@ -186,7 +198,6 @@ public class  ProductManager {
         tableBuilder.append(separator);
         return tableBuilder.toString();
     }
-
     private HashMap<Product, Double> getProductsRatingMap() throws IOException{
         HashMap<Product, Double> productRatingMap = new HashMap<>();
 
@@ -197,7 +208,6 @@ public class  ProductManager {
 
         return productRatingMap;
     }
-
     public boolean getTotalShops() throws IOException{
         if (productDAO.getAllProducts().size() == 0) {
             return true;
@@ -208,9 +218,9 @@ public class  ProductManager {
     /**
      * Obtiene el precio máximo de venta al público (MRP) de un producto por su nombre.
      *
-     * @param name Nombre del producto.
-     * @return El MRP del producto o -1 si no se encuentra.
-     * @throws IOException Si ocurre un error de entrada/salida.
+     * @param name Nombre del producto para el cual se desea obtener el MRP.
+     * @return El MRP del producto si se encuentra, o -1 si el producto no existe.
+     * @throws IOException Si ocurre un error de entrada/salida durante la recuperación de los productos.
      */
     public double getMRPFromProduct(String name) throws IOException {
         double mrp = -1;
@@ -297,6 +307,15 @@ public class  ProductManager {
         productDAO.deleteProduct(j);
         productDAO.createProduct(products.get(j));
     }
+    /**
+     * Calcula el precio base imponible de cada producto en la lista de checkout, aplicando las reglas fiscales
+     * correspondientes basadas en la categoría del producto. Este método es útil para aplicar impuestos
+     * antes de finalizar la compra.
+     *
+     * @param infoCheckout Lista de {@link CatalogProduct} que representa los productos en el proceso de checkout.
+     * @return La lista de {@link CatalogProduct} con el precio base imponible actualizado según las reglas fiscales.
+     * @throws IOException Si ocurre un error de entrada/salida durante la recuperación de los productos.
+     */
     public List<CatalogProduct> getTaxBasePrice(List<CatalogProduct> infoCheckout) throws IOException {
         List<Product> products = productDAO.getAllProducts();
 

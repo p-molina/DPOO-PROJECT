@@ -26,14 +26,6 @@ public class ShoppingCart {
         return catalogProductList;
     }
     /**
-     * Obtiene el precio total de los productos en el carrito de compras.
-     *
-     * @return Precio total de compra.
-     */
-    public double getTotalBuyPrice() {
-        return totalBuyPrice;
-    }
-    /**
      * Establece la lista de productos en el carrito de compras.
      *
      * @param catalogProductList Lista de productos del catálogo a establecer.
@@ -49,8 +41,12 @@ public class ShoppingCart {
     public void setTotalBuyPrice(double totalBuyPrice) {
         this.totalBuyPrice = totalBuyPrice;
     }
-    public void clearCard()
-    {
+    /**
+     * Limpia el carrito de compras eliminando todos los productos añadidos anteriormente.
+     * Esta operación reinicia la lista de productos del catálogo a un estado vacío,
+     * pero no modifica el precio total de compra almacenado.
+     */
+    public void clearCard() {
         this.catalogProductList.clear();
     }
 }

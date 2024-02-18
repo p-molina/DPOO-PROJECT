@@ -73,11 +73,24 @@ public abstract class Shop {
     public void setEarnings(double earnings) {
         this.earnings = earnings;
     }
-
+    /**
+     * Obtiene los ingresos actuales de la tienda.
+     *
+     * Este método devuelve el total de ingresos que la tienda ha generado hasta el momento.
+     *
+     * @return Los ingresos totales de la tienda.
+     */
     public double getEarnings() {
         return earnings;
     }
-
+    /**
+     * Obtiene el modelo de negocio de la tienda.
+     *
+     * Este método devuelve el modelo de negocio bajo el cual opera la tienda, lo que puede influir
+     * en su estrategia de precios, promociones y en cómo interactúa con los clientes.
+     *
+     * @return El modelo de negocio de la tienda.
+     */
     public String getBusinessModel() {
         return this.businessModel;
     }

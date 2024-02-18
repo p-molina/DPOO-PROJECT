@@ -113,43 +113,6 @@ public class UI {
         System.out.println(message);
     }
     /**
-     * Muestra una lista de productos junto con sus calificaciones.
-     *
-     * @param productRatingMap Un HashMap que vincula los Productos con sus calificaciones promedio.
-     */
-    public static void showListOfProducts(HashMap<Product, Double> productRatingMap) {
-        int maxNameLength = "Name".length();
-        int maxBrandLength = "Brand".length();
-        int maxCategoryLength = "Category".length();
-
-        for (Product product : productRatingMap.keySet()) { //Obtenemos la informacion de el nombre mas largo para rescalar la columna de el nombre, la marca y la categoria
-            maxNameLength = Math.max(maxNameLength, product.getName().length());
-            maxBrandLength = Math.max(maxBrandLength, product.getBrand().length());
-            maxCategoryLength = Math.max(maxCategoryLength, product.getCategory().length());
-        }
-
-        String headerFormat = "| %-" + maxNameLength + "s | %-" + maxBrandLength + "s | %-9s | %-" + maxCategoryLength + "s | %-6s |\n";
-        String separator = String.format("+-%1$-" + maxNameLength + "s-+-%2$-" + maxBrandLength + "s-+-%3$-9s-+-%4$-" + maxCategoryLength + "s-+-%5$-6s-+\n",
-                "","" ,"", "", "").replace(' ', '-');
-
-        System.out.println();
-        System.out.print(separator);
-        System.out.printf(headerFormat, "Name", "Brand", "MRP", "Category", "Rating");
-        System.out.print(separator);
-
-        for (Map.Entry<Product, Double> entry : productRatingMap.entrySet()) {
-            Product product = entry.getKey();
-            Double avgRating = entry.getValue();
-            String ratingStr = avgRating == -1 ? "N/A" : String.format("%.2f", avgRating);
-
-            System.out.printf(headerFormat,
-                    product.getName(), product.getBrand(), String.format("%.2f", product.getMrp()), product.getCategory(), ratingStr);
-        }
-
-        System.out.println(separator);
-    }
-
-    /**
      * Solicita al usuario una opción dentro de un rango especificado.
      *
      * @param message El mensaje de solicitud para el usuario.

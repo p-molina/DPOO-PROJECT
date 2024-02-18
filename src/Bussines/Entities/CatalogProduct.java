@@ -47,11 +47,19 @@ public class CatalogProduct {
     public double getPrice() {
         return price;
     }
-
+    /**
+     * Obtiene el nombre de la tienda donde se encuentra disponible el producto.
+     *
+     * @return El nombre de la tienda asociada al producto.
+     */
     public String getNameShop() {
         return nameShop;
     }
-
+    /**
+     * Establece el precio del producto.
+     *
+     * @param price El nuevo precio del producto.
+     */
     public void setPrice(double price) {
         this.price = price;
     }

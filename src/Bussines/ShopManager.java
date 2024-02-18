@@ -38,11 +38,15 @@ public class ShopManager {
     }
     /**
      * Crea una nueva tienda y la agrega al repositorio de tiendas.
+     * Dependiendo del modelo de negocio especificado, crea una instancia adecuada de {@link Shop}
+     * y la guarda utilizando el {@link ShopDAO} proporcionado.
      *
-     * @param name         Nombre de la tienda a crear.
-     * @param description  Descripción de la tienda.
-     * @param since        Año de fundación de la tienda.
-     * @param nameModel    Nombre del modelo de negocio de la tienda.
+     * @param name        Nombre de la tienda a crear.
+     * @param description Descripción de la tienda.
+     * @param since       Año de fundación de la tienda.
+     * @param nameModel   Modelo de negocio de la tienda.
+     * @param threshold   Umbral de lealtad para tiendas con modelo de lealtad.
+     * @param sponsor     Marca patrocinadora para tiendas patrocinadas.
      * @throws IOException Si ocurre algún error de entrada o salida al operar con el repositorio.
      */
     public void createShop(String name, String description, int since, String nameModel, double threshold, String sponsor) throws IOException {
@@ -58,7 +62,6 @@ public class ShopManager {
                 break;
         }
     }
-
     /**
      * Verifica si el nombre de una tienda es único en el repositorio.
      *
@@ -118,6 +121,7 @@ public class ShopManager {
     }
     /**
      * Elimina un producto específico de un catálogo de una tienda.
+     * Busca el producto por nombre en el catálogo de la tienda especificada y lo elimina.
      *
      * @param nameProduct El nombre del producto que se va a eliminar.
      * @param nameShop    El nombre de la tienda de la que se eliminará el producto.
@@ -284,6 +288,14 @@ public class ShopManager {
 
         return result;
     }
+    /**
+     * Obtiene un producto del catálogo de una tienda específica basándose en índices.
+     *
+     * @param shopIndex El índice de la tienda en la lista de tiendas (empezando en 1).
+     * @param productIndex El índice del producto en el catálogo de la tienda (empezando en 1).
+     * @return El {@link CatalogProduct} seleccionado.
+     * @throws IOException Si ocurre un error al acceder al repositorio de tiendas.
+     */
     public CatalogProduct getCatalogueProductFromIndex(int shopIndex, int productIndex) throws IOException {
         CatalogProduct catalogProduct;
         List<Shop> shops = shopDAO.getAllShops();
@@ -292,6 +304,14 @@ public class ShopManager {
         catalogProduct = catalogProductList.get(productIndex - 1);
         return catalogProduct;
     }
+    /**
+     * Obtiene información de un producto específico del catálogo de una tienda, incluyendo el nombre y la marca.
+     *
+     * @param shopIndex Índice de la tienda en la lista (empezando en 1).
+     * @param productIndex Índice del producto en el catálogo de la tienda (empezando en 1).
+     * @return Un arreglo de cadenas con el nombre y la marca del producto.
+     * @throws IOException Si ocurre un error al acceder al repositorio de tiendas.
+     */
     public String[] getCatalogueProductInfo(int shopIndex, int productIndex) throws IOException {
         CatalogProduct catalogProduct = getCatalogueProductFromIndex(shopIndex, productIndex);
         String[] infoProduct = new String[2];
@@ -299,6 +319,13 @@ public class ShopManager {
         infoProduct[1] = catalogProduct.getNameBrand();
         return infoProduct;
     }
+    /**
+     * Aplica descuentos a productos en el checkout según las políticas de cada tienda y actualiza los ingresos de la tienda.
+     *
+     * @param infoCheckout Lista de {@link CatalogProduct} que están siendo comprados.
+     * @return Un mensaje que resume los descuentos aplicados y los nuevos ingresos de las tiendas.
+     * @throws IOException Si ocurre un error al actualizar la información en el repositorio.
+     */
     public String setNewIncomes(List<CatalogProduct> infoCheckout) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
         double totalBuyPrice = 0;
@@ -370,6 +397,13 @@ public class ShopManager {
         }
         return infoTicket;
     }
+    /**
+     * Prepara una tabla con la información de todas las tiendas disponibles, incluyendo detalles como nombre,
+     * descripción, año de fundación, ingresos, modelo de negocio y características especiales.
+     *
+     * @return Una cadena que representa la tabla de tiendas.
+     * @throws IOException Si ocurre un error al acceder al repositorio de tiendas.
+     */
     public String prepareShopsTable() throws IOException{
         List<Shop> shopList = shopDAO.getAllShops();
 
@@ -421,7 +455,14 @@ public class ShopManager {
         tableBuilder.append(separator);
         return tableBuilder.toString();
     }
-
+    /**
+     * Prepara una tabla con los productos del catálogo de una tienda específica, incluyendo nombre del producto,
+     * marca, y precio.
+     *
+     * @param shopName Nombre de la tienda cuyo catálogo se desea representar.
+     * @return Una cadena que representa la tabla de productos del catálogo de la tienda.
+     * @throws IOException Si ocurre un error al acceder al repositorio de tiendas.
+     */
     public String prepareCatalogProductsTable(String shopName) throws IOException {
         List<Shop> shops = shopDAO.getAllShops();
         List<CatalogProduct> productList = new ArrayList<>();

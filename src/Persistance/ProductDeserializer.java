@@ -12,7 +12,24 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Deserializador personalizado para convertir objetos JSON en instancias de la clase {@link Product}.
+ * Este deserializador maneja la creación de diferentes tipos de productos ({@link GeneralProduct},
+ * {@link ReducedProduct}, {@link SuperReducedProduct}) basándose en la categoría del producto especificada
+ * en el objeto JSON. También maneja la deserialización de las reseñas asociadas a cada producto.
+ */
 public class ProductDeserializer implements JsonDeserializer<Product> {
+    /**
+     * Deserializa un elemento JSON en una instancia concreta de {@link Product}.
+     *
+     * @param json El elemento JSON a deserializar.
+     * @param typeOfT El tipo específico en el que se debe deserializar el JSON.
+     * @param context Contexto de deserialización que puede ser utilizado para deserializar elementos anidados.
+     * @return Una instancia de {@link Product}, específicamente de {@link GeneralProduct},
+     *         {@link ReducedProduct}, o {@link SuperReducedProduct} dependiendo de la categoría del producto.
+     * @throws JsonParseException Si el proceso de deserialización falla debido a una categoría desconocida o
+     *                            a un formato inesperado del objeto JSON.
+     */
     @Override
     public Product deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();

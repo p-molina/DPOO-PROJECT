@@ -72,6 +72,12 @@ public abstract class Product {
     public List<Review> getReviews() {
         return reviews;
     }
+    /**
+     * Calcula y devuelve la calificación promedio de las reseñas del producto.
+     * Si el producto no tiene reseñas, retorna -1 para indicar esta situación.
+     *
+     * @return La calificación promedio de las reseñas del producto, o -1 si no hay reseñas.
+     */
     public double getAverageRating() {
         if (reviews == null || reviews.size() == 0) {
             return -1;
@@ -84,5 +90,13 @@ public abstract class Product {
 
         return sum / reviews.size();
     }
+    /**
+     * Método abstracto destinado a ser implementado por clases derivadas para calcular
+     * el precio base imponible del producto.
+     * Este precio puede variar dependiendo del tipo específico de producto y su categoría fiscal.
+     *
+     * @param price Precio actual del producto antes de aplicar cualquier ajuste fiscal.
+     * @return El precio base imponible del producto después de aplicar las reglas fiscales pertinentes.
+     */
     public abstract double calculateTaxBasePrice(double price);
 }

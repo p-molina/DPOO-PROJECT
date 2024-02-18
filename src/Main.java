@@ -29,7 +29,6 @@ public class Main {
         ShopDAO shopDAO = new APIShopDAO();
 
         //Aqui inicializamos las clases de la capa Bussines
-        //MIRAR SI ESTO ESTA BIEN
         ProductManager productManager = new ProductManager(productDAO);
         ShopManager shopManager = new ShopManager(shopDAO);
         ShoppingCartManager shoppingCartManager = new ShoppingCartManager();

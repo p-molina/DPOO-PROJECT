@@ -58,7 +58,10 @@ public class APIShopDAO implements ShopDAO {
 
         return check;
     }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void createShop(Shop shop) throws IOException{
         if (checkInstanceAPI()) {
             apiConnector.postRequest("shops", gson.toJson(shop));
@@ -80,7 +83,6 @@ public class APIShopDAO implements ShopDAO {
             gson.toJson(shops, writer);
         }
     }
-
     /**
      * {@inheritDoc}
      */
@@ -120,7 +122,9 @@ public class APIShopDAO implements ShopDAO {
 
         return shops;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void deleteShop(int position) throws IOException{
         if(checkInstanceAPI()) {

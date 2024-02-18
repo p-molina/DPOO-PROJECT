@@ -31,7 +31,6 @@ public class APIProductDAO implements ProductDAO {
                 .registerTypeAdapter(Product.class, new ProductDeserializer())
                 .create();
     }
-
     /**
      * {@inheritDoc}
      */
@@ -41,7 +40,6 @@ public class APIProductDAO implements ProductDAO {
             throw new FileNotFoundException("ERROR: The file \"products.json\" was not found.");
         }
     }
-
     private boolean checkInstanceAPI() {
         boolean check;
         try {
@@ -53,7 +51,6 @@ public class APIProductDAO implements ProductDAO {
 
         return check;
     }
-
     /**
      * {@inheritDoc}
      */
@@ -93,8 +90,6 @@ public class APIProductDAO implements ProductDAO {
 
         return products;
     }
-
-
     /**
      * {@inheritDoc}
      */
@@ -121,7 +116,10 @@ public class APIProductDAO implements ProductDAO {
             gson.toJson(products, writer);
         }
     }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void deleteProduct(int position) throws IOException {
         if(checkInstanceAPI()){
             apiConnector.deleteRequest("products/" + position);
